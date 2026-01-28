@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Storage Backends - DFIRe Documentation</title>
+    <meta name="description" content="Configure storage backends for evidence files including local filesystem, S3-compatible storage, and SMB/CIFS file shares.">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="docs.css">
+    <link rel="icon" type="image/png" href="../assets/logo.png">
+</head>
+<body>
+    <nav class="nav scrolled">
+        <div class="nav-container">
+            <a href="../" class="nav-logo">
+                <img src="../assets/logo.png" alt="DFIRe" class="logo-img">
+                <span class="logo-text">Documentation</span>
+            </a>
+            <div class="nav-links">
+                <a href="../#features">Features</a>
+                <a href="../#pricing">Pricing</a>
+                <a href="../#installation">Installation</a>
+                <a href="./" class="active">Docs</a>
+                <a href="../#contact">Contact</a>
+            </div>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="docs-layout">
+        <aside class="docs-sidebar">
+            <div class="sidebar-section">
+                <h3>Getting Started</h3>
+                <ul>
+                    <li><a href="getting-started.html">Quick Start Guide</a></li>
+                    <li><a href="deployment.html">Deployment</a></li>
+                    <li><a href="configuration.html">Configuration</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>User Guide</h3>
+                <ul>
+                    <li><a href="cases.html">Case Management</a></li>
+                    <li><a href="evidence.html">Evidence Tracking</a></li>
+                    <li><a href="incidents.html">Incident Response</a></li>
+                    <li><a href="reports.html">Reports</a></li>
+                    <li><a href="timeline.html">Timeline</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>Administration</h3>
+                <ul>
+                    <li><a href="users.html">User Management</a></li>
+                    <li><a href="sso.html">Single Sign-On</a></li>
+                    <li><a href="webhooks.html">Webhooks</a></li>
+                    <li><a href="storage.html" class="active">Storage Backends</a></li>
+                    <li><a href="backup.html">Backup & Recovery</a></li>
+                    <li><a href="security.html">Application Security</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>Reference</h3>
+                <ul>
+                    <li><a href="workflow.html">Workflow Configuration</a></li>
+                    <li><a href="case-types.html">Case Types</a></li>
+                    <li><a href="evidence-types.html">Evidence Types</a></li>
+                    <li><a href="compliance.html">Compliance Timers</a></li>
+                    <li><a href="licenses.html">Third-Party Licenses</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <main class="docs-content">
+            <div class="docs-header">
+                <h1>Storage Backends</h1>
+                <p class="docs-intro">Configure where DFIRe stores evidence file attachments. All files are encrypted with AES-256-GCM before storage regardless of which backend you choose.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>Overview</h2>
+                <p>DFIRe supports three storage backends for file attachments. Storage configuration is managed in <strong>Settings &gt; Storage</strong> and requires superuser access.</p>
+
+                <table class="requirements-table">
+                    <thead>
+                        <tr>
+                            <th>Backend</th>
+                            <th>Recommended For</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Local Filesystem</strong></td>
+                            <td>Development, testing, and simple single-server deployments.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>S3-Compatible Storage</strong></td>
+                            <td><strong>Production (online environments).</strong> Scalable, durable, supports multi-instance deployments.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>SMB/CIFS File Share</strong></td>
+                            <td><strong>Production (air-gapped networks).</strong> Enterprise NAS integration, offline environments.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="callout callout-info">
+                    <p><strong>Production Recommendation:</strong> For internet-connected deployments, use <strong>S3-compatible storage</strong> (AWS S3, MinIO, Backblaze B2, etc.) for reliability and scalability. For air-gapped or isolated networks, use <strong>SMB/CIFS file shares</strong> with enterprise NAS storage.</p>
+                </div>
+            </div>
+
+            <div class="docs-section">
+                <h2>Local Filesystem</h2>
+                <p>The default storage backend stores files on the server's local disk. This is the simplest option and requires no additional configuration—it's ready to use out of the box.</p>
+
+                <img src="../screenshots/storage_local.png" alt="Local Filesystem storage configuration" class="docs-screenshot">
+
+                <h3>Configuration</h3>
+                <ul>
+                    <li><strong>Storage Quota (GB):</strong> Optional limit on total storage usage. Leave empty for unlimited storage.</li>
+                </ul>
+
+                <p>Local storage is automatically active on new installations. Click <strong>Full Test (Verify Encryption)</strong> to verify that file encryption and decryption work correctly.</p>
+
+                <h3>Docker Deployment</h3>
+                <p>When using Docker, local storage uses the <code>media_data</code> volume. This volume persists across container restarts:</p>
+                <pre><code>volumes:
+  - media_data:/app/media</code></pre>
+
+                <div class="callout callout-warning">
+                    <p><strong>Backup:</strong> Ensure you regularly back up the <code>media_data</code> volume along with your database. See <a href="backup.html">Backup & Recovery</a> for details.</p>
+                </div>
+            </div>
+
+            <div class="docs-section">
+                <h2>S3-Compatible Storage</h2>
+                <p>The recommended storage backend for production deployments. Works with AWS S3, MinIO, Backblaze B2, Wasabi, DigitalOcean Spaces, and other S3-compatible services.</p>
+
+                <img src="../screenshots/storage_s3.png" alt="S3-Compatible storage configuration" class="docs-screenshot">
+
+                <h3>Configuration Fields</h3>
+                <table class="requirements-table">
+                    <thead>
+                        <tr>
+                            <th>Field</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Endpoint URL</strong></td>
+                            <td>Leave empty for AWS S3. For other providers, enter their S3-compatible endpoint URL.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Region</strong></td>
+                            <td>Storage region (e.g., <code>us-east-1</code>, <code>eu-north-1</code>).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Bucket Name</strong></td>
+                            <td>The bucket to use for storage. Must already exist in your S3 service.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Access Key ID / Secret Access Key</strong></td>
+                            <td>Credentials with read, write, and delete permissions on the bucket.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Use SSL/TLS</strong></td>
+                            <td>Enable HTTPS connections. Always enable for production.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Verify SSL certificates</strong></td>
+                            <td>Validate SSL certificates. Disable only for self-signed certificates in development.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Storage Quota (GB)</strong></td>
+                            <td>Optional application-level limit on total storage usage.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Setup Steps</h3>
+                <ol class="steps">
+                    <li>
+                        <strong>Create a bucket in your S3 service</strong>
+                        <p>Use your provider's console or CLI to create a private bucket. Consult your provider's documentation for specific instructions.</p>
+                    </li>
+                    <li>
+                        <strong>Create access credentials</strong>
+                        <p>Generate an access key with permissions to read, write, list, and delete objects in the bucket.</p>
+                    </li>
+                    <li>
+                        <strong>Configure in DFIRe</strong>
+                        <p>Enter your endpoint URL (if not AWS), region, bucket name, and credentials.</p>
+                    </li>
+                    <li>
+                        <strong>Test the connection</strong>
+                        <p>Click <strong>Quick Test</strong> to verify connectivity, then <strong>Full Test (Verify Encryption)</strong> to confirm encryption works end-to-end.</p>
+                    </li>
+                </ol>
+
+                <div class="callout callout-info">
+                    <p><strong>AWS S3 Note:</strong> Leave the Endpoint URL empty when using AWS S3—DFIRe will automatically connect to the correct AWS endpoint based on the region.</p>
+                </div>
+            </div>
+
+            <div class="docs-section">
+                <h2>SMB/CIFS File Share</h2>
+                <p>The recommended storage backend for air-gapped or isolated network environments. Works with Windows file servers, Samba, and enterprise NAS devices.</p>
+
+                <img src="../screenshots/storage_smb.png" alt="SMB/CIFS File Share storage configuration" class="docs-screenshot">
+
+                <h3>Configuration Fields</h3>
+                <table class="requirements-table">
+                    <thead>
+                        <tr>
+                            <th>Field</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Hostname / IP</strong></td>
+                            <td>Server address (e.g., <code>nas.local</code> or <code>192.168.1.100</code>).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Share Name</strong></td>
+                            <td>The network share name (e.g., <code>evidence_files</code>).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Username</strong></td>
+                            <td>Service account with read/write access to the share.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Password</strong></td>
+                            <td>Password for the service account.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Domain</strong></td>
+                            <td>Windows domain name, or <code>WORKGROUP</code> for standalone servers and NAS devices.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Storage Quota (GB)</strong></td>
+                            <td>Optional application-level limit on total storage usage.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Setup Steps</h3>
+                <ol class="steps">
+                    <li>
+                        <strong>Create a dedicated share on your file server</strong>
+                        <p>Create a network share dedicated to DFIRe evidence storage. Ensure it's only accessible to authorized systems.</p>
+                    </li>
+                    <li>
+                        <strong>Create a service account</strong>
+                        <p>Create a dedicated account (e.g., <code>svc_dfire</code>) with read, write, and delete permissions on the share.</p>
+                    </li>
+                    <li>
+                        <strong>Configure in DFIRe</strong>
+                        <p>Enter the server hostname/IP, share name, and service account credentials.</p>
+                    </li>
+                    <li>
+                        <strong>Test the connection</strong>
+                        <p>Click <strong>Quick Test</strong> to verify connectivity, then <strong>Full Test (Verify Encryption)</strong> to confirm encryption works end-to-end.</p>
+                    </li>
+                </ol>
+
+                <div class="callout callout-warning">
+                    <p><strong>Docker Networking:</strong> The DFIRe container must be able to reach the SMB server. If using Docker's default bridge network, ensure proper routing is configured or use host networking mode.</p>
+                </div>
+            </div>
+
+            <div class="docs-section">
+                <h2>Testing and Activating</h2>
+                <p>DFIRe provides two test options to verify your storage configuration before activation:</p>
+
+                <table class="requirements-table">
+                    <thead>
+                        <tr>
+                            <th>Test</th>
+                            <th>What It Checks</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Quick Test</strong></td>
+                            <td>Verifies connectivity and basic permissions (can connect, list, and write to storage).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Full Test (Verify Encryption)</strong></td>
+                            <td>Complete end-to-end test: uploads an encrypted test file, downloads it, verifies decryption produces the original data, then cleans up.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p>After the full test passes, the backend can be activated. The <strong>Set as Active</strong> button appears once validation succeeds.</p>
+
+                <div class="callout callout-danger">
+                    <p><strong>Always run the full encryption test</strong> before using a new storage backend in production. This ensures files can be properly encrypted, stored, retrieved, and decrypted with your current encryption keys.</p>
+                </div>
+            </div>
+
+            <div class="docs-section">
+                <h2>Switching Storage Backends</h2>
+
+                <div class="callout callout-danger">
+                    <p><strong>Important:</strong> Changing the active storage backend does not migrate existing files. Files uploaded before the change remain in the previous storage location and must stay accessible.</p>
+                </div>
+
+                <p>When switching backends:</p>
+                <ul>
+                    <li><strong>Keep the old storage accessible</strong> — Existing files will still be read from their original location</li>
+                    <li><strong>New uploads use the new backend</strong> — Only files uploaded after the switch go to the new storage</li>
+                    <li><strong>Back up before switching</strong> — Ensure you have backups of both the database and existing storage</li>
+                </ul>
+
+                <p>DFIRe does not include built-in storage migration. Choose a storage backend that suits your deployment best when first configuring DFIRe.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>Encryption</h2>
+                <p>All file attachments are encrypted using <strong>AES-256-GCM</strong> before being written to storage, regardless of which backend you use. Files are encrypted at rest and cannot be read without the encryption keys—even if the underlying storage is compromised.</p>
+
+                <p>See <a href="security.html#encryption-at-rest">Application Security</a> for details on the encryption architecture and key management.</p>
+
+                <div class="callout callout-danger">
+                    <p><strong>Critical:</strong> Back up your <code>CREDENTIAL_ENCRYPTION_KEY</code> environment variable immediately after deployment. If this key is lost, encrypted files cannot be recovered regardless of which storage backend you use.</p>
+                </div>
+            </div>
+
+            <div class="docs-section">
+                <h2>Storage Quotas</h2>
+                <p>Each storage backend supports an optional storage quota, enforced at the application level. When the quota is reached, new uploads are rejected while existing files remain accessible. Deleting files frees up quota space.</p>
+
+                <p>Current storage usage is displayed at the top of each storage backend card in the settings page.</p>
+            </div>
+
+            <nav class="docs-nav">
+                <a href="webhooks.html" class="docs-nav-link prev">
+                    <span class="docs-nav-label">Previous</span>
+                    <span class="docs-nav-title">Webhooks</span>
+                </a>
+                <a href="backup.html" class="docs-nav-link next">
+                    <span class="docs-nav-label">Next</span>
+                    <span class="docs-nav-title">Backup & Recovery</span>
+                </a>
+            </nav>
+        </main>
+    </div>
+
+    <footer class="docs-footer">
+        <div class="container">
+            <p>&copy; 2026 Tmi Antti Kurittu. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const navToggle = document.querySelector('.nav-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        navToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            navToggle.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

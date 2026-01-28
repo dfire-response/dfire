@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webhooks - DFIRe Documentation</title>
+    <meta name="description" content="Configure outgoing and incoming webhooks for SIEM integration, notifications, and automation in DFIRe.">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="docs.css">
+    <link rel="icon" type="image/png" href="../assets/logo.png">
+</head>
+<body>
+    <nav class="nav scrolled">
+        <div class="nav-container">
+            <a href="../" class="nav-logo">
+                <img src="../assets/logo.png" alt="DFIRe" class="logo-img">
+                <span class="logo-text">Documentation</span>
+            </a>
+            <div class="nav-links">
+                <a href="../#features">Features</a>
+                <a href="../#pricing">Pricing</a>
+                <a href="../#installation">Installation</a>
+                <a href="./" class="active">Docs</a>
+                <a href="../#contact">Contact</a>
+            </div>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="docs-layout">
+        <aside class="docs-sidebar">
+            <div class="sidebar-section">
+                <h3>Getting Started</h3>
+                <ul>
+                    <li><a href="getting-started.html">Quick Start Guide</a></li>
+                    <li><a href="deployment.html">Deployment</a></li>
+                    <li><a href="configuration.html">Configuration</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>User Guide</h3>
+                <ul>
+                    <li><a href="cases.html">Case Management</a></li>
+                    <li><a href="evidence.html">Evidence Tracking</a></li>
+                    <li><a href="incidents.html">Incident Response</a></li>
+                    <li><a href="reports.html">Reports</a></li>
+                    <li><a href="timeline.html">Timeline</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>Administration</h3>
+                <ul>
+                    <li><a href="users.html">User Management</a></li>
+                    <li><a href="sso.html">Single Sign-On</a></li>
+                    <li><a href="webhooks.html" class="active">Webhooks</a></li>
+                    <li><a href="storage.html">Storage Backends</a></li>
+                    <li><a href="backup.html">Backup & Recovery</a></li>
+                    <li><a href="security.html">Application Security</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>Reference</h3>
+                <ul>
+                    <li><a href="workflow.html">Workflow Configuration</a></li>
+                    <li><a href="case-types.html">Case Types</a></li>
+                    <li><a href="evidence-types.html">Evidence Types</a></li>
+                    <li><a href="compliance.html">Compliance Timers</a></li>
+                    <li><a href="licenses.html">Third-Party Licenses</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <main class="docs-content">
+            <div class="docs-header">
+                <h1>Webhooks</h1>
+                <p class="docs-intro">Integrate DFIRe with external systems using outgoing webhooks for notifications and incoming webhooks for automated case creation.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>Overview</h2>
+                <p>DFIRe provides two types of webhooks:</p>
+                <ul>
+                    <li><strong>Outgoing Webhooks</strong> - Send notifications to external systems when events occur in DFIRe</li>
+                    <li><strong>Incoming Webhooks</strong> - Allow external systems (SIEM, SOAR, scripts) to create cases in DFIRe</li>
+                </ul>
+                <p>Additionally, <strong>Webhook Secrets</strong> allow you to store sensitive values like API keys that can be referenced in outgoing webhook payloads.</p>
+
+                <img src="../screenshots/webhooks_overview.png" alt="Webhooks Configuration" class="screenshot">
+
+                <p>Webhook configuration is found in <strong>Settings &gt; Webhooks</strong>. The page has two tabs: Webhooks (for outgoing and incoming webhooks) and Secrets (for stored credentials).</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>Outgoing Webhooks</h2>
+                <p>Outgoing webhooks send HTTP POST requests to a configured URL when specific events occur in DFIRe. Use them to integrate with notification services (Pushover, PagerDuty), ticketing systems (Jira, ServiceNow), SIEMs, or custom automation.</p>
+
+                <h3>Creating an Outgoing Webhook</h3>
+                <ol class="steps">
+                    <li>
+                        <strong>Click "Add Webhook" in the Outgoing Webhooks section</strong>
+                    </li>
+                    <li>
+                        <strong>Configure basic settings</strong>
+                        <ul>
+                            <li><strong>Name:</strong> Descriptive name for the webhook</li>
+                            <li><strong>Endpoint URL:</strong> The URL to receive webhook payloads</li>
+                            <li><strong>Description:</strong> Optional description of what this webhook does</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>Select trigger events</strong>
+                        <p>Choose which events should trigger this webhook.</p>
+                    </li>
+                    <li>
+                        <strong>Optionally set a content filter</strong>
+                        <p>For timeline events, you can filter by content using a regex pattern.</p>
+                    </li>
+                    <li>
+                        <strong>Configure authentication</strong>
+                    </li>
+                    <li>
+                        <strong>Customize the payload template</strong>
+                    </li>
+                    <li>
+                        <strong>Save the webhook</strong>
+                    </li>
+                </ol>
+
+                <img src="../screenshots/webhook_triggers.png" alt="Webhook Trigger Events" class="screenshot">
+
+                <h3>Trigger Events</h3>
+                <p>Select one or more events that should trigger the webhook:</p>
+
+                <table class="requirements-table">
+                    <thead>
+                        <tr>
+                            <th>Event</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Incident Created</strong></td>
+                            <td>A new incident case was created</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Investigation Created</strong></td>
+                            <td>A new investigation case was created</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Case Closed</strong></td>
+                            <td>A case was closed</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Case Archived</strong></td>
+                            <td>A case was archived</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Case Reopened</strong></td>
+                            <td>A closed case was reopened</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Investigation Escalated to Incident</strong></td>
+                            <td>An investigation was escalated to incident mode</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Severity/Priority Escalated</strong></td>
+                            <td>Case severity was increased (e.g., medium to high)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Severity/Priority Downgraded</strong></td>
+                            <td>Case severity was decreased</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Incident Phase Changed</strong></td>
+                            <td>Incident moved to a different response phase</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Timeline Event Created</strong></td>
+                            <td>A new timeline event was added to a case</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Evidence Added</strong></td>
+                            <td>New evidence item was added to a case</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Evidence Status Changed</strong></td>
+                            <td>Evidence item's investigation step changed</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Timer at 50% (Half Time Warning)</strong></td>
+                            <td>Compliance timer reached 50% of its duration</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Timer at 25% (Quarter Time Warning)</strong></td>
+                            <td>Compliance timer reached 75% elapsed (25% remaining)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Timer at 10% (Critical Warning)</strong></td>
+                            <td>Compliance timer reached 90% elapsed (10% remaining)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Timer Breached (Deadline Passed)</strong></td>
+                            <td>Compliance timer deadline has passed</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Test Event (Manual Testing)</strong></td>
+                            <td>Used for testing webhook configuration</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Content Filter</h3>
+                <p>For timeline events, you can specify a regex pattern to filter which events trigger the webhook. For example, setting the filter to <code>@page</code> will only trigger the webhook when timeline events contain "@page" in the subject or details.</p>
+                <p>This is useful for implementing paging or alerting based on specific keywords in timeline entries.</p>
+
+                <h3>Authentication</h3>
+                <p>DFIRe supports four authentication methods for outgoing webhooks:</p>
+
+                <img src="../screenshots/webhook_template_variables.png" alt="Webhook Authentication and Template Variables" class="screenshot">
+
+                <table class="requirements-table">
+                    <thead>
+                        <tr>
+                            <th>Method</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>None</strong></td>
+                            <td>No authentication. Use when the endpoint doesn't require auth or when credentials are in the payload.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Basic Auth</strong></td>
+                            <td>HTTP Basic Authentication. Provide username and password.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Bearer Token</strong></td>
+                            <td>Sends an <code>Authorization: Bearer &lt;token&gt;</code> header. Provide the token value.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Custom Headers</strong></td>
+                            <td>Add custom HTTP headers. Useful for API keys sent in headers (e.g., <code>X-API-Key</code>).</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="docs-section">
+                <h2>Payload Templates</h2>
+                <p>Customize the JSON payload sent to your endpoint using template variables. If you leave the payload template empty, DFIRe sends a default payload structure.</p>
+
+                <h3>Template Variable Syntax</h3>
+                <p>Use double curly braces to insert variable values:</p>
+                <ul>
+                    <li><code>{{category.variable}}</code> - Insert the raw value</li>
+                    <li><code>{{category.variable|mapped}}</code> - Apply value mappings before inserting</li>
+                </ul>
+
+                <h3>Available Variables</h3>
+                <p>Variables are organized by category:</p>
+
+                <h4>META.* (Request Metadata)</h4>
+                <table class="requirements-table">
+                    <tbody>
+                        <tr><td><code>meta.event_type</code></td><td>The event that triggered this webhook</td></tr>
+                        <tr><td><code>meta.timestamp</code></td><td>When the event occurred (ISO 8601)</td></tr>
+                        <tr><td><code>meta.webhook_name</code></td><td>Name of this webhook configuration</td></tr>
+                        <tr><td><code>meta.base_url</code></td><td>DFIRe instance base URL</td></tr>
+                        <tr><td><code>meta.case_url</code></td><td>Direct URL to the case</td></tr>
+                        <tr><td><code>meta.item_url</code></td><td>Direct URL to the evidence item (if applicable)</td></tr>
+                        <tr><td><code>meta.tenant_name</code></td><td>Organization name</td></tr>
+                        <tr><td><code>meta.tenant_uuid</code></td><td>Tenant identifier</td></tr>
+                        <tr><td><code>meta.environment</code></td><td>Environment (production, development)</td></tr>
+                        <tr><td><code>meta.previous_severity</code></td><td>Previous severity (for escalation events)</td></tr>
+                        <tr><td><code>meta.new_severity</code></td><td>New severity (for escalation events)</td></tr>
+                    </tbody>
+                </table>
+
+                <h4>CASE.* (Case Information)</h4>
+                <table class="requirements-table">
+                    <tbody>
+                        <tr><td><code>case.id</code></td><td>Case UUID</td></tr>
+                        <tr><td><code>case.case_number</code></td><td>Case number (e.g., CASE-2026-001)</td></tr>
+                        <tr><td><code>case.title</code></td><td>Case title</td></tr>
+                        <tr><td><code>case.description</code></td><td>Case description</td></tr>
+                        <tr><td><code>case.status</code></td><td>Case status (open, closed, archived)</td></tr>
+                        <tr><td><code>case.severity</code></td><td>Severity level (info, low, medium, high, critical)</td></tr>
+                        <tr><td><code>case.case_mode</code></td><td>Case mode (investigation, incident)</td></tr>
+                        <tr><td><code>case.phase_name</code></td><td>Current incident phase name</td></tr>
+                        <tr><td><code>case.phase_order</code></td><td>Current incident phase order</td></tr>
+                        <tr><td><code>case.case_type_name</code></td><td>Case type name</td></tr>
+                        <tr><td><code>case.lead_investigator</code></td><td>Lead investigator username</td></tr>
+                        <tr><td><code>case.created_at</code></td><td>Case creation timestamp</td></tr>
+                        <tr><td><code>case.updated_at</code></td><td>Last update timestamp</td></tr>
+                    </tbody>
+                </table>
+
+                <h4>EVENT.* (Timeline Event Information)</h4>
+                <table class="requirements-table">
+                    <tbody>
+                        <tr><td><code>event.id</code></td><td>Event UUID</td></tr>
+                        <tr><td><code>event.event_type</code></td><td>Event type (MANUAL, AUTO, etc.)</td></tr>
+                        <tr><td><code>event.title</code></td><td>Event title/subject</td></tr>
+                        <tr><td><code>event.description</code></td><td>Event description</td></tr>
+                        <tr><td><code>event.subject</code></td><td>Event subject</td></tr>
+                        <tr><td><code>event.details</code></td><td>Event details</td></tr>
+                        <tr><td><code>event.location</code></td><td>Location information</td></tr>
+                        <tr><td><code>event.is_manual</code></td><td>Whether this is a manual entry</td></tr>
+                        <tr><td><code>event.actor_username</code></td><td>User who created the event</td></tr>
+                        <tr><td><code>event.event_datetime</code></td><td>When the event occurred</td></tr>
+                        <tr><td><code>event.created_at</code></td><td>When the event was recorded</td></tr>
+                        <tr><td><code>event.metadata</code></td><td>Additional event metadata (JSON)</td></tr>
+                    </tbody>
+                </table>
+
+                <h4>ITEM.* (Evidence Item Information)</h4>
+                <table class="requirements-table">
+                    <tbody>
+                        <tr><td><code>item.uuid</code></td><td>Evidence item UUID</td></tr>
+                        <tr><td><code>item.name</code></td><td>Evidence item name</td></tr>
+                        <tr><td><code>item.item_type_name</code></td><td>Evidence type name</td></tr>
+                        <tr><td><code>item.status_name</code></td><td>Current investigation step</td></tr>
+                        <tr><td><code>item.created_at</code></td><td>When the item was added</td></tr>
+                    </tbody>
+                </table>
+
+                <h4>TIMER.* (Compliance Timer Information)</h4>
+                <table class="requirements-table">
+                    <tbody>
+                        <tr><td><code>timer.id</code></td><td>Timer ID</td></tr>
+                        <tr><td><code>timer.name</code></td><td>Timer name (e.g., "GDPR 72h")</td></tr>
+                        <tr><td><code>timer.framework</code></td><td>Compliance framework</td></tr>
+                        <tr><td><code>timer.duration_hours</code></td><td>Total duration in hours</td></tr>
+                        <tr><td><code>timer.authority_name</code></td><td>Regulatory authority</td></tr>
+                        <tr><td><code>timer.threshold_triggered</code></td><td>Which threshold was triggered (50, 25, 10, 0)</td></tr>
+                        <tr><td><code>timer.time_remaining_seconds</code></td><td>Seconds remaining until deadline</td></tr>
+                        <tr><td><code>timer.deadline</code></td><td>Deadline timestamp</td></tr>
+                    </tbody>
+                </table>
+
+                <h4>SECRET.* (Stored Secrets)</h4>
+                <p>Reference secrets stored in the Secrets tab:</p>
+                <ul>
+                    <li><code>{{secret.&lt;name&gt;}}</code> - Replaced with the secret value at send time</li>
+                </ul>
+                <p>For example, <code>{{secret.pushover_api_token}}</code> inserts the value of a secret named "pushover_api_token".</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>Value Mappings</h2>
+                <p>Value mappings transform field values before inserting them into the payload. This is useful when the receiving system expects different values than DFIRe uses.</p>
+
+                <img src="../screenshots/webhook_payload_preview.png" alt="Webhook Payload Template and Value Mappings" class="screenshot">
+
+                <h3>Configuration</h3>
+                <p>Define mappings as a JSON object where keys are field names and values are mapping dictionaries:</p>
+                <pre><code>{
+    "severity": {
+        "info": -2,
+        "low": -1,
+        "medium": 0,
+        "high": 1,
+        "critical": 2
+    },
+    "event_type": {
+        "MANUAL": "Manual timeline event",
+        "AUTO": "Automatic system event"
+    }
+}</code></pre>
+
+                <h3>Usage</h3>
+                <p>Use the <code>|mapped</code> filter to apply mappings:</p>
+                <ul>
+                    <li><code>{{case.severity}}</code> outputs: <code>critical</code></li>
+                    <li><code>{{case.severity|mapped}}</code> outputs: <code>2</code> (using the mapping above)</li>
+                </ul>
+
+                <p>This is especially useful for integrating with services like Pushover that use numeric priority levels, or for translating DFIRe field values to match your organization's terminology.</p>
+
+                <h3>Payload Preview</h3>
+                <p>Click "Preview Payload" to see how your template will render with sample data. The preview shows the actual JSON that would be sent, with variables replaced by example values. This helps verify your template syntax and mappings before saving.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>Additional Outgoing Webhook Settings</h2>
+
+                <h3>Retry Configuration</h3>
+                <ul>
+                    <li><strong>Max Retries:</strong> Number of retry attempts for failed deliveries (default: 3)</li>
+                    <li><strong>Timeout (Seconds):</strong> How long to wait for a response (default: 30)</li>
+                </ul>
+
+                <h3>HMAC Signing</h3>
+                <p>Optionally configure a signing secret to allow the receiving endpoint to verify that requests came from DFIRe:</p>
+                <ul>
+                    <li>If set, DFIRe includes an <code>X-Webhook-Signature</code> header with an HMAC-SHA256 signature</li>
+                    <li>The signature is computed over the request body using your secret</li>
+                    <li>Leave empty to skip signing</li>
+                </ul>
+
+                <h3>Verifying Signatures</h3>
+                <pre><code># Python example
+import hmac
+import hashlib
+
+def verify_signature(payload_body, signature_header, secret):
+    expected = hmac.new(
+        secret.encode(),
+        payload_body,
+        hashlib.sha256
+    ).hexdigest()
+    return hmac.compare_digest(expected, signature_header)</code></pre>
+            </div>
+
+            <div class="docs-section">
+                <h2>Webhook Secrets</h2>
+                <p>Store sensitive values like API keys and tokens securely, then reference them in webhook payloads.</p>
+
+                <img src="../screenshots/webhook_secret.png" alt="Webhook Secrets" class="screenshot">
+
+                <h3>Creating a Secret</h3>
+                <ol class="steps">
+                    <li>Go to <strong>Settings &gt; Webhooks &gt; Secrets</strong> tab</li>
+                    <li>Click <strong>Add Secret</strong></li>
+                    <li>Enter a name (used to reference the secret in templates)</li>
+                    <li>Enter an optional description</li>
+                    <li>Enter the secret value</li>
+                    <li>Click <strong>Save</strong></li>
+                </ol>
+
+                <h3>Using Secrets in Payloads</h3>
+                <p>Reference secrets using the syntax <code>{{secret.secret_name}}</code>. The actual value is substituted when the webhook is sent:</p>
+                <pre><code>{
+    "token": "{{secret.pushover_token}}",
+    "user": "{{secret.pushover_user}}",
+    "message": "Case {{case.case_number}} - {{case.title}}"
+}</code></pre>
+
+                <h3>Security</h3>
+                <ul>
+                    <li>Secret values are encrypted at rest using the <code>CREDENTIAL_ENCRYPTION_KEY</code></li>
+                    <li>Values are never exposed in API responses or delivery logs</li>
+                    <li>Only the secret name and description are visible after creation</li>
+                    <li>You can update or delete secrets, but cannot view the stored value</li>
+                </ul>
+            </div>
+
+            <div class="docs-section">
+                <h2>Incoming Webhooks</h2>
+                <p>Incoming webhooks allow external systems to create cases in DFIRe via authenticated POST requests. Use them to integrate with SIEMs, SOAR platforms, monitoring tools, or custom scripts.</p>
+
+                <img src="../screenshots/webhook_incoming.png" alt="Create Incoming Webhook" class="screenshot">
+
+                <h3>Creating an Incoming Webhook</h3>
+                <ol class="steps">
+                    <li>
+                        <strong>Click "Add Webhook" in the Incoming Webhooks section</strong>
+                    </li>
+                    <li>
+                        <strong>Configure basic settings</strong>
+                        <ul>
+                            <li><strong>Name:</strong> Descriptive name (e.g., "SIEM Integration")</li>
+                            <li><strong>Description:</strong> Optional description of the webhook source</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>Select Default Case Type</strong>
+                        <p>Choose which case type to use for cases created via this webhook. The expected attributes for that case type are displayed to help you map fields.</p>
+                    </li>
+                    <li>
+                        <strong>Configure defaults</strong>
+                        <ul>
+                            <li><strong>Default Mode:</strong> Investigation or Incident</li>
+                            <li><strong>Default Severity:</strong> Severity for cases that don't specify one</li>
+                            <li><strong>Default Lead Investigator:</strong> User to assign as lead (optional)</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>Enable the webhook</strong>
+                    </li>
+                    <li>
+                        <strong>Click "Create Webhook"</strong>
+                        <p>An authentication token is generated automatically. <strong>Copy it immediately</strong> - it's only shown once.</p>
+                    </li>
+                </ol>
+
+                <h3>Expected Attributes</h3>
+                <p>When you select a case type, DFIRe displays the expected attribute keys based on that case type's custom fields. The incoming payload's <code>attributes</code> field should use these keys.</p>
+                <p>Attribute keys are normalized (lowercase, punctuation removed), so "HR REF #" becomes "hr_ref". Keys not in the list are dropped.</p>
+
+                <h3>Using the Incoming Webhook</h3>
+                <p>Send a POST request to create a case:</p>
+                <pre><code>curl -X POST https://dfire.example.com/api/webhooks/incoming/{webhook-uuid}/ \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer YOUR_AUTH_TOKEN" \
+    -d '{
+        "title": "Alert: Suspicious Login Activity",
+        "description": "Multiple failed login attempts detected",
+        "severity": "high",
+        "source": "SIEM",
+        "external_id": "ALERT-12345",
+        "attributes": {
+            "source_ip": "192.168.1.100",
+            "target_user": "admin@example.com",
+            "attempt_count": 15
+        }
+    }'</code></pre>
+
+                <h3>Request Fields</h3>
+                <table class="requirements-table">
+                    <thead>
+                        <tr>
+                            <th>Field</th>
+                            <th>Required</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>title</code></td>
+                            <td>Yes</td>
+                            <td>Case title</td>
+                        </tr>
+                        <tr>
+                            <td><code>description</code></td>
+                            <td>No</td>
+                            <td>Case description</td>
+                        </tr>
+                        <tr>
+                            <td><code>severity</code></td>
+                            <td>No</td>
+                            <td>critical, high, medium, low, info (uses default if omitted)</td>
+                        </tr>
+                        <tr>
+                            <td><code>mode</code></td>
+                            <td>No</td>
+                            <td>investigation or incident (uses default if omitted)</td>
+                        </tr>
+                        <tr>
+                            <td><code>source</code></td>
+                            <td>No</td>
+                            <td>Source system identifier (stored in case metadata)</td>
+                        </tr>
+                        <tr>
+                            <td><code>external_id</code></td>
+                            <td>No</td>
+                            <td>ID from the source system (for deduplication)</td>
+                        </tr>
+                        <tr>
+                            <td><code>attributes</code></td>
+                            <td>No</td>
+                            <td>Object with case type custom field values</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Response</h3>
+                <pre><code>{
+    "status": "created",
+    "case": {
+        "id": "550e8400-e29b-41d4-a716-446655440000",
+        "case_number": "CASE-2026-043",
+        "url": "https://dfire.example.com/cases/550e8400..."
+    }
+}</code></pre>
+
+                <div class="callout callout-info">
+                    <p><strong>Duplicate Prevention:</strong> If you provide an <code>external_id</code> and a case with that ID already exists for this webhook, DFIRe returns the existing case instead of creating a duplicate.</p>
+                </div>
+            </div>
+
+            <div class="docs-section">
+                <h2>Example: Pushover Notifications</h2>
+                <p>This example shows how to send mobile push notifications via Pushover when someone adds "@page" to a timeline event.</p>
+
+                <h3>1. Create Secrets</h3>
+                <p>Store your Pushover credentials in Webhook Secrets:</p>
+                <ul>
+                    <li>Create a secret named <code>pushover_api_token</code> with your Pushover application token</li>
+                    <li>Create a secret named <code>pushover_api_user</code> with your Pushover user key</li>
+                </ul>
+
+                <h3>2. Create the Webhook</h3>
+                <ul>
+                    <li><strong>Name:</strong> Pushover on Timeline @page event</li>
+                    <li><strong>Endpoint URL:</strong> <code>https://api.pushover.net/1/messages.json</code></li>
+                    <li><strong>Trigger Events:</strong> Timeline Event Created</li>
+                    <li><strong>Content Filter:</strong> <code>@page</code></li>
+                    <li><strong>Authentication:</strong> None (credentials are in the payload)</li>
+                </ul>
+
+                <h3>3. Configure the Payload Template</h3>
+                <pre><code>{
+    "token": "{{secret.pushover_api_token}}",
+    "user": "{{secret.pushover_api_user}}",
+    "title": "You have been paged for {{case.case_number}} {{case.title}}",
+    "message": "You have been paged by {{event.actor_username}} on case {{case.case_number}}:\n\n{{event.event_type|mapped}}: {{event.title}}, {{event.description}}.\n\nYou can access the incident here: {{meta.case_url}}",
+    "priority": "{{case.severity|mapped}}"
+}</code></pre>
+
+                <h3>4. Configure Value Mappings</h3>
+                <pre><code>{
+    "severity": {
+        "info": -2,
+        "low": -1,
+        "medium": 0,
+        "high": 1,
+        "critical": 2
+    },
+    "event_type": {
+        "MANUAL": "Manual timeline event"
+    }
+}</code></pre>
+
+                <p>Now, when anyone adds a timeline event containing "@page", the on-call team receives a push notification with case details and a direct link.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>Webhook Management</h2>
+
+                <h3>Testing Webhooks</h3>
+                <p>Use the play button on a webhook card to send a test event. This fires the "Test Event (Manual Testing)" trigger with sample data.</p>
+
+                <h3>Enabling/Disabling</h3>
+                <p>Toggle the switch on a webhook card to enable or disable it without deleting the configuration. Disabled webhooks are not triggered.</p>
+
+                <h3>Duplicating Webhooks</h3>
+                <p>Use the copy button to duplicate a webhook configuration. This is useful for creating similar webhooks with minor variations.</p>
+
+                <h3>Delivery History</h3>
+                <p>Click on a webhook to view recent delivery attempts showing:</p>
+                <ul>
+                    <li>Success or failure status</li>
+                    <li>HTTP response code</li>
+                    <li>Response time</li>
+                    <li>Timestamp</li>
+                </ul>
+
+                <h3>Retry Behavior</h3>
+                <p>Failed deliveries are retried automatically with exponential backoff. After the configured number of retries, the delivery is marked as failed but the webhook remains active for future events.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>Security Best Practices</h2>
+                <ul>
+                    <li><strong>Use HTTPS:</strong> Always use HTTPS endpoints for webhooks</li>
+                    <li><strong>Use Secrets:</strong> Store API keys and tokens in Webhook Secrets rather than hardcoding in templates</li>
+                    <li><strong>Enable Signing:</strong> Configure a signing secret and verify signatures in your receiving application</li>
+                    <li><strong>Rotate Tokens:</strong> Periodically regenerate incoming webhook authentication tokens</li>
+                    <li><strong>Restrict Access:</strong> If possible, whitelist DFIRe's IP address in your receiving application</li>
+                    <li><strong>Monitor Failures:</strong> Review delivery history for failures that might indicate configuration issues</li>
+                </ul>
+            </div>
+
+            <nav class="docs-nav">
+                <a href="sso.html" class="docs-nav-link prev">
+                    <span class="docs-nav-label">Previous</span>
+                    <span class="docs-nav-title">Single Sign-On</span>
+                </a>
+                <a href="storage.html" class="docs-nav-link next">
+                    <span class="docs-nav-label">Next</span>
+                    <span class="docs-nav-title">Storage Backends</span>
+                </a>
+            </nav>
+        </main>
+    </div>
+
+    <footer class="docs-footer">
+        <div class="container">
+            <p>&copy; 2026 Tmi Antti Kurittu. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const navToggle = document.querySelector('.nav-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        navToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            navToggle.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

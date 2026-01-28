@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuration - DFIRe Documentation</title>
+    <meta name="description" content="Configure DFIRe through the web-based System Settings interface. Manage storage, SSO, webhooks, and workflows.">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="docs.css">
+    <link rel="icon" type="image/png" href="../assets/logo.png">
+</head>
+<body>
+    <nav class="nav scrolled">
+        <div class="nav-container">
+            <a href="../" class="nav-logo">
+                <img src="../assets/logo.png" alt="DFIRe" class="logo-img">
+                <span class="logo-text">Documentation</span>
+            </a>
+            <div class="nav-links">
+                <a href="../#features">Features</a>
+                <a href="../#pricing">Pricing</a>
+                <a href="../#installation">Installation</a>
+                <a href="./" class="active">Docs</a>
+                <a href="../#contact">Contact</a>
+            </div>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="docs-layout">
+        <aside class="docs-sidebar">
+            <div class="sidebar-section">
+                <h3>Getting Started</h3>
+                <ul>
+                    <li><a href="getting-started.html">Quick Start Guide</a></li>
+                    <li><a href="deployment.html">Deployment</a></li>
+                    <li><a href="configuration.html" class="active">Configuration</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>User Guide</h3>
+                <ul>
+                    <li><a href="cases.html">Case Management</a></li>
+                    <li><a href="evidence.html">Evidence Tracking</a></li>
+                    <li><a href="incidents.html">Incident Response</a></li>
+                    <li><a href="reports.html">Reports</a></li>
+                    <li><a href="timeline.html">Timeline</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>Administration</h3>
+                <ul>
+                    <li><a href="users.html">User Management</a></li>
+                    <li><a href="sso.html">Single Sign-On</a></li>
+                    <li><a href="webhooks.html">Webhooks</a></li>
+                    <li><a href="storage.html">Storage Backends</a></li>
+                    <li><a href="backup.html">Backup & Recovery</a></li>
+                    <li><a href="security.html">Application Security</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>Reference</h3>
+                <ul>
+                    <li><a href="workflow.html">Workflow Configuration</a></li>
+                    <li><a href="case-types.html">Case Types</a></li>
+                    <li><a href="evidence-types.html">Evidence Types</a></li>
+                    <li><a href="compliance.html">Compliance Timers</a></li>
+                    <li><a href="licenses.html">Third-Party Licenses</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <main class="docs-content">
+            <div class="docs-header">
+                <h1>Configuration</h1>
+                <p class="docs-intro">DFIRe is configured through the web-based System Settings interface. This guide covers all available configuration options.</p>
+            </div>
+
+            <div class="callout callout-info">
+                <p><strong>Default Settings:</strong> New DFIRe instances are initialized with preconfigured case types, evidence types, workflow steps, and compliance timers. You can download the <a href="../defaults.json" target="_blank">default settings file (JSON)</a> to review the baseline configuration or use it to reset your instance to factory defaults via Settings &rarr; Import/Export.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>Accessing System Settings</h2>
+                <p>To access System Settings, click the gear icon in the application header. Access to the Settings page requires the <strong>edit_tenant</strong> permission. Superusers have full access to all settings tabs.</p>
+
+                <p>Settings are organized into tabs based on functionality. The tabs visible to you depend on your permissions:</p>
+
+                <table class="requirements-table">
+                    <thead>
+                        <tr>
+                            <th>Tab</th>
+                            <th>Access Level</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Tenant</td>
+                            <td>Superuser only</td>
+                            <td>Organization identity, data lifecycle, report customization</td>
+                        </tr>
+                        <tr>
+                            <td>Storage</td>
+                            <td>Superuser only</td>
+                            <td>File storage backend configuration</td>
+                        </tr>
+                        <tr>
+                            <td>Collaboration</td>
+                            <td>Superuser only</td>
+                            <td>Slack integration settings</td>
+                        </tr>
+                        <tr>
+                            <td>Single Sign-On</td>
+                            <td>Superuser only</td>
+                            <td>OIDC identity provider configuration</td>
+                        </tr>
+                        <tr>
+                            <td>License</td>
+                            <td>Superuser only</td>
+                            <td>License management and activation</td>
+                        </tr>
+                        <tr>
+                            <td>Log Sender</td>
+                            <td>Superuser only</td>
+                            <td>Audit log forwarding to external systems</td>
+                        </tr>
+                        <tr>
+                            <td>Webhooks</td>
+                            <td>Delegatable</td>
+                            <td>Outgoing and incoming webhook configuration</td>
+                        </tr>
+                        <tr>
+                            <td>Workflow</td>
+                            <td>Delegatable</td>
+                            <td>Investigation step definitions</td>
+                        </tr>
+                        <tr>
+                            <td>Lifecycle</td>
+                            <td>Delegatable</td>
+                            <td>Incident response phase definitions</td>
+                        </tr>
+                        <tr>
+                            <td>Report Sections</td>
+                            <td>Delegatable</td>
+                            <td>Report section templates</td>
+                        </tr>
+                        <tr>
+                            <td>Compliance Timers</td>
+                            <td>Delegatable</td>
+                            <td>Regulatory deadline tracking</td>
+                        </tr>
+                        <tr>
+                            <td>User Accounts</td>
+                            <td>Delegatable</td>
+                            <td>Local user management</td>
+                        </tr>
+                        <tr>
+                            <td>Entities</td>
+                            <td>Delegatable</td>
+                            <td>Legal entity management</td>
+                        </tr>
+                        <tr>
+                            <td>Flags</td>
+                            <td>Delegatable</td>
+                            <td>Evidence item flag definitions</td>
+                        </tr>
+                        <tr>
+                            <td>Projects</td>
+                            <td>Delegatable</td>
+                            <td>Project management</td>
+                        </tr>
+                        <tr>
+                            <td>Case Types</td>
+                            <td>Delegatable</td>
+                            <td>Case type schemas and action templates</td>
+                        </tr>
+                        <tr>
+                            <td>Evidence Types</td>
+                            <td>Delegatable</td>
+                            <td>Evidence type schemas</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="docs-section">
+                <h2>Tenant Settings</h2>
+                <p>The Tenant tab contains organization-wide configuration organized into three sub-tabs:</p>
+
+                <h3>Identity</h3>
+                <ul>
+                    <li><strong>Organization Name:</strong> Your organization's display name</li>
+                    <li><strong>Contact Email:</strong> Used for license server communication</li>
+                </ul>
+
+                <h3>Lifecycle</h3>
+                <ul>
+                    <li><strong>Default Data Retention (Days):</strong> How long closed cases are retained before action</li>
+                    <li><strong>Removal &amp; Purge Policy:</strong>
+                        <ul>
+                            <li><strong>Manual Purge Only:</strong> Cases must be manually deleted</li>
+                            <li><strong>Automatic Archive:</strong> Cases are automatically archived after retention period</li>
+                            <li><strong>Automatic Permanent Delete:</strong> Cases are automatically deleted after retention period</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h3>Reporting</h3>
+                <ul>
+                    <li><strong>Report Logo:</strong> Upload your organization's logo (PNG or JPEG, max 500KB) to display on the title page of printable reports</li>
+                    <li><strong>Title Page Disclaimer:</strong> Custom text that appears at the bottom of report title pages (e.g., confidentiality notices)</li>
+                </ul>
+
+                <h3>Configuration Import/Export</h3>
+                <p>The Identity sub-tab also includes <strong>Data Portability</strong> features:</p>
+                <ul>
+                    <li><strong>Export JSON:</strong> Download a complete backup of all system configuration (groups, types, flags, phases, webhooks, etc.)</li>
+                    <li><strong>Import JSON:</strong> Restore or migrate configuration from a previously exported file</li>
+                </ul>
+                <p>Before importing, DFIRe shows a preview of what will be added, updated, or removed.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>Storage Backend</h2>
+                <p>DFIRe supports three storage backends for file attachments. All files are encrypted with AES-256-GCM regardless of which backend you choose.</p>
+
+                <h3>Local Filesystem</h3>
+                <p>Stores files on the server's local disk. Always available and requires no additional configuration.</p>
+                <ul>
+                    <li><strong>Storage Quota (GB):</strong> Optional limit on total storage usage</li>
+                </ul>
+
+                <h3>S3-Compatible Storage</h3>
+                <p>Works with AWS S3, MinIO, Backblaze B2, and other S3-compatible services.</p>
+                <ul>
+                    <li><strong>Endpoint URL:</strong> Leave empty for AWS S3, or specify your S3-compatible endpoint</li>
+                    <li><strong>Region:</strong> AWS region (e.g., <code>us-east-1</code>)</li>
+                    <li><strong>Bucket Name:</strong> The S3 bucket to use</li>
+                    <li><strong>Access Key ID / Secret Access Key:</strong> AWS credentials with bucket access</li>
+                    <li><strong>Use SSL/TLS:</strong> Enable HTTPS connections</li>
+                    <li><strong>Verify SSL certificates:</strong> Validate SSL certificates (disable only for testing)</li>
+                    <li><strong>Storage Quota (GB):</strong> Optional limit on total storage usage</li>
+                </ul>
+
+                <h3>SMB/CIFS File Share</h3>
+                <p>Stores files on Windows file shares, Samba servers, or NAS devices.</p>
+                <ul>
+                    <li><strong>Hostname / IP:</strong> Server address</li>
+                    <li><strong>Share Name:</strong> The network share name</li>
+                    <li><strong>Username / Password:</strong> Credentials with read/write access</li>
+                    <li><strong>Domain:</strong> Windows domain (or WORKGROUP for local accounts)</li>
+                    <li><strong>Storage Quota (GB):</strong> Optional limit on total storage usage</li>
+                </ul>
+
+                <h3>Testing Storage</h3>
+                <p>Before activating a storage backend:</p>
+                <ol class="steps">
+                    <li>Configure the connection settings</li>
+                    <li>Click <strong>Quick Test</strong> to verify connectivity</li>
+                    <li>Click <strong>Full Test (Verify Encryption)</strong> to test file upload, download, encryption verification, and cleanup</li>
+                    <li>Once the full test passes, click <strong>Set as Active</strong> to start using the backend</li>
+                </ol>
+
+                <div class="callout callout-warning">
+                    <p><strong>Important:</strong> Changing the active storage backend does not migrate existing files. Ensure all cases are closed and files are backed up before switching backends.</p>
+                </div>
+            </div>
+
+            <div class="docs-section">
+                <h2>Collaboration (Slack)</h2>
+                <p>DFIRe integrates with Slack for real-time case collaboration, message capture, and team coordination.</p>
+
+                <h3>Features</h3>
+                <ul>
+                    <li>Automatic channel creation for cases</li>
+                    <li>Message and file capture from Slack to case timeline</li>
+                    <li><code>/dfire</code> slash commands for case management</li>
+                    <li>User account linking between DFIRe and Slack</li>
+                    <li>Reaction-based message capture (pin messages with reactions)</li>
+                </ul>
+
+                <h3>Setup</h3>
+                <p>The setup wizard provides two options:</p>
+                <ol class="steps">
+                    <li><strong>Quick Setup:</strong> Copy the provided App Manifest JSON and paste it when creating a new Slack app from manifest</li>
+                    <li><strong>Detailed Setup:</strong> Step-by-step guide for manual configuration including OAuth scopes, event subscriptions, and slash commands</li>
+                </ol>
+
+                <h3>Credentials</h3>
+                <ul>
+                    <li><strong>Bot User OAuth Token:</strong> Starts with <code>xoxb-</code>, found in OAuth &amp; Permissions</li>
+                    <li><strong>Signing Secret:</strong> Found in Basic Information &rarr; App Credentials</li>
+                    <li><strong>App ID:</strong> Optional, for reference</li>
+                </ul>
+
+                <h3>Channel Settings</h3>
+                <ul>
+                    <li><strong>Channel Prefix:</strong> Prefix for auto-created channels (e.g., <code>case</code> creates <code>#case-2025-001-incident-name</code>)</li>
+                    <li><strong>Command Channel:</strong> Public channel where <code>/dfire create</code> commands are allowed</li>
+                    <li><strong>Frontend URL:</strong> Your DFIRe URL for generating clickable links in Slack notifications</li>
+                    <li><strong>Create private channels by default:</strong> Toggle channel visibility</li>
+                    <li><strong>Auto-create channels when cases are created:</strong> Automatic channel creation</li>
+                </ul>
+
+                <p>See <a href="webhooks.html">Webhooks</a> for additional Slack notification options.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>Single Sign-On (OIDC)</h2>
+                <p>DFIRe supports any OpenID Connect (OIDC) compliant identity provider for single sign-on authentication.</p>
+
+                <h3>Supported Providers</h3>
+                <p>Built-in templates are available for:</p>
+                <ul>
+                    <li>Google Workspace</li>
+                    <li>Microsoft Entra ID (formerly Azure AD)</li>
+                    <li>Okta</li>
+                    <li>Any custom OIDC provider</li>
+                </ul>
+
+                <h3>Configuration</h3>
+                <ol class="steps">
+                    <li>Click <strong>Add Provider</strong> and select a template or choose Custom OIDC Provider</li>
+                    <li>Enter the <strong>Discovery URL</strong> (the <code>.well-known/openid-configuration</code> endpoint)</li>
+                    <li>Click <strong>Validate</strong> to verify the discovery URL</li>
+                    <li>Enter the <strong>Client ID</strong> and <strong>Client Secret</strong> from your identity provider</li>
+                    <li>Copy the <strong>Redirect URI</strong> shown and configure it in your identity provider's application settings</li>
+                    <li>Select a <strong>Default Role</strong> for new users created via SSO</li>
+                    <li>Click <strong>Save Configuration</strong></li>
+                </ol>
+
+                <h3>Application Base URL</h3>
+                <p>Set this to your public URL (e.g., <code>https://dfire.example.com</code>) to ensure correct callback URLs. If left empty, DFIRe will attempt to auto-detect from request headers.</p>
+
+                <div class="callout callout-info">
+                    <p><strong>Tip:</strong> Access control (who can login) should be configured in your identity provider. DFIRe will accept any authenticated user from enabled providers.</p>
+                </div>
+
+                <p>See <a href="sso.html">Single Sign-On</a> for detailed provider-specific setup guides.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>License Management</h2>
+                <p>The License tab shows your current license status and allows you to manage your DFIRe license.</p>
+
+                <h3>License Status</h3>
+                <p>The status card shows:</p>
+                <ul>
+                    <li><strong>Active License:</strong> License is valid and verified</li>
+                    <li><strong>Trial Period:</strong> Operating in trial mode (30 days)</li>
+                    <li><strong>License Expired:</strong> License has expired, application is read-only</li>
+                    <li><strong>Offline License Mode:</strong> Using an offline license for air-gapped environments</li>
+                </ul>
+
+                <h3>License Server Connection</h3>
+                <p>For online licenses, the status shows:</p>
+                <ul>
+                    <li>Registration status with the license server</li>
+                    <li>Last check-in time</li>
+                    <li>Installation information transmitted during check-ins</li>
+                </ul>
+
+                <h3>Activating a License</h3>
+                <ol class="steps">
+                    <li>Obtain a license key from <a href="mailto:contact@dfire.fi">contact@dfire.fi</a></li>
+                    <li>Enter the license key in the format <code>DFIRE-XXXX-XXXX-XXXX-XXXX</code></li>
+                    <li>Click <strong>Activate</strong></li>
+                </ol>
+
+                <h3>Offline Licensing</h3>
+                <p>For air-gapped environments that cannot connect to the license server:</p>
+                <ol class="steps">
+                    <li>Copy the <strong>Installation ID</strong> shown in the Offline License section</li>
+                    <li>Contact <a href="mailto:contact@dfire.fi">contact@dfire.fi</a> to request an offline license</li>
+                    <li>Upload the <code>.dfire-license</code> file provided</li>
+                </ol>
+
+                <div class="callout callout-info">
+                    <p><strong>Note:</strong> Offline licenses are bound to a specific installation and cannot be transferred. There is no extra cost for offline licensing.</p>
+                </div>
+
+                <h3>Privacy Settings</h3>
+                <p><strong>Send usage statistics:</strong> When enabled, sends aggregated counts (users, cases, evidence items) to the license server. Organization name, contact email, and version information are always sent for license validation.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>Webhooks</h2>
+                <p>Webhooks enable integration with external systems by sending HTTP requests when events occur in DFIRe.</p>
+
+                <h3>Outgoing Webhooks</h3>
+                <p>Send notifications to external systems (SIEMs, ticketing systems, notification services) when:</p>
+                <ul>
+                    <li>Cases are created, updated, or status changes</li>
+                    <li>Evidence items are added or modified</li>
+                    <li>Timeline events are recorded</li>
+                    <li>Incidents change phases</li>
+                    <li>And other configurable events</li>
+                </ul>
+
+                <p>Each webhook can be configured with:</p>
+                <ul>
+                    <li><strong>Endpoint URL:</strong> The target URL to receive webhook payloads</li>
+                    <li><strong>Event Types:</strong> Which events trigger the webhook</li>
+                    <li><strong>Authentication:</strong> None, Basic Auth, Bearer Token, or Custom Headers</li>
+                    <li><strong>Payload Template:</strong> Custom JSON payload using template variables</li>
+                    <li><strong>Value Mappings:</strong> Transform field values (e.g., severity levels to ticket priorities)</li>
+                    <li><strong>Signing Secret:</strong> HMAC-SHA256 signing for payload verification</li>
+                </ul>
+
+                <h3>Webhook Secrets</h3>
+                <p>Store reusable secrets (API keys, tokens) that can be referenced in webhook configurations.</p>
+
+                <h3>Incoming Webhooks</h3>
+                <p>Allow external systems (SOAR platforms, monitoring tools) to create cases in DFIRe via authenticated HTTP requests.</p>
+
+                <p>See <a href="webhooks.html">Webhooks</a> for detailed configuration examples.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>Workflow Configuration</h2>
+                <p>Define the stages of your investigation and incident response processes.</p>
+
+                <h3>Investigation Workflow</h3>
+                <p>Investigation steps define the stages of your digital forensic process. Each step has:</p>
+                <ul>
+                    <li><strong>Order:</strong> Determines display order (use gaps like 10, 20, 30 for easy reordering)</li>
+                    <li><strong>Name:</strong> Step name (e.g., "Intake", "Analysis", "Reporting")</li>
+                    <li><strong>Description:</strong> What happens during this step</li>
+                </ul>
+
+                <h3>Incident Response Lifecycle</h3>
+                <p>Incident phases define the stages of your incident response process (typically based on NIST). Each phase has:</p>
+                <ul>
+                    <li><strong>Order:</strong> Determines display order</li>
+                    <li><strong>Name:</strong> Phase name (e.g., "Detection", "Containment", "Eradication")</li>
+                    <li><strong>Description:</strong> What happens during this phase</li>
+                    <li><strong>Color:</strong> Visual identifier for the phase</li>
+                </ul>
+
+                <p>See <a href="workflow.html">Workflow Configuration</a> for best practices.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>Case and Evidence Types</h2>
+                <p>Define the structure of your cases and evidence items through customizable schemas.</p>
+
+                <h3>Case Types</h3>
+                <p>Each case type defines:</p>
+                <ul>
+                    <li><strong>Name:</strong> Display name (e.g., "Security Incident", "Malware Analysis")</li>
+                    <li><strong>Custom Fields:</strong> Additional data fields specific to this case type</li>
+                    <li><strong>Action Template:</strong> Pre-defined checklist items for incident response cases</li>
+                </ul>
+
+                <h3>Evidence Types</h3>
+                <p>Each evidence type defines:</p>
+                <ul>
+                    <li><strong>Name:</strong> Display name (e.g., "Mobile Phone", "Hard Drive", "Memory Dump")</li>
+                    <li><strong>Icon:</strong> Visual identifier for the evidence type</li>
+                    <li><strong>Custom Fields:</strong> Additional data fields specific to this evidence type</li>
+                </ul>
+
+                <h3>Custom Fields</h3>
+                <p>Both case and evidence types support custom fields with:</p>
+                <ul>
+                    <li>Text, number, date, dropdown, and multi-select field types</li>
+                    <li>Required or optional fields</li>
+                    <li>Default values</li>
+                    <li>Field ordering</li>
+                </ul>
+
+                <p>See <a href="case-types.html">Case Types</a> and <a href="evidence-types.html">Evidence Types</a> for detailed configuration.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>Additional Settings</h2>
+
+                <h3>Report Section Templates</h3>
+                <p>Define reusable sections for investigation reports. Each template has a slug (identifier), title, and default content that can be customized per case.</p>
+
+                <h3>Compliance Timers</h3>
+                <p>Track regulatory deadlines (e.g., GDPR 72-hour breach notification). See <a href="compliance.html">Compliance Timers</a> for details.</p>
+
+                <h3>User Accounts</h3>
+                <p>Manage local user accounts (for environments not using SSO). See <a href="users.html">User Management</a>.</p>
+
+                <h3>Legal Entities</h3>
+                <p>Define organizations that may be involved in cases (clients, suspects, etc.).</p>
+
+                <h3>Item Flags</h3>
+                <p>Create custom flags to categorize evidence items (e.g., "Needs Review", "Priority", "Encrypted").</p>
+
+                <h3>Projects</h3>
+                <p>Group related cases together under projects for better organization.</p>
+            </div>
+
+            <nav class="docs-nav">
+                <a href="deployment.html" class="docs-nav-link prev">
+                    <span class="docs-nav-label">Previous</span>
+                    <span class="docs-nav-title">Deployment</span>
+                </a>
+                <a href="cases.html" class="docs-nav-link next">
+                    <span class="docs-nav-label">Next</span>
+                    <span class="docs-nav-title">Case Management</span>
+                </a>
+            </nav>
+        </main>
+    </div>
+
+    <footer class="docs-footer">
+        <div class="container">
+            <p>&copy; 2026 Tmi Antti Kurittu. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const navToggle = document.querySelector('.nav-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        navToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            navToggle.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

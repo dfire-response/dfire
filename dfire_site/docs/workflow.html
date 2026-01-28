@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workflow Configuration - DFIRe Documentation</title>
+    <meta name="description" content="Configure incident response workflows, phase definitions, and evidence handling workflows in DFIRe.">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="docs.css">
+    <link rel="icon" type="image/png" href="../assets/logo.png">
+</head>
+<body>
+    <nav class="nav scrolled">
+        <div class="nav-container">
+            <a href="../" class="nav-logo">
+                <img src="../assets/logo.png" alt="DFIRe" class="logo-img">
+                <span class="logo-text">Documentation</span>
+            </a>
+            <div class="nav-links">
+                <a href="../#features">Features</a>
+                <a href="../#pricing">Pricing</a>
+                <a href="../#installation">Installation</a>
+                <a href="./" class="active">Docs</a>
+                <a href="../#contact">Contact</a>
+            </div>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="docs-layout">
+        <aside class="docs-sidebar">
+            <div class="sidebar-section">
+                <h3>Getting Started</h3>
+                <ul>
+                    <li><a href="getting-started.html">Quick Start Guide</a></li>
+                    <li><a href="deployment.html">Deployment</a></li>
+                    <li><a href="configuration.html">Configuration</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>User Guide</h3>
+                <ul>
+                    <li><a href="cases.html">Case Management</a></li>
+                    <li><a href="evidence.html">Evidence Tracking</a></li>
+                    <li><a href="incidents.html">Incident Response</a></li>
+                    <li><a href="reports.html">Reports</a></li>
+                    <li><a href="timeline.html">Timeline</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>Administration</h3>
+                <ul>
+                    <li><a href="users.html">User Management</a></li>
+                    <li><a href="sso.html">Single Sign-On</a></li>
+                    <li><a href="webhooks.html">Webhooks</a></li>
+                    <li><a href="storage.html">Storage Backends</a></li>
+                    <li><a href="backup.html">Backup & Recovery</a></li>
+                    <li><a href="security.html">Application Security</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>Reference</h3>
+                <ul>
+                    <li><a href="workflow.html" class="active">Workflow Configuration</a></li>
+                    <li><a href="case-types.html">Case Types</a></li>
+                    <li><a href="evidence-types.html">Evidence Types</a></li>
+                    <li><a href="compliance.html">Compliance Timers</a></li>
+                    <li><a href="licenses.html">Third-Party Licenses</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <main class="docs-content">
+            <div class="docs-header">
+                <h1>Workflow Configuration</h1>
+                <p class="docs-intro">Customize incident phases, evidence handling workflows, and report templates to match your organization's processes.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>Incident Phases (Lifecycle)</h2>
+                <p>DFIRe comes with default incident phases based on NIST guidelines. You can customize these at <strong>Settings → Workflows</strong>:</p>
+
+                <ul>
+                    <li><strong>Add phases:</strong> Create additional phases for your process</li>
+                    <li><strong>Rename phases:</strong> Use terminology your team prefers</li>
+                    <li><strong>Reorder phases:</strong> Adjust the workflow sequence</li>
+                    <li><strong>Remove phases:</strong> Delete phases you don't use</li>
+                </ul>
+
+                <div class="callout callout-danger">
+                    <p><strong>Important:</strong> Incident phases are dynamic—changes affect <strong>all incidents</strong>, including existing ones. Removing a phase will remove it from all incidents and may cause unexpected behavior. Configure your incident lifecycle <strong>before taking the system into production use</strong>.</p>
+                </div>
+            </div>
+
+            <div class="docs-section">
+                <h2>Case Type Actions</h2>
+                <p>Actions (task checklists) are defined per case type, not globally. Each case type can have its own set of actions assigned to specific phases.</p>
+
+                <ol class="steps">
+                    <li>
+                        <strong>Configure phases first</strong>
+                        <p>Ensure your incident phases are set up before defining actions, as each action is assigned to a phase.</p>
+                    </li>
+                    <li>
+                        <strong>Go to Settings → Case Types</strong>
+                        <p>Select or create the case type you want to configure.</p>
+                    </li>
+                    <li>
+                        <strong>Define actions for each phase</strong>
+                        <p>Add checklist items that should appear when an incident of this type is created.</p>
+                    </li>
+                </ol>
+
+                <p>See <a href="case-types.html">Case Types</a> for details on configuring case types and their actions.</p>
+
+                <div class="callout callout-info">
+                    <p><strong>Tip:</strong> You can also export your settings to JSON via <strong>Settings → Tenant → Identity → Export JSON</strong>, edit the case type definitions in a text editor, and import the modified JSON back into DFIRe.</p>
+                </div>
+            </div>
+
+            <div class="docs-section">
+                <h2>Report Templates</h2>
+                <p>Create standardized report structures for different case types:</p>
+
+                <ul>
+                    <li>Define section headings and order</li>
+                    <li>Include boilerplate content for each section</li>
+                    <li>Add a writing guide for each section (helps analysts know what to include and serves as a reference for quality assurance)</li>
+                    <li>Associate templates with case types</li>
+                </ul>
+
+                <p>See <a href="reports.html">Reports</a> for more on report generation.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>Evidence Handling Workflow</h2>
+                <p>The evidence handling workflow defines the states evidence items can move through (e.g., Collected, In Analysis, Returned). Like incident phases, this workflow is configured at <strong>Settings → Workflows</strong>.</p>
+
+                <div class="callout callout-warning">
+                    <p><strong>Configure before production:</strong> Changes to the evidence handling workflow affect all evidence items. Set up your workflow states before the system is in production use.</p>
+                </div>
+            </div>
+
+            <div class="docs-section">
+                <h2>Notifications</h2>
+                <p>DFIRe sends automatic in-app notifications to case team members for the following events:</p>
+
+                <ul>
+                    <li>Case status changes</li>
+                    <li>Evidence added or updated</li>
+                    <li>Notes added (case notes and evidence notes)</li>
+                    <li>Files and photos uploaded</li>
+                    <li>Team membership changes (investigators or viewers added/removed)</li>
+                    <li>Compliance timer warnings (at 50%, 25%, and 10% time remaining)</li>
+                    <li>Compliance timer breaches (deadline passed)</li>
+                </ul>
+
+                <p>Notification rules are built into the system and are not user-configurable. For external integrations, see <a href="webhooks.html">Webhooks</a>.</p>
+            </div>
+
+            <nav class="docs-nav">
+                <a href="backup.html" class="docs-nav-link prev">
+                    <span class="docs-nav-label">Previous</span>
+                    <span class="docs-nav-title">Backup & Recovery</span>
+                </a>
+                <a href="case-types.html" class="docs-nav-link next">
+                    <span class="docs-nav-label">Next</span>
+                    <span class="docs-nav-title">Case Types</span>
+                </a>
+            </nav>
+        </main>
+    </div>
+
+    <footer class="docs-footer">
+        <div class="container">
+            <p>&copy; 2026 Tmi Antti Kurittu. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const navToggle = document.querySelector('.nav-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        navToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            navToggle.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

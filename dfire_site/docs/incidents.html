@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Incident Response - DFIRe Documentation</title>
+    <meta name="description" content="Learn how to use DFIRe's incident response mode for active security incidents with phase-based workflows.">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="docs.css">
+    <link rel="icon" type="image/png" href="../assets/logo.png">
+</head>
+<body>
+    <nav class="nav scrolled">
+        <div class="nav-container">
+            <a href="../" class="nav-logo">
+                <img src="../assets/logo.png" alt="DFIRe" class="logo-img">
+                <span class="logo-text">Documentation</span>
+            </a>
+            <div class="nav-links">
+                <a href="../#features">Features</a>
+                <a href="../#pricing">Pricing</a>
+                <a href="../#installation">Installation</a>
+                <a href="./" class="active">Docs</a>
+                <a href="../#contact">Contact</a>
+            </div>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="docs-layout">
+        <aside class="docs-sidebar">
+            <div class="sidebar-section">
+                <h3>Getting Started</h3>
+                <ul>
+                    <li><a href="getting-started.html">Quick Start Guide</a></li>
+                    <li><a href="deployment.html">Deployment</a></li>
+                    <li><a href="configuration.html">Configuration</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>User Guide</h3>
+                <ul>
+                    <li><a href="cases.html">Case Management</a></li>
+                    <li><a href="evidence.html">Evidence Tracking</a></li>
+                    <li><a href="incidents.html" class="active">Incident Response</a></li>
+                    <li><a href="reports.html">Reports</a></li>
+                    <li><a href="timeline.html">Timeline</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>Administration</h3>
+                <ul>
+                    <li><a href="users.html">User Management</a></li>
+                    <li><a href="sso.html">Single Sign-On</a></li>
+                    <li><a href="webhooks.html">Webhooks</a></li>
+                    <li><a href="storage.html">Storage Backends</a></li>
+                    <li><a href="backup.html">Backup & Recovery</a></li>
+                    <li><a href="security.html">Application Security</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>Reference</h3>
+                <ul>
+                    <li><a href="workflow.html">Workflow Configuration</a></li>
+                    <li><a href="case-types.html">Case Types</a></li>
+                    <li><a href="evidence-types.html">Evidence Types</a></li>
+                    <li><a href="compliance.html">Compliance Timers</a></li>
+                    <li><a href="licenses.html">Third-Party Licenses</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <main class="docs-content">
+            <div class="docs-header">
+                <h1>Incident Response</h1>
+                <p class="docs-intro">Use DFIRe's Incident mode for active security incidents requiring coordinated response with phase-based workflows, action checklists, and compliance tracking.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>Incident Response in DFIRe</h2>
+                <p>DFIRe's Incident mode provides a structured framework for managing security incidents from detection through resolution. Every aspect is configurable to match your organization's incident response procedures.</p>
+
+                <h3>Key Features</h3>
+                <ul>
+                    <li><strong>Phase-based workflow:</strong> Move through configurable incident phases with visual progress tracking</li>
+                    <li><strong>Action checklists:</strong> Pre-configured response steps organized by phase, assignable to team members</li>
+                    <li><strong>Compliance timers:</strong> Track regulatory notification deadlines with countdown timers</li>
+                    <li><strong>Timeline:</strong> Chronological record of all incident activity</li>
+                    <li><strong>CAN Report:</strong> Real-time Conditions, Actions, Needs summary for stakeholder updates</li>
+                    <li><strong>Evidence &amp; Photos:</strong> Capture and track digital artifacts and visual evidence</li>
+                    <li><strong>Attachments:</strong> Store case-related files with encrypted storage</li>
+                    <li><strong>Sidebar status:</strong> At-a-glance view of phase, progress, duration, and compliance status</li>
+                </ul>
+
+                <div class="callout callout-info">
+                    <p><strong>Fully Configurable:</strong> Incident phases, action templates, compliance timers, and case types can all be customized in System Settings to match your organization's procedures.</p>
+                </div>
+            </div>
+
+            <div class="docs-section">
+                <h2>Default Incident Phases</h2>
+                <p>DFIRe ships with a default set of incident phases based on the NIST Incident Response framework. These phases are fully configurable in <strong>System Settings &gt; Incident Phases</strong>.</p>
+
+                <table class="requirements-table">
+                    <thead>
+                        <tr>
+                            <th>Phase</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Preparation &amp; Immediate Actions</strong></td>
+                            <td>Case opened, immediate actions may be required but formal response hasn't started</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Detection &amp; Analysis</strong></td>
+                            <td>Initial detection, scoping, and analysis of the incident</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Containment</strong></td>
+                            <td>Short-term and long-term containment strategies to limit spread</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Eradication</strong></td>
+                            <td>Removal of threat actors, malware, and attack artifacts</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Recovery</strong></td>
+                            <td>Restoration of systems and services to normal operation</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Post-Incident Activities</strong></td>
+                            <td>Lessons learned, documentation, and process improvements</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Resolved</strong></td>
+                            <td>Incident is closed (final phase)</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p>Each phase has a color indicator displayed in the sidebar and phase header for quick visual identification.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>The Actions Tab</h2>
+                <p>The Actions tab is the command center for incident response, displaying pre-configured action items organized by phase.</p>
+
+                <h3>How Actions Work</h3>
+                <ul>
+                    <li><strong>Phase organization:</strong> Actions are grouped under their assigned phase and collapse/expand for focus</li>
+                    <li><strong>Pre-populated:</strong> When you create an incident with a case type (e.g., "Ransomware Attack"), the Actions tab is automatically populated with relevant response steps</li>
+                    <li><strong>Progress tracking:</strong> Visual progress bar shows completed vs total actions</li>
+                    <li><strong>Ongoing actions:</strong> Currently in-progress actions are highlighted at the top for visibility</li>
+                </ul>
+
+                <h3>Action States</h3>
+                <table class="requirements-table">
+                    <thead>
+                        <tr>
+                            <th>State</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Pending</strong></td>
+                            <td>Not yet started (default state)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Started</strong></td>
+                            <td>Currently being worked on by an assignee</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Done</strong></td>
+                            <td>Completed successfully</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Skipped</strong></td>
+                            <td>Not applicable to this incident</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Assigning Actions</h3>
+                <p>When you start an action, you can assign it to:</p>
+                <ul>
+                    <li><strong>Case Investigators:</strong> DFIRe users assigned to this case</li>
+                    <li><strong>Legal Entities:</strong> Teams, organizations, government agencies, or individuals defined in your entity library</li>
+                </ul>
+                <p>This allows you to create internal teams (e.g., "Network Team", "Legal Department") and assign actions to them, enabling coordination across organizational boundaries.</p>
+
+                <h3>Completing Actions</h3>
+                <p>When you mark an action as done, DFIRe prompts you to:</p>
+                <ul>
+                    <li>Add an optional completion note documenting what was done</li>
+                    <li>Choose whether to post the note to the timeline for visibility</li>
+                </ul>
+
+                <div class="callout callout-info">
+                    <p><strong>Custom Actions:</strong> You can add new actions at any time using the "Add Action" button. Custom actions are assigned to the current phase by default.</p>
+                </div>
+            </div>
+
+            <div class="docs-section">
+                <h2>Example: General Incident Response Workflow</h2>
+                <p>Here's an example of how the default "General Incident Response" case type organizes actions across phases:</p>
+
+                <h3>Preparation &amp; Immediate Actions</h3>
+                <ol>
+                    <li>Assign Incident Commander and Scribe</li>
+                    <li>Set up a dedicated secure communication channel</li>
+                    <li>Inform the CISO and Legal (if data breach suspected)</li>
+                </ol>
+
+                <h3>Detection &amp; Analysis</h3>
+                <ol start="4">
+                    <li>Determine scope: Query EDR/Logs for similar indicators</li>
+                    <li>Capture forensic image of volatile memory (RAM) before isolation</li>
+                </ol>
+
+                <h3>Containment</h3>
+                <ol start="6">
+                    <li>Isolate affected endpoints from the network</li>
+                    <li>Block attacker IPs/Domains at Firewall and Web Proxy</li>
+                    <li>Disable compromised user accounts (AD/SSO)</li>
+                </ol>
+
+                <h3>Eradication</h3>
+                <ol start="9">
+                    <li>Remove malicious artifacts (Files, Registry Keys, Persistence)</li>
+                    <li>Patch the vulnerability exploited (Root Cause Fix)</li>
+                    <li>Force password reset for all affected identities (2x)</li>
+                </ol>
+
+                <h3>Recovery</h3>
+                <ol start="12">
+                    <li>Reimage workstations / Restore servers from clean backups</li>
+                </ol>
+
+                <h3>Post-Incident Activities</h3>
+                <ol start="13">
+                    <li>Schedule a post-incident review meeting</li>
+                    <li>Save PIR findings document and ticket findings</li>
+                </ol>
+
+                <h3>Resolved</h3>
+                <ol start="15">
+                    <li>Mark Incident as Resolved</li>
+                </ol>
+
+                <p>Each case type comes with its own tailored action checklist. See <a href="cases.html#default-case-types">Default Case Types</a> for all available types.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>Phase Transitions</h2>
+                <p>Moving between phases is an important milestone in incident response.</p>
+
+                <h3>Advancing Phases</h3>
+                <p>When all actions in the current phase are complete, DFIRe displays a suggestion to advance to the next phase. You can:</p>
+                <ul>
+                    <li>Click the suggestion to advance immediately</li>
+                    <li>Use the phase dropdown in the case header to change phases manually</li>
+                    <li>Advance without completing all actions (with confirmation)</li>
+                    <li>Return to a previous phase if needed (action progress is preserved)</li>
+                </ul>
+
+                <h3>Phase Duration Tracking</h3>
+                <p>DFIRe automatically tracks:</p>
+                <ul>
+                    <li>Time spent in each phase</li>
+                    <li>Total incident duration (displayed in the sidebar)</li>
+                    <li>Phase change timestamps in the timeline</li>
+                </ul>
+                <p>The duration counter stops when the incident reaches the final phase or is set to Closed status.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>The Incident Sidebar</h2>
+                <p>The collapsible sidebar provides at-a-glance status information:</p>
+
+                <ul>
+                    <li><strong>Incident Phase:</strong> Current phase with color indicator and timestamp of last change</li>
+                    <li><strong>Actions Progress:</strong> Visual progress bar showing completed/total actions, with breakdown of done vs skipped</li>
+                    <li><strong>Incident Duration:</strong> Live counter showing elapsed time since incident creation</li>
+                    <li><strong>Compliance Status:</strong> Overview of active compliance timers with warning indicators (click to navigate to Compliance tab)</li>
+                    <li><strong>Case Info:</strong> Project, Classification, Reference ID, Lead Investigator, Team Members</li>
+                    <li><strong>Attributes:</strong> Custom fields defined by your case type</li>
+                </ul>
+            </div>
+
+            <div class="docs-section">
+                <h2>Compliance Timers</h2>
+                <p>Many regulations require notification within specific timeframes. DFIRe tracks these deadlines with countdown timers that start when an incident is created.</p>
+
+                <h3>Default Compliance Timers</h3>
+                <table class="requirements-table">
+                    <thead>
+                        <tr>
+                            <th>Regulation</th>
+                            <th>Deadline</th>
+                            <th>Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>GDPR</strong></td>
+                            <td>72 hours</td>
+                            <td>Data Protection Authority notification</td>
+                        </tr>
+                        <tr>
+                            <td><strong>NIS2 Early Warning</strong></td>
+                            <td>24 hours</td>
+                            <td>Initial report to CSIRT</td>
+                        </tr>
+                        <tr>
+                            <td><strong>NIS2 Incident Notification</strong></td>
+                            <td>72 hours</td>
+                            <td>Detailed incident notification</td>
+                        </tr>
+                        <tr>
+                            <td><strong>SEC Form 8-K</strong></td>
+                            <td>4 business days</td>
+                            <td>Material cybersecurity incident disclosure</td>
+                        </tr>
+                        <tr>
+                            <td><strong>CIRCIA</strong></td>
+                            <td>72 hours</td>
+                            <td>Covered cyber incident report to CISA</td>
+                        </tr>
+                        <tr>
+                            <td><strong>PCI-DSS</strong></td>
+                            <td>Immediate</td>
+                            <td>Account data compromise notification</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p>The Compliance tab shows active timers with countdown progress bars, completion status, and links to external resources. See <a href="compliance.html">Compliance Timers</a> for configuration details.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>Photos &amp; Evidence Gallery</h2>
+                <p>The Photos tab provides an evidence gallery for capturing visual documentation:</p>
+
+                <ul>
+                    <li><strong>Upload photos:</strong> Click to upload JPEG, PNG, GIF, or WebP images (up to 32MB)</li>
+                    <li><strong>Take photos:</strong> Use your device's webcam to capture images directly</li>
+                    <li><strong>Automatic thumbnails:</strong> Uploaded images are processed for quick previews</li>
+                    <li><strong>Evidence item photos:</strong> Photos uploaded directly to evidence items appear in the gallery with their own section</li>
+                    <li><strong>Full-screen viewer:</strong> Click any photo to view full resolution</li>
+                    <li><strong>Encrypted storage:</strong> All photos are encrypted at rest using the same encryption model as evidence attachments</li>
+                </ul>
+
+                <p>Use photos to document physical evidence, screenshots of malware behavior, network diagrams, or any visual information relevant to the incident.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>Attachments</h2>
+                <p>The Attachments tab stores case-related files:</p>
+
+                <ul>
+                    <li>Chain of custody forms</li>
+                    <li>Log exports and analysis reports</li>
+                    <li>Vendor communications</li>
+                    <li>Legal documentation</li>
+                    <li>Any file relevant to the incident</li>
+                </ul>
+
+                <p>All attachments are encrypted at rest using the case's encryption key. See <a href="evidence.html#file-attachments">Evidence Tracking - File Attachments</a> for encryption details.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>Creating an Incident</h2>
+
+                <ol class="steps">
+                    <li>
+                        <strong>Click "New Case" on the Dashboard</strong>
+                    </li>
+                    <li>
+                        <strong>Select "Incident" Mode</strong>
+                        <p>This enables phase-based workflows, actions, compliance timers, and timeline.</p>
+                    </li>
+                    <li>
+                        <strong>Choose an Incident Type</strong>
+                        <p>Select from pre-configured case types. The Actions tab will be populated with the type's action checklist.</p>
+                    </li>
+                    <li>
+                        <strong>Set the Severity</strong>
+                        <ul>
+                            <li><strong>Critical:</strong> Immediate business impact, executive notification required</li>
+                            <li><strong>High:</strong> Significant impact, urgent response</li>
+                            <li><strong>Medium:</strong> Moderate impact, standard response</li>
+                            <li><strong>Low:</strong> Minor impact, routine handling</li>
+                            <li><strong>Info:</strong> Informational only</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>Enter Details and Create</strong>
+                        <p>Fill in title, description, and any custom fields. Click "Create Case".</p>
+                    </li>
+                    <li>
+                        <strong>Assign Team Members</strong>
+                        <p>Use "Manage Team" to assign investigators who will work on the incident.</p>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="docs-section">
+                <h2>Escalating an Investigation</h2>
+                <p>If a routine investigation reveals an active threat, you can escalate it to an incident:</p>
+
+                <ol class="steps">
+                    <li><strong>Open the Investigation case</strong></li>
+                    <li><strong>Click "Edit Case" in the header</strong></li>
+                    <li><strong>Change Mode to "Incident"</strong></li>
+                    <li><strong>Select an incident type and set the initial phase</strong></li>
+                </ol>
+
+                <p>All existing evidence, notes, and attachments are preserved. The case gains access to the Actions tab, Timeline, Compliance timers, and phase-based workflows.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>Closing an Incident</h2>
+                <p>To properly close an incident:</p>
+
+                <ol>
+                    <li>Ensure the incident is in the final phase (typically "Resolved")</li>
+                    <li>Complete or skip all remaining actions</li>
+                    <li>Complete the final incident report</li>
+                    <li>Change the case status to <strong>Closed</strong></li>
+                </ol>
+
+                <p>Closed incidents become read-only but remain searchable for future reference and metrics.</p>
+
+                <div class="callout callout-info">
+                    <p><strong>Post-Incident Review:</strong> Schedule a lessons learned meeting while details are fresh. Use the Timeline and Actions tabs to review the response and identify improvements.</p>
+                </div>
+            </div>
+
+            <div class="docs-section">
+                <h2>Configuration</h2>
+                <p>All aspects of incident response are configurable:</p>
+
+                <table class="requirements-table">
+                    <thead>
+                        <tr>
+                            <th>Setting</th>
+                            <th>Location</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Incident Phases</td>
+                            <td>System Settings &gt; Incident Phases</td>
+                        </tr>
+                        <tr>
+                            <td>Case Types &amp; Action Templates</td>
+                            <td>System Settings &gt; Case Types</td>
+                        </tr>
+                        <tr>
+                            <td>Compliance Timers</td>
+                            <td>System Settings &gt; Compliance Timers</td>
+                        </tr>
+                        <tr>
+                            <td>Legal Entities (Teams)</td>
+                            <td>Entities (top navigation)</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p>See <a href="configuration.html">Configuration</a> for detailed setup instructions.</p>
+            </div>
+
+            <nav class="docs-nav">
+                <a href="evidence.html" class="docs-nav-link prev">
+                    <span class="docs-nav-label">Previous</span>
+                    <span class="docs-nav-title">Evidence Tracking</span>
+                </a>
+                <a href="reports.html" class="docs-nav-link next">
+                    <span class="docs-nav-label">Next</span>
+                    <span class="docs-nav-title">Reports</span>
+                </a>
+            </nav>
+        </main>
+    </div>
+
+    <footer class="docs-footer">
+        <div class="container">
+            <p>&copy; 2026 Tmi Antti Kurittu. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const navToggle = document.querySelector('.nav-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        navToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            navToggle.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

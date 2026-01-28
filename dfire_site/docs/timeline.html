@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timeline - DFIRe Documentation</title>
+    <meta name="description" content="Use DFIRe's timeline feature to track and visualize the chronological sequence of events in your investigations.">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="docs.css">
+    <link rel="icon" type="image/png" href="../assets/logo.png">
+</head>
+<body>
+    <nav class="nav scrolled">
+        <div class="nav-container">
+            <a href="../" class="nav-logo">
+                <img src="../assets/logo.png" alt="DFIRe" class="logo-img">
+                <span class="logo-text">Documentation</span>
+            </a>
+            <div class="nav-links">
+                <a href="../#features">Features</a>
+                <a href="../#pricing">Pricing</a>
+                <a href="../#installation">Installation</a>
+                <a href="./" class="active">Docs</a>
+                <a href="../#contact">Contact</a>
+            </div>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="docs-layout">
+        <aside class="docs-sidebar">
+            <div class="sidebar-section">
+                <h3>Getting Started</h3>
+                <ul>
+                    <li><a href="getting-started.html">Quick Start Guide</a></li>
+                    <li><a href="deployment.html">Deployment</a></li>
+                    <li><a href="configuration.html">Configuration</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>User Guide</h3>
+                <ul>
+                    <li><a href="cases.html">Case Management</a></li>
+                    <li><a href="evidence.html">Evidence Tracking</a></li>
+                    <li><a href="incidents.html">Incident Response</a></li>
+                    <li><a href="reports.html">Reports</a></li>
+                    <li><a href="timeline.html" class="active">Timeline</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>Administration</h3>
+                <ul>
+                    <li><a href="users.html">User Management</a></li>
+                    <li><a href="sso.html">Single Sign-On</a></li>
+                    <li><a href="webhooks.html">Webhooks</a></li>
+                    <li><a href="storage.html">Storage Backends</a></li>
+                    <li><a href="backup.html">Backup & Recovery</a></li>
+                    <li><a href="security.html">Application Security</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>Reference</h3>
+                <ul>
+                    <li><a href="workflow.html">Workflow Configuration</a></li>
+                    <li><a href="case-types.html">Case Types</a></li>
+                    <li><a href="evidence-types.html">Evidence Types</a></li>
+                    <li><a href="compliance.html">Compliance Timers</a></li>
+                    <li><a href="licenses.html">Third-Party Licenses</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <main class="docs-content">
+            <div class="docs-header">
+                <h1>Timeline</h1>
+                <p class="docs-intro">Build a chronological record of events to understand the sequence of activities during an investigation or incident.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>Overview</h2>
+                <p>The Timeline provides a chronological view of all events related to a case. It automatically captures case activities and allows investigators to add manual entries for events discovered during analysis.</p>
+
+                <img src="../screenshots/example_timeline_events.png" alt="Case Timeline" class="screenshot">
+
+                <p>Events are grouped by date and displayed with timestamps in UTC. The timeline shows a "Case Opened" separator to distinguish between events that occurred before the case was created and those that happened during the investigation.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>Automatic Events</h2>
+                <p>DFIRe automatically logs these events to the timeline:</p>
+
+                <table class="requirements-table">
+                    <thead>
+                        <tr>
+                            <th>Event Type</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Case Created</strong></td>
+                            <td>When the case was first created</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Case Closed/Reopened/Archived</strong></td>
+                            <td>Case status changes</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Escalated to Incident</strong></td>
+                            <td>When a case is escalated to incident mode</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Phase Changed</strong></td>
+                            <td>Incident phase transitions</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Lead Investigator Changed</strong></td>
+                            <td>When case leadership changes</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Evidence Added</strong></td>
+                            <td>New evidence items added to the case</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Evidence Step Updated</strong></td>
+                            <td>When an evidence item's processing step changes</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Files Added</strong></td>
+                            <td>Attachments added to case or evidence items</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Notes Added</strong></td>
+                            <td>Notes added to case or evidence items</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Actions Started/Completed</strong></td>
+                            <td>When incident actions are started or completed</td>
+                        </tr>
+                        <tr>
+                            <td><strong>CAN Report Updated</strong></td>
+                            <td>When a new CAN report version is created</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="docs-section">
+                <h2>Adding Manual Events</h2>
+                <p>Add events discovered during your investigation that occurred outside of DFIRe:</p>
+
+                <img src="../screenshots/add_timeline_event.png" alt="Add Timeline Event" class="screenshot">
+
+                <ol class="steps">
+                    <li>
+                        <strong>Click "Add Entry" in the Timeline tab</strong>
+                    </li>
+                    <li>
+                        <strong>Enter the Subject</strong>
+                        <p>A brief description of what happened (required).</p>
+                    </li>
+                    <li>
+                        <strong>Add Details</strong>
+                        <p>Additional context or description of the event.</p>
+                    </li>
+                    <li>
+                        <strong>Set the Event Time</strong>
+                        <p>Choose "Event happened now" for current events, or specify the date and time (in UTC) when the event actually occurred.</p>
+                    </li>
+                    <li>
+                        <strong>Save the Event</strong>
+                        <p>The event appears in chronological order on the timeline.</p>
+                    </li>
+                </ol>
+
+                <div class="callout callout-info">
+                    <p><strong>Tip:</strong> Use manual entries to document events that happened before the case was opened, such as initial malware detection, first sighting dates, or compilation timestamps.</p>
+                </div>
+            </div>
+
+            <div class="docs-section">
+                <h2>Hiding Events</h2>
+                <p>Events can be hidden from the default timeline view to reduce noise without deleting them:</p>
+
+                <img src="../screenshots/hide_timeline_event.png" alt="Hide Timeline Event" class="screenshot">
+
+                <ol>
+                    <li>Hover over any event and click "Edit"</li>
+                    <li>Toggle "Hidden from timeline" on</li>
+                    <li>Save changes</li>
+                </ol>
+
+                <p>Hidden events are preserved in the database and can be shown again at any time.</p>
+
+                <h3>Viewing Hidden Events</h3>
+                <img src="../screenshots/show_hidden_timeline_events.png" alt="Show Hidden Events" class="screenshot">
+
+                <p>Click the "hidden" button in the toolbar to toggle visibility of hidden events. The button shows how many events are currently hidden. When viewing hidden events, they appear with a "Hidden" tag and strikethrough styling.</p>
+
+                <div class="callout callout-info">
+                    <p><strong>Note:</strong> Case Created and Phase Changed events cannot be edited or hidden as they are fundamental case milestones.</p>
+                </div>
+            </div>
+
+            <div class="docs-section">
+                <h2>Filtering and Sorting</h2>
+                <p>The timeline toolbar provides several options to focus on specific events:</p>
+
+                <h3>Event Type Filter</h3>
+                <p>Use the "All Events" dropdown to filter by specific event types:</p>
+                <ul>
+                    <li>Manual Entries</li>
+                    <li>Phase Changes</li>
+                    <li>Actions Started / Actions Completed</li>
+                    <li>Evidence Added / Step Changes</li>
+                    <li>Case Files / Evidence Files</li>
+                    <li>Case Notes / Evidence Notes</li>
+                </ul>
+
+                <h3>Sort Order</h3>
+                <p>Click the sort button to toggle between:</p>
+                <ul>
+                    <li><strong>Newest First:</strong> Most recent events at the top (default)</li>
+                    <li><strong>Oldest First:</strong> Earliest events at the top</li>
+                </ul>
+            </div>
+
+            <div class="docs-section">
+                <h2>Incident Phases</h2>
+                <p>For incident cases, the timeline integrates with incident phases:</p>
+
+                <ul>
+                    <li><strong>Phase indicator:</strong> Each event shows the incident phase when it occurred</li>
+                    <li><strong>Phase changes:</strong> Phase transitions are highlighted as prominent events</li>
+                    <li><strong>Change phase:</strong> Click the current phase in the toolbar to change to a different phase</li>
+                </ul>
+
+                <p>Phase changes create timeline events automatically, documenting when the incident moved between phases and who made the change.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>Timeline in Reports</h2>
+                <p>The timeline is automatically included in investigation reports as a generated section. All visible timeline events (excluding hidden ones) are rendered chronologically in the report output.</p>
+
+                <p>To exclude specific events from reports, hide them from the timeline before generating the report.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>Best Practices</h2>
+
+                <h3>Maintaining Accuracy</h3>
+                <ul>
+                    <li><strong>Use source timestamps:</strong> Always use the timestamp from the original source, not when you found it</li>
+                    <li><strong>Note timezone:</strong> All times in DFIRe are displayed in UTC - convert timestamps accordingly</li>
+                    <li><strong>Document uncertainty:</strong> If a timestamp is approximate, note it in the details field</li>
+                </ul>
+
+                <h3>Effective Timeline Building</h3>
+                <ul>
+                    <li>Start with known anchor points (incident start, detection time)</li>
+                    <li>Work forwards and backwards from anchor points</li>
+                    <li>Add manual entries for pre-case events as you discover them</li>
+                    <li>Hide routine events that add noise without value</li>
+                </ul>
+
+                <h3>Using Timeline for Analysis</h3>
+                <ul>
+                    <li>Identify patterns in attacker behavior</li>
+                    <li>Determine dwell time (time between compromise and detection)</li>
+                    <li>Reconstruct the attack chain</li>
+                    <li>Correlate events across multiple evidence sources</li>
+                </ul>
+            </div>
+
+            <nav class="docs-nav">
+                <a href="reports.html" class="docs-nav-link prev">
+                    <span class="docs-nav-label">Previous</span>
+                    <span class="docs-nav-title">Reports</span>
+                </a>
+                <a href="users.html" class="docs-nav-link next">
+                    <span class="docs-nav-label">Next</span>
+                    <span class="docs-nav-title">User Management</span>
+                </a>
+            </nav>
+        </main>
+    </div>
+
+    <footer class="docs-footer">
+        <div class="container">
+            <p>&copy; 2026 Tmi Antti Kurittu. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const navToggle = document.querySelector('.nav-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        navToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            navToggle.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

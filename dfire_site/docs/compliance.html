@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compliance Timers - DFIRe Documentation</title>
+    <meta name="description" content="Track regulatory notification deadlines with compliance timers for GDPR, NIS2, DORA, HIPAA, SEC, and other frameworks.">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="docs.css">
+    <link rel="icon" type="image/png" href="../assets/logo.png">
+</head>
+<body>
+    <nav class="nav scrolled">
+        <div class="nav-container">
+            <a href="../" class="nav-logo">
+                <img src="../assets/logo.png" alt="DFIRe" class="logo-img">
+                <span class="logo-text">Documentation</span>
+            </a>
+            <div class="nav-links">
+                <a href="../#features">Features</a>
+                <a href="../#pricing">Pricing</a>
+                <a href="../#installation">Installation</a>
+                <a href="./" class="active">Docs</a>
+                <a href="../#contact">Contact</a>
+            </div>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="docs-layout">
+        <aside class="docs-sidebar">
+            <div class="sidebar-section">
+                <h3>Getting Started</h3>
+                <ul>
+                    <li><a href="getting-started.html">Quick Start Guide</a></li>
+                    <li><a href="deployment.html">Deployment</a></li>
+                    <li><a href="configuration.html">Configuration</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>User Guide</h3>
+                <ul>
+                    <li><a href="cases.html">Case Management</a></li>
+                    <li><a href="evidence.html">Evidence Tracking</a></li>
+                    <li><a href="incidents.html">Incident Response</a></li>
+                    <li><a href="reports.html">Reports</a></li>
+                    <li><a href="timeline.html">Timeline</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>Administration</h3>
+                <ul>
+                    <li><a href="users.html">User Management</a></li>
+                    <li><a href="sso.html">Single Sign-On</a></li>
+                    <li><a href="webhooks.html">Webhooks</a></li>
+                    <li><a href="storage.html">Storage Backends</a></li>
+                    <li><a href="backup.html">Backup & Recovery</a></li>
+                    <li><a href="security.html">Application Security</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>Reference</h3>
+                <ul>
+                    <li><a href="workflow.html">Workflow Configuration</a></li>
+                    <li><a href="case-types.html">Case Types</a></li>
+                    <li><a href="evidence-types.html">Evidence Types</a></li>
+                    <li><a href="compliance.html" class="active">Compliance Timers</a></li>
+                    <li><a href="licenses.html">Third-Party Licenses</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <main class="docs-content">
+            <div class="docs-header">
+                <h1>Compliance Timers</h1>
+                <p class="docs-intro">Track regulatory notification deadlines with countdown timers that help ensure timely compliance with breach notification requirements.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>Overview</h2>
+                <p>Many regulations require organizations to notify authorities or affected individuals within specific timeframes after discovering a security incident. DFIRe helps you track these deadlines with compliance timers.</p>
+
+                <p>Compliance timers are available on incident cases and appear in two places:</p>
+                <ul>
+                    <li><strong>Case sidebar</strong> - Active timers are displayed with progress bars, sorted by urgency</li>
+                    <li><strong>Compliance tab</strong> - Full timer management with start, complete, and reset actions</li>
+                </ul>
+            </div>
+
+            <div class="docs-section">
+                <h2>Preconfigured Timers</h2>
+                <p>DFIRe includes timers for common regulatory frameworks:</p>
+
+                <table class="requirements-table">
+                    <thead>
+                        <tr>
+                            <th>Framework</th>
+                            <th>Timer</th>
+                            <th>Deadline</th>
+                            <th>Authority</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>GDPR (EU)</strong></td>
+                            <td>Data Protection Authority Notification</td>
+                            <td>72 hours</td>
+                            <td>Local DPA (e.g., CNIL, ICO, DPC)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>NIS 2 (EU)</strong></td>
+                            <td>Early Warning Report</td>
+                            <td>24 hours</td>
+                            <td>CSIRT / Competent National Authority</td>
+                        </tr>
+                        <tr>
+                            <td><strong>NIS 2 (EU)</strong></td>
+                            <td>Incident Notification</td>
+                            <td>72 hours</td>
+                            <td>CSIRT / Competent National Authority</td>
+                        </tr>
+                        <tr>
+                            <td><strong>DORA (EU Finance)</strong></td>
+                            <td>Major ICT-Related Incident Report</td>
+                            <td>24 hours</td>
+                            <td>Competent Authority (e.g., Central Bank)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>SEC (US Public)</strong></td>
+                            <td>Form 8-K Filing (Materiality)</td>
+                            <td>4 business days</td>
+                            <td>SEC (EDGAR System)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>CIRCIA (US Critical Infra)</strong></td>
+                            <td>Covered Cyber Incident Report</td>
+                            <td>72 hours</td>
+                            <td>CISA</td>
+                        </tr>
+                        <tr>
+                            <td><strong>CIRCIA (US Critical Infra)</strong></td>
+                            <td>Ransom Payment Report</td>
+                            <td>24 hours</td>
+                            <td>CISA</td>
+                        </tr>
+                        <tr>
+                            <td><strong>NYDFS 500 (US Finance)</strong></td>
+                            <td>Cybersecurity Event Notice</td>
+                            <td>72 hours</td>
+                            <td>Superintendent of Financial Services</td>
+                        </tr>
+                        <tr>
+                            <td><strong>HIPAA (US Health)</strong></td>
+                            <td>Breach Notification</td>
+                            <td>60 days</td>
+                            <td>HHS Secretary &amp; Affected Individuals</td>
+                        </tr>
+                        <tr>
+                            <td><strong>PCI DSS (Global)</strong></td>
+                            <td>Account Data Compromise</td>
+                            <td>24 hours</td>
+                            <td>Payment Brand (Visa/MC) &amp; Acquirer</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p>Each timer includes trigger guidance explaining when the timer should be started, and a reference URL linking to the relevant regulation.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>Using Timers</h2>
+
+                <h3>Starting a Timer</h3>
+                <p>To start a compliance timer on an incident case:</p>
+                <ol class="steps">
+                    <li>
+                        <strong>Navigate to the Compliance tab</strong>
+                        <p>Open the incident case and select the Compliance tab.</p>
+                    </li>
+                    <li>
+                        <strong>Select a timer template</strong>
+                        <p>Available timer templates are listed with their framework, deadline duration, and trigger guidance. Click on a timer to expand and see details.</p>
+                    </li>
+                    <li>
+                        <strong>Click "Start Timer"</strong>
+                        <p>The timer begins counting down immediately from the current time. The deadline is calculated based on the timer's configured duration.</p>
+                    </li>
+                </ol>
+
+                <div class="callout callout-info">
+                    <p><strong>Tip:</strong> Carefully review the trigger guidance before starting a timer. The guidance explains the conditions that trigger the notification requirement, helping you determine the correct moment to start the countdown.</p>
+                </div>
+
+                <h3>Timer States</h3>
+                <p>Active timers progress through the following states:</p>
+                <ul>
+                    <li><strong>In Progress</strong> - Timer is running with time remaining</li>
+                    <li><strong>Warning</strong> - Less than 25% of the time remains</li>
+                    <li><strong>BREACHED</strong> - The deadline has passed without completion</li>
+                    <li><strong>Completed</strong> - The notification was made and the timer was marked complete</li>
+                </ul>
+
+                <h3>Completing a Timer</h3>
+                <p>When you've made the required notification, click <strong>Mark Complete</strong> on the timer. The timer records who completed it and when.</p>
+
+                <div class="callout callout-warning">
+                    <p><strong>Note:</strong> DFIRe does not automatically collect completion details. To document how the notification was made (method, recipient, confirmation), add a timeline event or case note manually. This provides an audit trail of your compliance actions.</p>
+                </div>
+
+                <h3>Resetting a Timer</h3>
+                <p>If a timer was started in error, click <strong>Reset</strong> to restart the countdown from the current time. This does not delete the timer—it restarts the clock.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>Sidebar Display</h2>
+                <p>For incident cases with active timers, a <strong>Compliance Timers</strong> section appears in the case sidebar. This provides at-a-glance visibility of timer status without leaving the current view.</p>
+
+                <p>The sidebar shows:</p>
+                <ul>
+                    <li>Count of active (non-completed) timers</li>
+                    <li>Mini progress bars for up to three timers, sorted by urgency</li>
+                    <li>Time remaining for each timer</li>
+                    <li>Visual warning if any timer is breached (red highlight with pulse effect)</li>
+                </ul>
+
+                <p>Click the sidebar section to navigate directly to the Compliance tab.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>Notifications via Webhooks</h2>
+                <p>DFIRe does not include built-in email notifications for compliance timers. Instead, use <a href="webhooks.html">outgoing webhooks</a> to notify stakeholders when timers reach critical thresholds.</p>
+
+                <p>Available webhook trigger events for compliance timers:</p>
+                <table class="requirements-table">
+                    <thead>
+                        <tr>
+                            <th>Event</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Timer at 50% (Half Time Warning)</strong></td>
+                            <td>Timer has reached 50% elapsed time</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Timer at 25% (Quarter Time Warning)</strong></td>
+                            <td>Timer has reached 75% elapsed (25% remaining)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Timer at 10% (Critical Warning)</strong></td>
+                            <td>Timer has reached 90% elapsed (10% remaining)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Timer Breached (Deadline Passed)</strong></td>
+                            <td>Timer deadline has passed without completion</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p>Webhook payloads include timer details such as name, framework, deadline, and time remaining. See <a href="webhooks.html#payload-templates">Webhook Payload Templates</a> for the full list of available <code>TIMER.*</code> variables.</p>
+
+                <h3>Example: Pushover Alert at 50%</h3>
+                <p>Create a webhook to send a push notification when any timer reaches 50%:</p>
+                <ul>
+                    <li>Trigger event: <strong>Timer at 50% (Half Time Warning)</strong></li>
+                    <li>Endpoint: Pushover, PagerDuty, Slack, or your alerting system</li>
+                    <li>Payload template using <code>{{timer.name}}</code>, <code>{{timer.time_remaining_seconds}}</code>, and <code>{{meta.case_url}}</code></li>
+                </ul>
+            </div>
+
+            <div class="docs-section">
+                <h2>Custom Timer Templates</h2>
+                <p>Create organization-specific timers for internal policies or regulations not included in the defaults.</p>
+
+                <h3>Creating a Timer Template</h3>
+                <ol class="steps">
+                    <li>
+                        <strong>Go to Settings &gt; Workflow &gt; Compliance Timers</strong>
+                    </li>
+                    <li>
+                        <strong>Click "Add Compliance Timer"</strong>
+                    </li>
+                    <li>
+                        <strong>Configure the timer</strong>
+                        <ul>
+                            <li><strong>Timer ID:</strong> Unique identifier (e.g., <code>timer_internal_legal</code>). Cannot be changed after creation.</li>
+                            <li><strong>Framework:</strong> Regulation or policy name (e.g., "Internal Policy")</li>
+                            <li><strong>Timer Name:</strong> Descriptive name shown to users</li>
+                            <li><strong>Duration (Hours):</strong> Time until deadline</li>
+                            <li><strong>Business days only:</strong> Check if weekends/holidays should be excluded</li>
+                            <li><strong>Authority Name:</strong> Who must be notified</li>
+                            <li><strong>Trigger Guidance:</strong> When this timer should be started</li>
+                            <li><strong>Reference URL:</strong> Link to policy or regulation documentation</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>Save the timer</strong>
+                        <p>The timer is immediately available to add to incident cases.</p>
+                    </li>
+                </ol>
+
+                <div class="callout callout-info">
+                    <p><strong>Examples of custom timers:</strong></p>
+                    <ul>
+                        <li>"Notify Legal" - 4 hours - Internal escalation requirement</li>
+                        <li>"Executive Briefing" - 24 hours - Management notification</li>
+                        <li>"Insurance Carrier" - 48 hours - Cyber insurance notification clause</li>
+                        <li>"Customer Notification" - 7 days - Contractual SLA requirement</li>
+                    </ul>
+                </div>
+
+                <h3>Editing and Deleting Timers</h3>
+                <p>Timer templates can be edited or deleted from Settings &gt; Workflow &gt; Compliance Timers. Deleting a template does not affect timers already active on cases—they continue running with their original settings.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>Best Practices</h2>
+
+                <h3>When to Start Timers</h3>
+                <ul>
+                    <li><strong>Read the trigger guidance</strong> - Each timer includes guidance on when the clock should start</li>
+                    <li><strong>Document your reasoning</strong> - Add a timeline event explaining why you started the timer at this moment</li>
+                    <li><strong>Start conservatively</strong> - If uncertain, start the timer earlier rather than later</li>
+                </ul>
+
+                <h3>Documenting Compliance</h3>
+                <ul>
+                    <li><strong>Add timeline events</strong> for key compliance milestones (notification sent, confirmation received)</li>
+                    <li><strong>Attach documentation</strong> such as notification emails, portal screenshots, or confirmation receipts</li>
+                    <li><strong>Record contact details</strong> in case notes (who was notified, via what channel)</li>
+                </ul>
+
+                <h3>Multiple Timers</h3>
+                <p>A single incident may trigger multiple notification requirements. For example, a data breach affecting EU citizens and US healthcare data might require:</p>
+                <ul>
+                    <li>GDPR DPA notification (72 hours)</li>
+                    <li>HIPAA breach notification (60 days)</li>
+                    <li>Internal legal notification (4 hours)</li>
+                </ul>
+                <p>Start all applicable timers to track each requirement independently.</p>
+            </div>
+
+            <nav class="docs-nav">
+                <a href="evidence-types.html" class="docs-nav-link prev">
+                    <span class="docs-nav-label">Previous</span>
+                    <span class="docs-nav-title">Evidence Types</span>
+                </a>
+                <a href="licenses.html" class="docs-nav-link next">
+                    <span class="docs-nav-label">Next</span>
+                    <span class="docs-nav-title">Third-Party Licenses</span>
+                </a>
+            </nav>
+        </main>
+    </div>
+
+    <footer class="docs-footer">
+        <div class="container">
+            <p>&copy; 2026 Tmi Antti Kurittu. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const navToggle = document.querySelector('.nav-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        navToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            navToggle.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

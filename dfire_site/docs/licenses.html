@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Third-Party Licenses - DFIRe Documentation</title>
+    <meta name="description" content="Open source licenses and attributions for third-party software used in DFIRe.">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="docs.css">
+    <link rel="icon" type="image/png" href="../assets/logo.png">
+</head>
+<body>
+    <nav class="nav scrolled">
+        <div class="nav-container">
+            <a href="../" class="nav-logo">
+                <img src="../assets/logo.png" alt="DFIRe" class="logo-img">
+                <span class="logo-text">Documentation</span>
+            </a>
+            <div class="nav-links">
+                <a href="../#features">Features</a>
+                <a href="../#pricing">Pricing</a>
+                <a href="../#installation">Installation</a>
+                <a href="./" class="active">Docs</a>
+                <a href="../#contact">Contact</a>
+            </div>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="docs-layout">
+        <aside class="docs-sidebar">
+            <div class="sidebar-section">
+                <h3>Getting Started</h3>
+                <ul>
+                    <li><a href="getting-started.html">Quick Start Guide</a></li>
+                    <li><a href="deployment.html">Deployment</a></li>
+                    <li><a href="configuration.html">Configuration</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>User Guide</h3>
+                <ul>
+                    <li><a href="cases.html">Case Management</a></li>
+                    <li><a href="evidence.html">Evidence Tracking</a></li>
+                    <li><a href="incidents.html">Incident Response</a></li>
+                    <li><a href="reports.html">Reports</a></li>
+                    <li><a href="timeline.html">Timeline</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>Administration</h3>
+                <ul>
+                    <li><a href="users.html">User Management</a></li>
+                    <li><a href="sso.html">Single Sign-On</a></li>
+                    <li><a href="webhooks.html">Webhooks</a></li>
+                    <li><a href="storage.html">Storage Backends</a></li>
+                    <li><a href="backup.html">Backup & Recovery</a></li>
+                    <li><a href="security.html">Application Security</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>Reference</h3>
+                <ul>
+                    <li><a href="workflow.html">Workflow Configuration</a></li>
+                    <li><a href="case-types.html">Case Types</a></li>
+                    <li><a href="evidence-types.html">Evidence Types</a></li>
+                    <li><a href="compliance.html">Compliance Timers</a></li>
+                    <li><a href="licenses.html" class="active">Third-Party Licenses</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <main class="docs-content">
+            <div class="docs-header">
+                <h1>Third-Party Licenses</h1>
+                <p class="docs-intro">DFIRe is built using open source software. This page lists the third-party libraries and their licenses.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>License Summary</h2>
+                <p>DFIRe uses only open source libraries with licenses that permit commercial use. The following license types are used by our dependencies:</p>
+
+                <table class="requirements-table">
+                    <thead>
+                        <tr>
+                            <th>License</th>
+                            <th>Type</th>
+                            <th>Commercial Use</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>MIT</td>
+                            <td>Permissive</td>
+                            <td>Allowed</td>
+                        </tr>
+                        <tr>
+                            <td>BSD (2-Clause, 3-Clause)</td>
+                            <td>Permissive</td>
+                            <td>Allowed</td>
+                        </tr>
+                        <tr>
+                            <td>Apache 2.0</td>
+                            <td>Permissive</td>
+                            <td>Allowed</td>
+                        </tr>
+                        <tr>
+                            <td>ISC</td>
+                            <td>Permissive</td>
+                            <td>Allowed</td>
+                        </tr>
+                        <tr>
+                            <td>MPL 2.0</td>
+                            <td>Weak Copyleft</td>
+                            <td>Allowed</td>
+                        </tr>
+                        <tr>
+                            <td>LGPL 3.0</td>
+                            <td>Weak Copyleft</td>
+                            <td>Allowed (see note below)</td>
+                        </tr>
+                        <tr>
+                            <td>PSF (Python)</td>
+                            <td>Permissive</td>
+                            <td>Allowed</td>
+                        </tr>
+                        <tr>
+                            <td>ZPL 2.1</td>
+                            <td>Permissive</td>
+                            <td>Allowed</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="callout callout-info">
+                    <p><strong>LGPL Note:</strong> The psycopg2 PostgreSQL driver is licensed under LGPL 3.0. Under LGPL terms, you may use this library in commercial applications without releasing your own source code, provided you do not modify the library itself. DFIRe uses psycopg2 as an unmodified dependency.</p>
+                </div>
+            </div>
+
+            <div class="docs-section">
+                <h2>Backend Dependencies (Python)</h2>
+                <p>The DFIRe backend is built with Python and uses the following key libraries:</p>
+
+                <h3>Web Framework</h3>
+                <table class="requirements-table">
+                    <thead>
+                        <tr>
+                            <th>Package</th>
+                            <th>License</th>
+                            <th>Purpose</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><a href="https://www.djangoproject.com/" target="_blank" rel="noopener">Django</a></td>
+                            <td>BSD-3-Clause</td>
+                            <td>Web framework</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://www.django-rest-framework.org/" target="_blank" rel="noopener">Django REST Framework</a></td>
+                            <td>BSD-3-Clause</td>
+                            <td>REST API</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://channels.readthedocs.io/" target="_blank" rel="noopener">Django Channels</a></td>
+                            <td>BSD-3-Clause</td>
+                            <td>WebSocket support</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://github.com/django/daphne" target="_blank" rel="noopener">Daphne</a></td>
+                            <td>BSD-3-Clause</td>
+                            <td>ASGI server</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Database & Caching</h3>
+                <table class="requirements-table">
+                    <thead>
+                        <tr>
+                            <th>Package</th>
+                            <th>License</th>
+                            <th>Purpose</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><a href="https://www.psycopg.org/" target="_blank" rel="noopener">psycopg2</a></td>
+                            <td>LGPL-3.0</td>
+                            <td>PostgreSQL driver</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://redis-py.readthedocs.io/" target="_blank" rel="noopener">redis-py</a></td>
+                            <td>MIT</td>
+                            <td>Redis client</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://github.com/django-q2/django-q2" target="_blank" rel="noopener">Django-Q2</a></td>
+                            <td>MIT</td>
+                            <td>Background task queue</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Security & Authentication</h3>
+                <table class="requirements-table">
+                    <thead>
+                        <tr>
+                            <th>Package</th>
+                            <th>License</th>
+                            <th>Purpose</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><a href="https://cryptography.io/" target="_blank" rel="noopener">cryptography</a></td>
+                            <td>Apache-2.0 / BSD</td>
+                            <td>Encryption primitives</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://mozilla-django-oidc.readthedocs.io/" target="_blank" rel="noopener">mozilla-django-oidc</a></td>
+                            <td>MPL-2.0</td>
+                            <td>OpenID Connect authentication</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://pyjwt.readthedocs.io/" target="_blank" rel="noopener">PyJWT</a></td>
+                            <td>MIT</td>
+                            <td>JSON Web Token handling</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://www.pyopenssl.org/" target="_blank" rel="noopener">pyOpenSSL</a></td>
+                            <td>Apache-2.0</td>
+                            <td>TLS/SSL support</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Storage & Cloud</h3>
+                <table class="requirements-table">
+                    <thead>
+                        <tr>
+                            <th>Package</th>
+                            <th>License</th>
+                            <th>Purpose</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><a href="https://boto3.amazonaws.com/v1/documentation/api/latest/index.html" target="_blank" rel="noopener">boto3</a></td>
+                            <td>Apache-2.0</td>
+                            <td>AWS/S3-compatible storage</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://django-storages.readthedocs.io/" target="_blank" rel="noopener">django-storages</a></td>
+                            <td>BSD-3-Clause</td>
+                            <td>Storage backend abstraction</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://github.com/jborber/smbprotocol" target="_blank" rel="noopener">smbprotocol</a></td>
+                            <td>MIT</td>
+                            <td>SMB/CIFS file sharing</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Data Processing</h3>
+                <table class="requirements-table">
+                    <thead>
+                        <tr>
+                            <th>Package</th>
+                            <th>License</th>
+                            <th>Purpose</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><a href="https://pillow.readthedocs.io/" target="_blank" rel="noopener">Pillow</a></td>
+                            <td>HPND</td>
+                            <td>Image processing</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://docs.pydantic.dev/" target="_blank" rel="noopener">Pydantic</a></td>
+                            <td>MIT</td>
+                            <td>Data validation</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://requests.readthedocs.io/" target="_blank" rel="noopener">Requests</a></td>
+                            <td>Apache-2.0</td>
+                            <td>HTTP client</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://www.encode.io/httpx/" target="_blank" rel="noopener">HTTPX</a></td>
+                            <td>BSD-3-Clause</td>
+                            <td>Async HTTP client</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Networking</h3>
+                <table class="requirements-table">
+                    <thead>
+                        <tr>
+                            <th>Package</th>
+                            <th>License</th>
+                            <th>Purpose</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><a href="https://twisted.org/" target="_blank" rel="noopener">Twisted</a></td>
+                            <td>MIT</td>
+                            <td>Async networking</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://autobahn.readthedocs.io/" target="_blank" rel="noopener">Autobahn</a></td>
+                            <td>MIT</td>
+                            <td>WebSocket implementation</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://zopeinterface.readthedocs.io/" target="_blank" rel="noopener">zope.interface</a></td>
+                            <td>ZPL-2.1</td>
+                            <td>Interface definitions</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="docs-section">
+                <h2>Frontend Dependencies (JavaScript)</h2>
+                <p>The DFIRe frontend is a React single-page application using the following libraries:</p>
+
+                <h3>Core Framework</h3>
+                <table class="requirements-table">
+                    <thead>
+                        <tr>
+                            <th>Package</th>
+                            <th>License</th>
+                            <th>Purpose</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><a href="https://react.dev/" target="_blank" rel="noopener">React</a></td>
+                            <td>MIT</td>
+                            <td>UI framework</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://reactrouter.com/" target="_blank" rel="noopener">React Router</a></td>
+                            <td>MIT</td>
+                            <td>Client-side routing</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://tanstack.com/query" target="_blank" rel="noopener">TanStack Query</a></td>
+                            <td>MIT</td>
+                            <td>Server state management</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Styling & UI</h3>
+                <table class="requirements-table">
+                    <thead>
+                        <tr>
+                            <th>Package</th>
+                            <th>License</th>
+                            <th>Purpose</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><a href="https://tailwindcss.com/" target="_blank" rel="noopener">Tailwind CSS</a></td>
+                            <td>MIT</td>
+                            <td>Utility-first CSS framework</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://lucide.dev/" target="_blank" rel="noopener">Lucide React</a></td>
+                            <td>ISC</td>
+                            <td>Icon library</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://recharts.org/" target="_blank" rel="noopener">Recharts</a></td>
+                            <td>MIT</td>
+                            <td>Charting library</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Data & HTTP</h3>
+                <table class="requirements-table">
+                    <thead>
+                        <tr>
+                            <th>Package</th>
+                            <th>License</th>
+                            <th>Purpose</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><a href="https://axios-http.com/" target="_blank" rel="noopener">Axios</a></td>
+                            <td>MIT</td>
+                            <td>HTTP client</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://date-fns.org/" target="_blank" rel="noopener">date-fns</a></td>
+                            <td>MIT</td>
+                            <td>Date manipulation</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Content & Security</h3>
+                <table class="requirements-table">
+                    <thead>
+                        <tr>
+                            <th>Package</th>
+                            <th>License</th>
+                            <th>Purpose</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><a href="https://github.com/cure53/DOMPurify" target="_blank" rel="noopener">DOMPurify</a></td>
+                            <td>Apache-2.0 / MPL-2.0</td>
+                            <td>HTML sanitization</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://github.com/remarkjs/react-markdown" target="_blank" rel="noopener">react-markdown</a></td>
+                            <td>MIT</td>
+                            <td>Markdown rendering</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Build Tools</h3>
+                <table class="requirements-table">
+                    <thead>
+                        <tr>
+                            <th>Package</th>
+                            <th>License</th>
+                            <th>Purpose</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><a href="https://vitejs.dev/" target="_blank" rel="noopener">Vite</a></td>
+                            <td>MIT</td>
+                            <td>Build tool & dev server</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://www.typescriptlang.org/" target="_blank" rel="noopener">TypeScript</a></td>
+                            <td>Apache-2.0</td>
+                            <td>Type checking</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://eslint.org/" target="_blank" rel="noopener">ESLint</a></td>
+                            <td>MIT</td>
+                            <td>Code linting</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://vitest.dev/" target="_blank" rel="noopener">Vitest</a></td>
+                            <td>MIT</td>
+                            <td>Testing framework</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="docs-section">
+                <h2>Runtime Dependencies</h2>
+                <p>DFIRe runs on the following open source infrastructure components:</p>
+
+                <table class="requirements-table">
+                    <thead>
+                        <tr>
+                            <th>Component</th>
+                            <th>License</th>
+                            <th>Purpose</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><a href="https://www.python.org/" target="_blank" rel="noopener">Python</a></td>
+                            <td>PSF License</td>
+                            <td>Backend runtime</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://nodejs.org/" target="_blank" rel="noopener">Node.js</a></td>
+                            <td>MIT</td>
+                            <td>Frontend build</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://www.postgresql.org/" target="_blank" rel="noopener">PostgreSQL</a></td>
+                            <td>PostgreSQL License</td>
+                            <td>Database</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://redis.io/" target="_blank" rel="noopener">Redis</a></td>
+                            <td>BSD-3-Clause</td>
+                            <td>Caching & message broker</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://nginx.org/" target="_blank" rel="noopener">Nginx</a></td>
+                            <td>BSD-2-Clause</td>
+                            <td>Web server (production)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="docs-section">
+                <h2>License Compliance</h2>
+                <p>DFIRe complies with all license requirements of its dependencies:</p>
+
+                <ul>
+                    <li><strong>Attribution:</strong> This page provides attribution as required by BSD, MIT, and Apache licenses.</li>
+                    <li><strong>Source availability:</strong> All dependencies are available from their respective package registries (PyPI, npm) or source repositories.</li>
+                    <li><strong>No modification:</strong> DFIRe uses all dependencies as unmodified libraries, satisfying LGPL requirements without source disclosure obligations.</li>
+                    <li><strong>License texts:</strong> Full license texts are included in the respective packages and available from the links above.</li>
+                </ul>
+
+                <div class="callout callout-info">
+                    <p><strong>Questions?</strong> If you have questions about licensing or need additional compliance documentation, please contact us at <a href="mailto:contact@dfire.fi">contact@dfire.fi</a>.</p>
+                </div>
+            </div>
+
+            <nav class="docs-nav">
+                <a href="compliance.html" class="docs-nav-link prev">
+                    <span class="docs-nav-label">Previous</span>
+                    <span class="docs-nav-title">Compliance Timers</span>
+                </a>
+                <a href="getting-started.html" class="docs-nav-link next">
+                    <span class="docs-nav-label">Next</span>
+                    <span class="docs-nav-title">Quick Start Guide</span>
+                </a>
+            </nav>
+        </main>
+    </div>
+
+    <footer class="docs-footer">
+        <div class="container">
+            <p>&copy; 2026 Tmi Antti Kurittu. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const navToggle = document.querySelector('.nav-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        navToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            navToggle.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

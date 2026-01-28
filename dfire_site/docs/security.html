@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application Security - DFIRe Documentation</title>
+    <meta name="description" content="Technical overview of DFIRe's security architecture including authentication, encryption, and access controls.">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="docs.css">
+    <link rel="icon" type="image/png" href="../assets/logo.png">
+</head>
+<body>
+    <nav class="nav scrolled">
+        <div class="nav-container">
+            <a href="../" class="nav-logo">
+                <img src="../assets/logo.png" alt="DFIRe" class="logo-img">
+                <span class="logo-text">Documentation</span>
+            </a>
+            <div class="nav-links">
+                <a href="../#features">Features</a>
+                <a href="../#pricing">Pricing</a>
+                <a href="../#installation">Installation</a>
+                <a href="./" class="active">Docs</a>
+                <a href="../#contact">Contact</a>
+            </div>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="docs-layout">
+        <aside class="docs-sidebar">
+            <div class="sidebar-section">
+                <h3>Getting Started</h3>
+                <ul>
+                    <li><a href="getting-started.html">Quick Start Guide</a></li>
+                    <li><a href="deployment.html">Deployment</a></li>
+                    <li><a href="configuration.html">Configuration</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>User Guide</h3>
+                <ul>
+                    <li><a href="cases.html">Case Management</a></li>
+                    <li><a href="evidence.html">Evidence Tracking</a></li>
+                    <li><a href="incidents.html">Incident Response</a></li>
+                    <li><a href="reports.html">Reports</a></li>
+                    <li><a href="timeline.html">Timeline</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>Administration</h3>
+                <ul>
+                    <li><a href="users.html">User Management</a></li>
+                    <li><a href="sso.html">Single Sign-On</a></li>
+                    <li><a href="webhooks.html">Webhooks</a></li>
+                    <li><a href="storage.html">Storage Backends</a></li>
+                    <li><a href="backup.html">Backup & Recovery</a></li>
+                    <li><a href="security.html" class="active">Application Security</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>Reference</h3>
+                <ul>
+                    <li><a href="workflow.html">Workflow Configuration</a></li>
+                    <li><a href="case-types.html">Case Types</a></li>
+                    <li><a href="evidence-types.html">Evidence Types</a></li>
+                    <li><a href="compliance.html">Compliance Timers</a></li>
+                    <li><a href="licenses.html">Third-Party Licenses</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <main class="docs-content">
+            <div class="docs-header">
+                <h1>Application Security</h1>
+                <p class="docs-intro">Technical overview of DFIRe's security architecture, including authentication, encryption at rest, and role-based access controls.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>Security Overview</h2>
+                <p>DFIRe is designed for handling sensitive forensic and incident response data. The application implements defense-in-depth with multiple security layers.</p>
+
+                <table class="requirements-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Implementation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Authentication</td>
+                            <td>Session-based with OIDC SSO support</td>
+                        </tr>
+                        <tr>
+                            <td>File Encryption</td>
+                            <td>AES-256-GCM with three-layer key hierarchy</td>
+                        </tr>
+                        <tr>
+                            <td>Credential Storage</td>
+                            <td>Fernet encryption (AES-128-CBC + HMAC-SHA256)</td>
+                        </tr>
+                        <tr>
+                            <td>Access Control</td>
+                            <td>Two-tier RBAC (global + case-scoped)</td>
+                        </tr>
+                        <tr>
+                            <td>Session Management</td>
+                            <td>Database-backed with O(1) revocation</td>
+                        </tr>
+                        <tr>
+                            <td>CSRF Protection</td>
+                            <td>Double-submit cookie pattern</td>
+                        </tr>
+                        <tr>
+                            <td>Rate Limiting</td>
+                            <td>Configurable per-endpoint throttling</td>
+                        </tr>
+                        <tr>
+                            <td>Audit Logging</td>
+                            <td>Immutable, fail-closed audit trail</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="docs-section">
+                <h2>Infrastructure Security Responsibility</h2>
+
+                <div class="callout callout-danger">
+                    <p><strong>Important:</strong> The security features documented on this page secure the DFIRe application itself. You are solely responsible for securing your underlying infrastructure, including the database, file storage, and network access.</p>
+                </div>
+
+                <p>DFIRe is designed as a <strong>user interface layer</strong> that operates on data you own and control. When deployed for production, DFIRe does not include a database or file storage system - you must provide these yourself. This separation is intentional: database security requirements vary significantly between organizations, and DFIRe allows you to choose the solution that fits your needs - whether that's an on-premise PostgreSQL cluster, a managed Database-as-a-Service, or another configuration.</p>
+
+                <h3>What DFIRe Secures</h3>
+                <ul>
+                    <li>Application-layer authentication and session management</li>
+                    <li>Role-based access control within the application</li>
+                    <li>Encryption of file attachments before storage</li>
+                    <li>Encryption of stored credentials (API keys, SSO secrets)</li>
+                    <li>CSRF protection and rate limiting</li>
+                    <li>Audit logging of user actions</li>
+                </ul>
+
+                <h3>What You Must Secure</h3>
+                <table class="requirements-table">
+                    <thead>
+                        <tr>
+                            <th>Component</th>
+                            <th>Your Responsibility</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>PostgreSQL Database</strong></td>
+                            <td>Access control, authentication, encryption at rest, backups, replication, network isolation. <strong>Case data is stored in plaintext</strong> in the database for performance and full-text search capability.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>File Storage</strong></td>
+                            <td>Access control, redundancy, backups. Files are encrypted by DFIRe before storage, but you control the storage infrastructure.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Network Access</strong></td>
+                            <td>Firewall rules, TLS termination, VPN/private network configuration, load balancing, DDoS protection.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Server Infrastructure</strong></td>
+                            <td>Operating system security, container runtime security, resource limits, monitoring, patching.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Backup &amp; Recovery</strong></td>
+                            <td>Database backups, file storage backups, encryption key backups, disaster recovery procedures.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Compliance</strong></td>
+                            <td>Ensuring the data you store complies with applicable regulations (GDPR, HIPAA, etc.) and that your infrastructure meets compliance requirements.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>High-Security Environments</h3>
+                <p>For organizations with strict security requirements:</p>
+                <ul>
+                    <li><strong>Air-gapped deployment:</strong> DFIRe supports offline licensing for networks without internet access</li>
+                    <li><strong>Network isolation:</strong> Deploy DFIRe in a dedicated VLAN or private network segment</li>
+                    <li><strong>Database encryption:</strong> Enable PostgreSQL's Transparent Data Encryption (TDE) or use encrypted storage volumes</li>
+                    <li><strong>Access logging:</strong> Configure database audit logging in addition to DFIRe's application-level audit trail</li>
+                    <li><strong>Zero-trust architecture:</strong> Require VPN or identity-aware proxy for all access to DFIRe</li>
+                </ul>
+
+                <p>See the End User License Agreement included with DFIRe for the complete terms regarding infrastructure and data security responsibilities.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>Authentication</h2>
+                <p>DFIRe uses session-based authentication with support for both local credentials and federated identity via OpenID Connect (OIDC).</p>
+
+                <h3>Session Management</h3>
+                <p>Sessions are managed using Django's database-backed session framework with additional tracking for security:</p>
+                <ul>
+                    <li><strong>Session storage:</strong> PostgreSQL database (not cookies or file-based)</li>
+                    <li><strong>Session tracking:</strong> UserSession model tracks active sessions per user</li>
+                    <li><strong>Session metadata:</strong> IP address and user-agent recorded for each session</li>
+                    <li><strong>O(1) revocation:</strong> Instant invalidation of all user sessions (e.g., on password change)</li>
+                    <li><strong>Cookie security:</strong> HttpOnly, SameSite=Lax, Secure flags in production</li>
+                </ul>
+
+                <h3>Local Authentication</h3>
+                <p>For users without SSO, DFIRe provides username/password authentication:</p>
+                <ul>
+                    <li><strong>Password policy:</strong> Minimum 12 characters with complexity requirements</li>
+                    <li><strong>Password storage:</strong> PBKDF2-SHA256 with per-user salt (Django default)</li>
+                    <li><strong>Login rate limiting:</strong> 5 attempts per minute per IP</li>
+                    <li><strong>Session invalidation:</strong> All sessions revoked on password change</li>
+                </ul>
+
+                <h3>OIDC Single Sign-On</h3>
+                <p>DFIRe supports federated authentication via OpenID Connect, allowing integration with enterprise identity providers:</p>
+
+                <table class="requirements-table">
+                    <thead>
+                        <tr>
+                            <th>Provider</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Microsoft Entra ID (Azure AD)</td>
+                            <td>Tested</td>
+                        </tr>
+                        <tr>
+                            <td>Google Workspace</td>
+                            <td>Tested</td>
+                        </tr>
+                        <tr>
+                            <td>Okta</td>
+                            <td>Supported</td>
+                        </tr>
+                        <tr>
+                            <td>Auth0</td>
+                            <td>Tested</td>
+                        </tr>
+                        <tr>
+                            <td>Any OIDC-compliant IdP</td>
+                            <td>Supported</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4>OIDC Flow</h4>
+                <ol>
+                    <li>User selects SSO provider on login page</li>
+                    <li>Browser redirects to identity provider's authorization endpoint</li>
+                    <li>User authenticates with the identity provider</li>
+                    <li>IdP redirects back with authorization code</li>
+                    <li>DFIRe exchanges code for tokens via back-channel</li>
+                    <li>Claims extracted from ID token (email, name, phone, picture)</li>
+                    <li>User matched by (provider_id, subject) or email fallback</li>
+                    <li>Session created and user redirected to dashboard</li>
+                </ol>
+
+                <h4>User Provisioning</h4>
+                <p>When a user first authenticates via OIDC:</p>
+                <ul>
+                    <li>Account is automatically created from OIDC claims</li>
+                    <li>Default group assigned based on provider configuration</li>
+                    <li>Profile picture downloaded if provided by IdP</li>
+                    <li>OIDC identity (provider + subject) stored for future logins</li>
+                </ul>
+
+                <p>See <a href="sso.html">Single Sign-On</a> for configuration instructions.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>Encryption at Rest</h2>
+                <p>DFIRe encrypts all sensitive data at rest using a three-layer key hierarchy. This design ensures that data compromise requires access to multiple keys, and deletion of any key renders associated data permanently unreadable.</p>
+
+                <h3>Key Hierarchy</h3>
+                <pre><code>Tenant Master Key (32-byte, generated once)
+    └── Entity Key (per Case or Evidence Item)
+            └── File Key (derived per attachment)</code></pre>
+
+                <table class="requirements-table">
+                    <thead>
+                        <tr>
+                            <th>Layer</th>
+                            <th>Storage</th>
+                            <th>Purpose</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Tenant Master Key</strong></td>
+                            <td>Database (Tenant.encryption_key)</td>
+                            <td>Root key for all tenant data</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Entity Key</strong></td>
+                            <td>Database (Case/Item.encryption_key)</td>
+                            <td>Per-case/item isolation</td>
+                        </tr>
+                        <tr>
+                            <td><strong>File Key</strong></td>
+                            <td>Derived at runtime</td>
+                            <td>Unique per attachment</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>File Key Derivation</h3>
+                <p>Each attachment has a unique encryption key derived using HKDF-SHA256:</p>
+                <pre><code>1. intermediate = HKDF(salt=tenant_key, ikm=entity_key, info="dfire-entity-derivation")
+2. file_key = HKDF(salt=file_salt, ikm=intermediate, info="dfire-file-encryption")</code></pre>
+
+                <p>The <code>file_salt</code> is a random 16-byte value generated for each attachment and stored alongside the encrypted file. This ensures every file has a unique key even within the same case.</p>
+
+                <h3>File Encryption (Attachments &amp; Photos)</h3>
+                <p>All file attachments and photos are encrypted using AES-256-GCM:</p>
+
+                <table class="requirements-table">
+                    <thead>
+                        <tr>
+                            <th>Property</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Algorithm</td>
+                            <td>AES-256-GCM (authenticated encryption)</td>
+                        </tr>
+                        <tr>
+                            <td>Chunk size</td>
+                            <td>8MB plaintext per chunk</td>
+                        </tr>
+                        <tr>
+                            <td>Nonce</td>
+                            <td>12 bytes, derived from chunk index</td>
+                        </tr>
+                        <tr>
+                            <td>Auth tag</td>
+                            <td>16 bytes per chunk</td>
+                        </tr>
+                        <tr>
+                            <td>Streaming</td>
+                            <td>Yes - supports files of any size</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p>The chunked design enables:</p>
+                <ul>
+                    <li>Streaming encryption/decryption without buffering entire files in memory</li>
+                    <li>Compatibility with S3 multipart uploads</li>
+                    <li>Resumable uploads (same key derivation produces same key)</li>
+                    <li>Parallel chunk processing</li>
+                </ul>
+
+                <div class="callout callout-warning">
+                    <p><strong>Data Deletion:</strong> Deleting a tenant, case, or evidence item permanently destroys the associated encryption key. All attachments encrypted with that key become unreadable with no recovery mechanism. This is by design for secure data disposal.</p>
+                </div>
+
+                <h3>Credential Encryption</h3>
+                <p>Stored credentials (API keys, webhook secrets, SSO client secrets) are encrypted using a separate key:</p>
+
+                <table class="requirements-table">
+                    <thead>
+                        <tr>
+                            <th>Property</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Algorithm</td>
+                            <td>Fernet (AES-128-CBC + HMAC-SHA256)</td>
+                        </tr>
+                        <tr>
+                            <td>Key source</td>
+                            <td>CREDENTIAL_ENCRYPTION_KEY environment variable</td>
+                        </tr>
+                        <tr>
+                            <td>Field types</td>
+                            <td>EncryptedCharField, EncryptedJSONField</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p>Encrypted database fields include:</p>
+                <ul>
+                    <li>OIDC client secrets</li>
+                    <li>Slack bot tokens and signing secrets</li>
+                    <li>Webhook signing keys</li>
+                    <li>License server credentials</li>
+                    <li>S3/SMB storage credentials</li>
+                </ul>
+
+                <div class="callout callout-info">
+                    <p><strong>Key Separation:</strong> The <code>CREDENTIAL_ENCRYPTION_KEY</code> is separate from the tenant's file encryption keys. This means database credential encryption is independent of file storage encryption.</p>
+                </div>
+            </div>
+
+            <div class="docs-section">
+                <h2>Role-Based Access Control (RBAC)</h2>
+                <p>DFIRe implements a two-tier RBAC model: global permissions control what actions a user can perform, while case-scoped access controls which cases they can access.</p>
+
+                <h3>Permission Architecture</h3>
+                <pre><code>Can user X perform operation Y on case Z?
+│
+├─ Is user a superuser?
+│  └─ YES → Allow (bypasses all checks)
+│
+├─ Does user have the atomic permission for Y?
+│  └─ NO → Deny
+│
+├─ Does user have global override (view_all/edit_all)?
+│  └─ YES → Allow
+│
+├─ Is user assigned to case Z?
+│  ├─ Lead Investigator → Allow
+│  ├─ Investigator → Allow (write operations)
+│  └─ Viewer → Allow (read-only operations)
+│
+└─ NO → Deny (no access to this case)</code></pre>
+
+                <h3>User Types</h3>
+                <table class="requirements-table">
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Superuser</strong></td>
+                            <td>Bypasses all permission checks. Has access to system-critical settings (Tenant, Storage, SSO, Collaboration). Should be limited to system administrators.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Regular User</strong></td>
+                            <td>Permissions determined by assigned Django permissions (typically via groups). Case access determined by assignment.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Case Roles</h3>
+                <table class="requirements-table">
+                    <thead>
+                        <tr>
+                            <th>Role</th>
+                            <th>Capabilities</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Lead Investigator</strong></td>
+                            <td>Full control: edit case, manage team, delete case, close case</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Investigator</strong></td>
+                            <td>Edit access: add/edit evidence, notes, attachments, timeline events</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Viewer</strong></td>
+                            <td>Read-only access to case and all its contents</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Global Override Permissions</h3>
+                <table class="requirements-table">
+                    <thead>
+                        <tr>
+                            <th>Permission</th>
+                            <th>Effect</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>core.view_all_cases</code></td>
+                            <td>View any case regardless of assignment</td>
+                        </tr>
+                        <tr>
+                            <td><code>core.edit_all_cases</code></td>
+                            <td>Edit any case regardless of assignment</td>
+                        </tr>
+                        <tr>
+                            <td><code>core.view_archived_cases</code></td>
+                            <td>View archived cases (required in addition to other access)</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Settings Access</h3>
+                <p>Access to System Settings is controlled by user type and specific permissions:</p>
+
+                <h4>Superuser-Only Settings</h4>
+                <ul>
+                    <li>Tenant Configuration</li>
+                    <li>Storage Backend</li>
+                    <li>SSO/OIDC Configuration</li>
+                    <li>Collaboration (Slack)</li>
+                    <li>Configuration Import/Export</li>
+                </ul>
+
+                <h4>Delegatable Settings</h4>
+                <p>Accessible to users with <code>core.change_tenant</code> plus the relevant atomic permission:</p>
+                <ul>
+                    <li>Webhooks</li>
+                    <li>User Accounts</li>
+                    <li>Case Types &amp; Evidence Types</li>
+                    <li>Workflow Steps &amp; Incident Phases</li>
+                    <li>Compliance Timers</li>
+                    <li>Flags</li>
+                </ul>
+
+                <h3>Write Protection</h3>
+                <p>Closed and archived cases are write-protected:</p>
+                <ul>
+                    <li><strong>Closed:</strong> Case is read-only, can be reopened by Lead Investigator</li>
+                    <li><strong>Archived:</strong> Case is permanently read-only, requires <code>view_archived_cases</code> permission to view</li>
+                </ul>
+            </div>
+
+            <div class="docs-section">
+                <h2>Additional Security Controls</h2>
+
+                <h3>CSRF Protection</h3>
+                <p>Cross-Site Request Forgery protection uses the double-submit cookie pattern:</p>
+                <ul>
+                    <li>CSRF token set in cookie (<code>csrftoken</code>)</li>
+                    <li>Token must be included in <code>X-CSRFToken</code> header for mutations</li>
+                    <li>Token validated on all POST, PUT, PATCH, DELETE requests</li>
+                </ul>
+
+                <h3>Rate Limiting</h3>
+                <table class="requirements-table">
+                    <thead>
+                        <tr>
+                            <th>Endpoint</th>
+                            <th>Limit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Login</td>
+                            <td>5 requests/minute</td>
+                        </tr>
+                        <tr>
+                            <td>API (authenticated)</td>
+                            <td>1500 requests/minute</td>
+                        </tr>
+                        <tr>
+                            <td>Slack webhooks</td>
+                            <td>60 requests/minute</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Secure Cookies</h3>
+                <table class="requirements-table">
+                    <thead>
+                        <tr>
+                            <th>Flag</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>HttpOnly</td>
+                            <td>Yes (session cookie not accessible to JavaScript)</td>
+                        </tr>
+                        <tr>
+                            <td>SameSite</td>
+                            <td>Lax (prevents CSRF from external sites)</td>
+                        </tr>
+                        <tr>
+                            <td>Secure</td>
+                            <td>Yes in production (HTTPS only)</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>WebSocket Authentication</h3>
+                <p>Real-time WebSocket connections:</p>
+                <ul>
+                    <li>Authenticate using the same session cookie as HTTP requests</li>
+                    <li>Re-validate permissions on each ping</li>
+                    <li>Scoped to specific resources (case, item, dashboard)</li>
+                    <li>Anonymous connections rejected</li>
+                </ul>
+
+                <h3>Audit Logging</h3>
+                <p>All security-sensitive operations are logged to an immutable audit trail:</p>
+                <ul>
+                    <li><strong>Immutable:</strong> Audit records cannot be modified or deleted</li>
+                    <li><strong>Fail-closed:</strong> Operations fail if audit logging fails</li>
+                    <li><strong>Comprehensive:</strong> Logs user, action, object, changes, timestamp, IP</li>
+                    <li><strong>Searchable:</strong> Full-text search across audit records</li>
+                </ul>
+
+                <p>Logged operations include:</p>
+                <ul>
+                    <li>Authentication events (login, logout, failed attempts)</li>
+                    <li>Case and evidence CRUD operations</li>
+                    <li>Team assignment changes</li>
+                    <li>Configuration changes</li>
+                    <li>Attachment uploads and downloads</li>
+                </ul>
+            </div>
+
+            <div class="docs-section">
+                <h2>Preconfigured Permission Groups</h2>
+                <p>DFIRe comes with four preconfigured permission groups. These use atomic permissions (not group name checks) and can be customized as needed:</p>
+
+                <h3>DFIRe Admin</h3>
+                <p>Full administrative access for managing the entire system:</p>
+                <ul>
+                    <li><code>core.change_tenant</code> - access to System Settings</li>
+                    <li><code>core.view_all_cases</code>, <code>core.edit_all_cases</code> - global case access</li>
+                    <li><code>core.view_archived_cases</code>, <code>core.view_statistics</code></li>
+                    <li><code>auth.add_user</code>, <code>auth.change_user</code> - user management</li>
+                    <li>All case, item, attachment, note permissions</li>
+                    <li>Webhook, compliance timer, case type, and evidence type management</li>
+                </ul>
+
+                <h3>Team Lead</h3>
+                <p>Oversight role with full case visibility but no system settings access:</p>
+                <ul>
+                    <li><code>core.view_all_cases</code>, <code>core.edit_all_cases</code> - global case access</li>
+                    <li><code>core.view_archived_cases</code>, <code>core.view_statistics</code></li>
+                    <li><code>core.manage_team</code> - can manage case assignments</li>
+                    <li>All case, item, attachment, note, timeline permissions</li>
+                    <li>Report template management</li>
+                    <li>No <code>change_tenant</code> - cannot access System Settings</li>
+                </ul>
+
+                <h3>Standard User</h3>
+                <p>Regular investigator working on assigned cases:</p>
+                <ul>
+                    <li><code>core.add_case</code>, <code>core.change_case</code>, <code>core.delete_case</code></li>
+                    <li><code>core.manage_team</code> - can manage team on cases they lead</li>
+                    <li>All item, attachment, note, timeline permissions</li>
+                    <li>No global case access - only sees assigned cases</li>
+                </ul>
+
+                <h3>View Only</h3>
+                <p>Read-only access for auditors or external reviewers:</p>
+                <ul>
+                    <li><code>core.view_case</code>, <code>core.view_item</code>, <code>core.view_attachment</code></li>
+                    <li>View-only permissions for all case content</li>
+                    <li>Cannot create, modify, or delete anything</li>
+                    <li>Access limited to assigned cases only</li>
+                </ul>
+            </div>
+
+            <nav class="docs-nav">
+                <a href="backup.html" class="docs-nav-link prev">
+                    <span class="docs-nav-label">Previous</span>
+                    <span class="docs-nav-title">Backup & Recovery</span>
+                </a>
+                <a href="workflow.html" class="docs-nav-link next">
+                    <span class="docs-nav-label">Next</span>
+                    <span class="docs-nav-title">Workflow Configuration</span>
+                </a>
+            </nav>
+        </main>
+    </div>
+
+    <footer class="docs-footer">
+        <div class="container">
+            <p>&copy; 2026 Tmi Antti Kurittu. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const navToggle = document.querySelector('.nav-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        navToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            navToggle.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

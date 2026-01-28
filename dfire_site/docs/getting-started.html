@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Getting Started - DFIRe Documentation</title>
+    <meta name="description" content="Get started with DFIRe - install and configure your digital forensics case management platform.">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="docs.css">
+    <link rel="icon" type="image/png" href="../assets/logo.png">
+</head>
+<body>
+    <nav class="nav scrolled">
+        <div class="nav-container">
+            <a href="../" class="nav-logo">
+                <img src="../assets/logo.png" alt="DFIRe" class="logo-img">
+                <span class="logo-text">Documentation</span>
+            </a>
+            <div class="nav-links">
+                <a href="../#features">Features</a>
+                <a href="../#pricing">Pricing</a>
+                <a href="../#installation">Installation</a>
+                <a href="./" class="active">Docs</a>
+                <a href="../#contact">Contact</a>
+            </div>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="docs-layout">
+        <aside class="docs-sidebar">
+            <div class="sidebar-section">
+                <h3>Getting Started</h3>
+                <ul>
+                    <li><a href="getting-started.html" class="active">Quick Start Guide</a></li>
+                    <li><a href="deployment.html">Deployment</a></li>
+                    <li><a href="configuration.html">Configuration</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>User Guide</h3>
+                <ul>
+                    <li><a href="cases.html">Case Management</a></li>
+                    <li><a href="evidence.html">Evidence Tracking</a></li>
+                    <li><a href="incidents.html">Incident Response</a></li>
+                    <li><a href="reports.html">Reports</a></li>
+                    <li><a href="timeline.html">Timeline</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>Administration</h3>
+                <ul>
+                    <li><a href="users.html">User Management</a></li>
+                    <li><a href="sso.html">Single Sign-On</a></li>
+                    <li><a href="webhooks.html">Webhooks</a></li>
+                    <li><a href="storage.html">Storage Backends</a></li>
+                    <li><a href="backup.html">Backup & Recovery</a></li>
+                    <li><a href="security.html">Application Security</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>Reference</h3>
+                <ul>
+                    <li><a href="workflow.html">Workflow Configuration</a></li>
+                    <li><a href="case-types.html">Case Types</a></li>
+                    <li><a href="evidence-types.html">Evidence Types</a></li>
+                    <li><a href="compliance.html">Compliance Timers</a></li>
+                    <li><a href="licenses.html">Third-Party Licenses</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <main class="docs-content">
+            <div class="docs-header">
+                <h1>Quick Start Guide</h1>
+                <p class="docs-intro">Get DFIRe up and running with our interactive installation wizard. This guide walks you through deployment and initial setup.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>Prerequisites</h2>
+                <p>Before installing DFIRe, ensure you have:</p>
+                <ul>
+                    <li><strong>A Linux host</strong> - Ubuntu 22.04+ or similar distribution</li>
+                    <li><strong>Docker</strong> and <strong>Docker Compose</strong> installed</li>
+                    <li><strong>Database credentials</strong> - External PostgreSQL database (recommended) or hosted DBaaS such as AWS RDS, Azure Database, or Google Cloud SQL</li>
+                    <li>At least <strong>4 GB RAM</strong> available (8 GB recommended)</li>
+                    <li>At least <strong>20 GB disk space</strong> for the application and evidence storage</li>
+                </ul>
+
+                <div class="callout callout-info">
+                    <p><strong>New to Docker?</strong> Install Docker Engine from <a href="https://docs.docker.com/engine/install/" target="_blank" rel="noopener">docker.com</a>. The installation includes Docker Compose.</p>
+                </div>
+
+                <div class="callout callout-warning">
+                    <p><strong>Production deployments:</strong> We strongly recommend using an external PostgreSQL database rather than a containerized database. This ensures data persistence, easier backups, and better performance.</p>
+                </div>
+            </div>
+
+            <div class="docs-section">
+                <h2>Installation</h2>
+                <p>DFIRe uses an interactive installation wizard that guides you through the deployment process.</p>
+
+                <ol class="steps">
+                    <li>
+                        <strong>Prepare your installation directory</strong>
+                        <p>Create a directory for DFIRe. We recommend <code>/opt/dfire</code>:</p>
+                        <pre><code>sudo mkdir -p /opt/dfire
+cd /opt/dfire</code></pre>
+                    </li>
+                    <li>
+                        <strong>Download and run the installation wizard</strong>
+                        <pre><code>curl -fsSL https://dfire.fi/install.sh -o install.sh
+chmod +x install.sh
+sudo ./install.sh</code></pre>
+                        <p>The wizard will guide you through:</p>
+                        <ul>
+                            <li>Database configuration (connection details for your PostgreSQL instance)</li>
+                            <li>Domain and URL settings</li>
+                            <li>Admin user creation</li>
+                            <li>Security key generation</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>Choose your HTTPS configuration</strong>
+                        <p>The installer offers two options for HTTPS:</p>
+                        <ul>
+                            <li><strong>Integrated nginx with Let's Encrypt</strong> - The installer configures nginx and automatically obtains SSL certificates</li>
+                            <li><strong>External reverse proxy</strong> - Use your existing reverse proxy (nginx, Traefik, Caddy, etc.) to handle HTTPS termination</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>Complete the installation</strong>
+                        <p>The wizard will pull Docker images, configure the environment, and start all services. Once complete, it displays the URL to access DFIRe.</p>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="docs-section">
+                <h2>First Login</h2>
+                <p>After installation completes:</p>
+                <ol>
+                    <li>Open your browser and navigate to your configured domain</li>
+                    <li>Log in with the admin credentials you created during installation</li>
+                    <li>Read and accept the End User License Agreement (EULA)</li>
+                    <li>You'll be taken to the Dashboard</li>
+                </ol>
+
+                <img src="../screenshots/dashboard.jpg" alt="DFIRe Dashboard" class="screenshot">
+            </div>
+
+            <div class="docs-section">
+                <h2>Trial Mode and Licensing</h2>
+                <p>DFIRe starts in <strong>Trial Mode</strong> for 30 days, giving you full access to all features.</p>
+
+                <h3>What happens after the trial?</h3>
+                <p>After 30 days without a license:</p>
+                <ul>
+                    <li>The application switches to <strong>read-only mode</strong></li>
+                    <li>You can still view all existing cases and data</li>
+                    <li>No data is deleted - your work is preserved</li>
+                    <li>New cases, evidence, and notes cannot be created</li>
+                </ul>
+
+                <div class="callout callout-danger">
+                    <p><strong>Critical:</strong> During installation, a <code>CREDENTIAL_ENCRYPTION_KEY</code> is generated. This key encrypts stored credentials such as webhook secrets and your license key. <strong>Back up this key immediately.</strong> Without it, these credentials cannot be recovered and will need to be reconfigured. The key is stored in your <code>.env</code> file.</p>
+                </div>
+
+                <h3>Obtaining a License</h3>
+                <p>To continue using DFIRe after the trial period, purchase a license from our <a href="../#pricing">pricing page</a> or contact <a href="mailto:contact@dfire.fi">contact@dfire.fi</a>.</p>
+
+                <p>For an extended trial period for evaluation purposes, contact <a href="mailto:contact@dfire.fi">contact@dfire.fi</a>.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>Next Steps</h2>
+                <p>Now that DFIRe is running:</p>
+                <ul>
+                    <li><a href="cases.html">Create your first case</a> and start investigating</li>
+                    <li><a href="sso.html">Configure Single Sign-On</a> for your team (recommended for production)</li>
+                    <li><a href="users.html">Add team members</a> and configure their roles</li>
+                    <li><a href="storage.html">Configure storage backends</a> for evidence files</li>
+                    <li><a href="backup.html">Set up backups</a> for your database and encryption keys</li>
+                </ul>
+
+                <div class="callout callout-info">
+                    <p><strong>Tip:</strong> SSO is the recommended authentication method for production deployments. Local user accounts do not support multi-factor authentication.</p>
+                </div>
+            </div>
+
+            <div class="docs-section">
+                <h2>Getting Help</h2>
+                <p>If you run into issues:</p>
+                <ul>
+                    <li>Check the <a href="deployment.html">Deployment Guide</a> for detailed configuration options</li>
+                    <li>Review container logs: <code>docker compose logs -f</code></li>
+                    <li>Contact support at <a href="mailto:contact@dfire.fi">contact@dfire.fi</a></li>
+                </ul>
+            </div>
+
+            <nav class="docs-nav">
+                <a href="index.html" class="docs-nav-link prev">
+                    <span class="docs-nav-label">Previous</span>
+                    <span class="docs-nav-title">Documentation Home</span>
+                </a>
+                <a href="deployment.html" class="docs-nav-link next">
+                    <span class="docs-nav-label">Next</span>
+                    <span class="docs-nav-title">Deployment Guide</span>
+                </a>
+            </nav>
+        </main>
+    </div>
+
+    <footer class="docs-footer">
+        <div class="container">
+            <p>&copy; 2026 Tmi Antti Kurittu. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const navToggle = document.querySelector('.nav-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        navToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            navToggle.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

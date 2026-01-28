@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation - DFIRe</title>
+    <meta name="description" content="DFIRe documentation - learn how to deploy, configure, and use the digital forensics and incident response platform.">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="docs.css">
+    <link rel="icon" type="image/png" href="../assets/logo.png">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav scrolled">
+        <div class="nav-container">
+            <a href="../" class="nav-logo">
+                <img src="../assets/logo.png" alt="DFIRe" class="logo-img">
+                <span class="logo-text">Documentation</span>
+            </a>
+            <div class="nav-links">
+                <a href="../#features">Features</a>
+                <a href="../#pricing">Pricing</a>
+                <a href="../#installation">Installation</a>
+                <a href="./" class="active">Docs</a>
+                <a href="../#contact">Contact</a>
+            </div>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="docs-layout">
+        <!-- Sidebar -->
+        <aside class="docs-sidebar">
+            <div class="sidebar-section">
+                <h3>Getting Started</h3>
+                <ul>
+                    <li><a href="getting-started.html">Quick Start Guide</a></li>
+                    <li><a href="deployment.html">Deployment</a></li>
+                    <li><a href="configuration.html">Configuration</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>User Guide</h3>
+                <ul>
+                    <li><a href="cases.html">Case Management</a></li>
+                    <li><a href="evidence.html">Evidence Tracking</a></li>
+                    <li><a href="incidents.html">Incident Response</a></li>
+                    <li><a href="reports.html">Reports</a></li>
+                    <li><a href="timeline.html">Timeline</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>Administration</h3>
+                <ul>
+                    <li><a href="users.html">User Management</a></li>
+                    <li><a href="sso.html">Single Sign-On</a></li>
+                    <li><a href="webhooks.html">Webhooks</a></li>
+                    <li><a href="storage.html">Storage Backends</a></li>
+                    <li><a href="backup.html">Backup & Recovery</a></li>
+                    <li><a href="security.html">Application Security</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>Reference</h3>
+                <ul>
+                    <li><a href="workflow.html">Workflow Configuration</a></li>
+                    <li><a href="case-types.html">Case Types</a></li>
+                    <li><a href="evidence-types.html">Evidence Types</a></li>
+                    <li><a href="compliance.html">Compliance Timers</a></li>
+                    <li><a href="licenses.html">Third-Party Licenses</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="docs-content">
+            <div class="docs-header">
+                <h1>DFIRe Documentation</h1>
+                <p class="docs-intro">Welcome to the DFIRe documentation. Learn how to deploy, configure, and use the platform for your digital forensics and incident response workflows.</p>
+            </div>
+
+            <div class="docs-cards">
+                <a href="getting-started.html" class="docs-card">
+                    <div class="docs-card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                    </div>
+                    <h3>Getting Started</h3>
+                    <p>Install DFIRe and create your first case in minutes.</p>
+                </a>
+
+                <a href="cases.html" class="docs-card">
+                    <div class="docs-card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+                    </div>
+                    <h3>Case Management</h3>
+                    <p>Create and manage forensic investigations and incidents.</p>
+                </a>
+
+                <a href="evidence.html" class="docs-card">
+                    <div class="docs-card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                    </div>
+                    <h3>Evidence Tracking</h3>
+                    <p>Track digital evidence with metadata and chain of custody.</p>
+                </a>
+
+                <a href="incidents.html" class="docs-card">
+                    <div class="docs-card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                    </div>
+                    <h3>Incident Response</h3>
+                    <p>Coordinate response with phases, actions, and timelines.</p>
+                </a>
+
+                <a href="users.html" class="docs-card">
+                    <div class="docs-card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </div>
+                    <h3>User Management</h3>
+                    <p>Add users, assign roles, and configure access control.</p>
+                </a>
+
+                <a href="deployment.html" class="docs-card">
+                    <div class="docs-card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+                    </div>
+                    <h3>Deployment</h3>
+                    <p>Deploy DFIRe with Docker in production environments.</p>
+                </a>
+            </div>
+
+            <div class="docs-section">
+                <h2>What is DFIRe?</h2>
+                <p>DFIRe (Digital Forensics and Incident Response) is a self-hosted case management platform designed for forensic investigators and incident responders. It provides:</p>
+                <ul>
+                    <li><strong>Case Management</strong> - Organize investigations with customizable case types, severity levels, and team assignments</li>
+                    <li><strong>Evidence Tracking</strong> - Track digital evidence with detailed metadata, chain of custody, and file attachments</li>
+                    <li><strong>Incident Response</strong> - Coordinate response with phase-based workflows and guided action checklists</li>
+                    <li><strong>Report Generation</strong> - Create structured investigation reports with QA workflows</li>
+                    <li><strong>Compliance Tracking</strong> - Monitor regulatory deadlines like GDPR breach notifications</li>
+                    <li><strong>Team Collaboration</strong> - Work together with role-based access control and Slack integration</li>
+                </ul>
+            </div>
+
+            <div class="docs-section">
+                <h2>System Requirements</h2>
+                <div class="requirements-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Component</th>
+                                <th>Minimum</th>
+                                <th>Recommended</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>CPU</td>
+                                <td>2 cores</td>
+                                <td>4+ cores</td>
+                            </tr>
+                            <tr>
+                                <td>RAM</td>
+                                <td>4 GB</td>
+                                <td>8+ GB</td>
+                            </tr>
+                            <tr>
+                                <td>Storage</td>
+                                <td>20 GB</td>
+                                <td>100+ GB (depends on evidence volume)</td>
+                            </tr>
+                            <tr>
+                                <td>Docker</td>
+                                <td>24.0+</td>
+                                <td>Latest stable</td>
+                            </tr>
+                            <tr>
+                                <td>Docker Compose</td>
+                                <td>2.20+</td>
+                                <td>Latest stable</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="docs-section">
+                <h2>Quick Links</h2>
+                <div class="quick-links">
+                    <a href="getting-started.html" class="quick-link">
+                        <span>Quick Start Guide</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                    <a href="deployment.html" class="quick-link">
+                        <span>Production Deployment</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                    <a href="sso.html" class="quick-link">
+                        <span>Configure SSO</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                    <a href="webhooks.html" class="quick-link">
+                        <span>Webhook Integration</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="docs-footer">
+        <div class="container">
+            <p>&copy; 2026 Tmi Antti Kurittu. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile navigation toggle
+        const navToggle = document.querySelector('.nav-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        navToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            navToggle.classList.toggle('active');
+        });
+
+        // Mobile sidebar toggle
+        const sidebar = document.querySelector('.docs-sidebar');
+        const content = document.querySelector('.docs-content');
+
+        // Mark current page in sidebar
+        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+        document.querySelectorAll('.docs-sidebar a').forEach(link => {
+            if (link.getAttribute('href') === currentPage) {
+                link.classList.add('active');
+            }
+        });
+    </script>
+</body>
+</html>
