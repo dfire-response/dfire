@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Updating DFIRe - DFIRe Documentation</title>
+    <meta name="description" content="How to update DFIRe to the latest version while preserving your data.">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="docs.css">
+    <link rel="icon" type="image/png" href="../assets/logo.png">
+</head>
+<body>
+    <nav class="nav scrolled">
+        <div class="nav-container">
+            <a href="../" class="nav-logo">
+                <img src="../assets/logo.png" alt="DFIRe" class="logo-img">
+                <span class="logo-text">Documentation</span>
+            </a>
+            <div class="nav-links">
+                <a href="../#features">Features</a>
+                <a href="../#pricing">Pricing</a>
+                <a href="../#installation">Installation</a>
+                <a href="./" class="active">Docs</a>
+                <a href="../#contact">Contact</a>
+            </div>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="docs-layout">
+        <aside class="docs-sidebar">
+            <div class="sidebar-section">
+                <h3>Getting Started</h3>
+                <ul>
+                    <li><a href="getting-started.html">Quick Start Guide</a></li>
+                    <li><a href="deployment.html">Deployment</a></li>
+                    <li><a href="configuration.html">Configuration</a></li>
+                    <li><a href="update.html" class="active">Updating DFIRe</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>User Guide</h3>
+                <ul>
+                    <li><a href="cases.html">Case Management</a></li>
+                    <li><a href="evidence.html">Evidence Tracking</a></li>
+                    <li><a href="incidents.html">Incident Response</a></li>
+                    <li><a href="reports.html">Reports</a></li>
+                    <li><a href="timeline.html">Timeline</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>Administration</h3>
+                <ul>
+                    <li><a href="users.html">User Management</a></li>
+                    <li><a href="sso.html">Single Sign-On</a></li>
+                    <li><a href="webhooks.html">Webhooks</a></li>
+                    <li><a href="storage.html">Storage Backends</a></li>
+                    <li><a href="backup.html">Backup & Recovery</a></li>
+                    <li><a href="security.html">Application Security</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>Reference</h3>
+                <ul>
+                    <li><a href="workflow.html">Workflow Configuration</a></li>
+                    <li><a href="case-types.html">Case Types</a></li>
+                    <li><a href="evidence-types.html">Evidence Types</a></li>
+                    <li><a href="compliance.html">Compliance Timers</a></li>
+                    <li><a href="licenses.html">Third-Party Licenses</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <main class="docs-content">
+            <div class="docs-header">
+                <h1>Updating DFIRe</h1>
+                <p class="docs-intro">Keep your DFIRe installation up to date with the latest features and security fixes.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>Overview</h2>
+                <p>DFIRe is distributed as Docker images tagged with <code>:latest</code>. Updating involves pulling the new images and recreating the containers while preserving your data volumes.</p>
+
+                <div class="callout callout-info">
+                    <p><strong>Data Safety:</strong> Your database and file storage are stored in Docker volumes, which are preserved when containers are recreated. The update process does not affect your investigation data.</p>
+                </div>
+            </div>
+
+            <div class="docs-section">
+                <h2>Before You Update</h2>
+
+                <h3>1. Back Up Your Data</h3>
+                <p>Before any update, ensure you have recent backups of:</p>
+                <ul>
+                    <li>Your PostgreSQL database</li>
+                    <li>Your file storage (local volumes, S3, or SMB)</li>
+                    <li>Your <code>.env</code> configuration file</li>
+                </ul>
+                <p>See <a href="backup.html">Backup & Recovery</a> for detailed backup procedures.</p>
+
+                <h3>2. Check for Breaking Changes</h3>
+                <p>Review the release notes for any breaking changes or migration steps that may be required. Release notes are published on the DFIRe website and in the application's changelog.</p>
+
+                <h3>3. Plan for Downtime</h3>
+                <p>The update process requires stopping DFIRe briefly. Plan updates during maintenance windows when users are not actively working on cases.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>Update Procedure</h2>
+                <p>Navigate to your DFIRe installation directory (where your <code>docker-compose.prod.yml</code> and <code>.env</code> files are located) and run the following commands:</p>
+
+                <h3>Step 1: Pull the Latest Images</h3>
+                <p>Download the newest versions of all DFIRe images:</p>
+                <pre><code>docker compose -f docker-compose.prod.yml pull</code></pre>
+
+                <h3>Step 2: Recreate the Containers</h3>
+                <p>Stop the running containers and start new ones using the updated images:</p>
+                <pre><code>docker compose -f docker-compose.prod.yml up -d --force-recreate --build</code></pre>
+
+                <p>The flags ensure:</p>
+                <ul>
+                    <li><code>-d</code> — Run in detached mode (background)</li>
+                    <li><code>--force-recreate</code> — Recreate containers even if configuration hasn't changed</li>
+                    <li><code>--build</code> — Rebuild any images if needed to pick up all changes</li>
+                </ul>
+
+                <h3>Step 3: Verify the Update</h3>
+                <p>Check that all containers are running:</p>
+                <pre><code>docker compose -f docker-compose.prod.yml ps</code></pre>
+
+                <p>All services should show as "running" or "healthy". You can also check the logs for any errors:</p>
+                <pre><code>docker compose -f docker-compose.prod.yml logs -f</code></pre>
+
+                <p>Press <code>Ctrl+C</code> to exit the log view.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>Quick Update Command</h2>
+                <p>For convenience, you can combine the pull and recreate steps into a single command:</p>
+                <pre><code>docker compose -f docker-compose.prod.yml pull && docker compose -f docker-compose.prod.yml up -d --force-recreate --build</code></pre>
+            </div>
+
+            <div class="docs-section">
+                <h2>Database Migrations</h2>
+                <p>DFIRe automatically runs database migrations when the application starts. After updating, the first startup may take slightly longer as migrations are applied.</p>
+
+                <p>You can monitor the migration progress in the logs:</p>
+                <pre><code>docker compose -f docker-compose.prod.yml logs -f dfire</code></pre>
+
+                <p>Look for messages indicating migrations have completed successfully before accessing the application.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>Checking Your Version</h2>
+                <p>After updating, you can verify which version is running:</p>
+                <ul>
+                    <li>The version number is displayed in the application footer</li>
+                    <li>Administrators can see version details in <strong>Settings &gt; Tenant &gt; Identity</strong></li>
+                </ul>
+            </div>
+
+            <div class="docs-section">
+                <h2>Rolling Back</h2>
+                <p>If you encounter issues after updating, you can roll back to a previous version:</p>
+
+                <h3>1. Stop the Current Containers</h3>
+                <pre><code>docker compose -f docker-compose.prod.yml down</code></pre>
+
+                <h3>2. Restore Your Database Backup</h3>
+                <p>Restore your database from the backup you made before updating. Follow your database provider's restore procedure.</p>
+
+                <h3>3. Pull a Specific Version</h3>
+                <p>If you need a specific version, you can modify your <code>docker-compose.prod.yml</code> to use a tagged version instead of <code>:latest</code>. Contact support for available version tags.</p>
+
+                <h3>4. Start the Previous Version</h3>
+                <pre><code>docker compose -f docker-compose.prod.yml up -d</code></pre>
+
+                <div class="callout callout-warning">
+                    <p><strong>Important:</strong> Rolling back after database migrations may require restoring from backup. Do not attempt to run an older version of DFIRe against a database that has been migrated to a newer schema.</p>
+                </div>
+            </div>
+
+            <div class="docs-section">
+                <h2>Troubleshooting</h2>
+
+                <h3>Containers Won't Start</h3>
+                <p>Check the logs for error messages:</p>
+                <pre><code>docker compose -f docker-compose.prod.yml logs</code></pre>
+
+                <p>Common issues include:</p>
+                <ul>
+                    <li><strong>Database connection errors</strong> — Ensure your PostgreSQL server is running and accessible</li>
+                    <li><strong>Port conflicts</strong> — Check if another service is using the same ports</li>
+                    <li><strong>Missing environment variables</strong> — Verify your <code>.env</code> file is complete</li>
+                </ul>
+
+                <h3>Application Errors After Update</h3>
+                <p>If the application starts but shows errors:</p>
+                <ol>
+                    <li>Clear your browser cache and cookies for the DFIRe domain</li>
+                    <li>Check that migrations completed successfully in the logs</li>
+                    <li>Verify your license is still valid</li>
+                </ol>
+
+                <h3>Getting Help</h3>
+                <p>If you encounter issues during updates, contact <a href="mailto:contact@dfire.fi">contact@dfire.fi</a> with:</p>
+                <ul>
+                    <li>The version you were updating from</li>
+                    <li>Any error messages from the logs</li>
+                    <li>Your deployment environment details</li>
+                </ul>
+            </div>
+
+            <nav class="docs-nav">
+                <a href="configuration.html" class="docs-nav-link prev">
+                    <span class="docs-nav-label">Previous</span>
+                    <span class="docs-nav-title">Configuration</span>
+                </a>
+                <a href="cases.html" class="docs-nav-link next">
+                    <span class="docs-nav-label">Next</span>
+                    <span class="docs-nav-title">Case Management</span>
+                </a>
+            </nav>
+        </main>
+    </div>
+
+    <footer class="docs-footer">
+        <div class="container">
+            <p>&copy; 2026 Tmi Antti Kurittu. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const navToggle = document.querySelector('.nav-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        navToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            navToggle.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
