@@ -3,20 +3,13 @@
 # DFIRe Installation Wizard
 # =============================================================================
 # Interactive installer for DFIRe production deployment.
-# Works on any Linux distribution with Docker installed.
+# Works on any Linux distribution or macOS with Docker installed.
 #
 # Prerequisites:
 #   - Docker Engine with Compose plugin
 #   - openssl (for generating secrets)
 #
 # Usage: ./install.sh
-#
-# This script will:
-#   1. Verify Docker is installed and running
-#   2. Configure database connection (external or internal)
-#   3. Generate secure secrets
-#   4. Create .env configuration file
-#   5. Pull and start DFIRe services
 # =============================================================================
 
 set -euo pipefail
@@ -29,6 +22,23 @@ INSTALL_DIR="${DFIRE_INSTALL_DIR:-$(pwd)}"
 ENV_FILE="${INSTALL_DIR}/.env"
 COMPOSE_FILE="${INSTALL_DIR}/docker-compose.prod.yml"
 EXTERNAL_DB_COMPOSE="${INSTALL_DIR}/docker-compose.external-db.yml"
+
+# =============================================================================
+# Cross-Platform Helpers
+# =============================================================================
+
+# Portable in-place sed function (Handles GNU vs BSD sed differences)
+# macOS requires an empty string argument for -i, Linux does not.
+run_sed() {
+    local pattern="$1"
+    local file="$2"
+
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        sed -i '' "$pattern" "$file"
+    else
+        sed -i "$pattern" "$file"
+    fi
+}
 
 # =============================================================================
 # Embedded Docker Compose Files
@@ -190,8 +200,8 @@ networks:
     driver: bridge
 COMPOSE_EOF
 
-    # Replace placeholder with actual port binding
-    sed -i "s|FRONTEND_BIND_PLACEHOLDER|${FRONTEND_BIND}|g" "$COMPOSE_FILE"
+    # Replace placeholder with actual port binding (Using portable sed)
+    run_sed "s|FRONTEND_BIND_PLACEHOLDER|${FRONTEND_BIND}|g" "$COMPOSE_FILE"
 
     success "Created docker-compose.prod.yml"
 
@@ -352,29 +362,32 @@ urlencode() {
 # Port Availability Check
 # =============================================================================
 # Checks if a TCP port is available (not already bound by another process).
-# Used to prevent conflicts with existing services before starting DFIRe.
-# Returns 0 if port is available, 1 if in use.
 check_port_available() {
     local port="$1"
-    # Use ss (modern) or netstat (fallback) to check for listening ports
+    
+    # 1. Try ss (Modern Linux)
     if command -v ss &>/dev/null; then
         if ss -tuln 2>/dev/null | grep -q ":${port} "; then
-            return 1  # Port is in use
+            return 1
         fi
+    # 2. Try lsof (macOS standard, also common on Linux)
+    elif command -v lsof &>/dev/null; then
+        if lsof -i ":${port}" -sTCP:LISTEN -P &>/dev/null; then
+            return 1
+        fi
+    # 3. Fallback to netstat (Attempting cross-platform flags)
     elif command -v netstat &>/dev/null; then
-        if netstat -tuln 2>/dev/null | grep -q ":${port} "; then
-            return 1  # Port is in use
+        # MacOS netstat does not support -t/-u. using -an and grep.
+        if netstat -an 2>/dev/null | grep "LISTEN" | grep -q "[.:]${port} "; then
+            return 1
         fi
     fi
-    return 0  # Port is available (or couldn't check)
+    return 0
 }
 
 # =============================================================================
 # Existing Installation Detection
 # =============================================================================
-# Checks for evidence of a previous DFIRe installation and offers options
-# to handle it (reuse, reset, or abort). This prevents conflicts and data
-# loss from accidental reinstalls.
 check_existing_installation() {
     local has_env=false
     local has_containers=false
@@ -471,10 +484,6 @@ check_existing_installation() {
 # =============================================================================
 # Secret Generation Functions
 # =============================================================================
-# These functions generate cryptographically secure random values for:
-# - Django SECRET_KEY: Session signing, CSRF tokens, password reset tokens
-# - Fernet key: Symmetric encryption of sensitive data (credentials)
-# - Passwords: Database and Redis authentication
 generate_secret_key() {
     # Generate Django SECRET_KEY (50 chars, alphanumeric)
     openssl rand -base64 50 | tr -d '\n/+=' | head -c 50
@@ -493,18 +502,6 @@ generate_password() {
 # =============================================================================
 # Prerequisite Checks
 # =============================================================================
-# Verifies all required dependencies are available before starting.
-# Checks for:
-#   - openssl: Required for generating cryptographic secrets
-#   - docker: Container runtime for all DFIRe services
-#   - docker compose: Container orchestration
-#   - docker daemon: Must be running and accessible by current user
-#   - port 8080: Must be available for DFIRe frontend
-#
-# COMMON ISSUES:
-#   - "Cannot connect to Docker daemon": User not in docker group, or
-#     daemon not running. Fix: sudo usermod -aG docker $USER
-#   - "Port 8080 in use": Another service using the port. Stop it first.
 check_prerequisites() {
     section "Checking Prerequisites"
 
@@ -527,11 +524,6 @@ check_prerequisites() {
         echo ""
         echo "Please install Docker first:"
         echo "  https://docs.docker.com/engine/install/"
-        echo ""
-        echo "Quick install for common distributions:"
-        echo "  Ubuntu/Debian: https://docs.docker.com/engine/install/ubuntu/"
-        echo "  RHEL/Fedora:   https://docs.docker.com/engine/install/rhel/"
-        echo "  macOS:         https://docs.docker.com/desktop/install/mac-install/"
         echo ""
         exit 1
     fi
@@ -571,10 +563,6 @@ check_prerequisites() {
         echo "DFIRe needs port 8080 for the web interface."
         echo "Please stop any service using this port, or use a different machine."
         echo ""
-        echo "To find what's using port 8080:"
-        echo "  sudo ss -tulnp | grep :8080"
-        echo "  sudo netstat -tulnp | grep :8080"
-        echo ""
         exit 1
     fi
     success "Port 8080 is available"
@@ -583,22 +571,6 @@ check_prerequisites() {
 # =============================================================================
 # Database Configuration
 # =============================================================================
-# Collects PostgreSQL connection details. Two modes are supported:
-#
-# 1. External database (recommended for production):
-#    - Connects to user-provided PostgreSQL server
-#    - Data persists independently of DFIRe deployment
-#    - Connection is tested before proceeding
-#    - Credentials are URL-encoded to handle special characters
-#
-# 2. Internal database (testing only):
-#    - PostgreSQL runs inside Docker container
-#    - WARNING: Data is lost if Docker volumes are removed!
-#    - Requires explicit "I UNDERSTAND" confirmation
-#
-# SECURITY: Database passwords are passed via environment variables in
-# Docker Compose, never exposed on command line. External DB credentials
-# are URL-encoded in DATABASE_URL to handle special characters safely.
 collect_database_config() {
     section "Database Configuration"
 
@@ -715,10 +687,16 @@ collect_external_db_details() {
         error "Could not connect to database. Please check your credentials."
         echo ""
         read -p "Continue anyway? (y/N): " continue_anyway
-        if [[ "${continue_anyway,,}" != "y" ]]; then
-            exit 1
-        fi
-        warn "Continuing without verified database connection"
+        continue_anyway=${continue_anyway:-N}
+        
+        case "$continue_anyway" in
+            [yY]|[yY][eE][sS])
+                warn "Continuing without verified database connection"
+                ;;
+            *)
+                exit 1
+                ;;
+        esac
     fi
 }
 
@@ -768,41 +746,27 @@ collect_domain_config() {
         done
     fi
 
-    # PROTOCOL is set by collect_deployment_mode()
-    # Derive configuration values
-    # Include localhost for internal health checks between containers
-    ALLOWED_HOSTS="$HOSTNAME,localhost"
-    CORS_ALLOWED_ORIGINS="${PROTOCOL}://${HOSTNAME}"
-    CSRF_TRUSTED_ORIGINS="${PROTOCOL}://${HOSTNAME}"
+    # === PORT FIX FOR LOCALHOST ===
+    if [[ "$DEPLOYMENT_MODE" == "local_test" ]]; then
+        # Local testing accesses via port 8080 directly.
+        # We must explicitly trust the port in the Origin header.
+        ALLOWED_HOSTS="$HOSTNAME,localhost,127.0.0.1,0.0.0.0"
+        CORS_ALLOWED_ORIGINS="${PROTOCOL}://${HOSTNAME}:8080"
+        CSRF_TRUSTED_ORIGINS="${PROTOCOL}://${HOSTNAME}:8080"
+    else
+        # Production modes (nginx handles ports 80/443).
+        # We trust the standard domain name.
+        ALLOWED_HOSTS="$HOSTNAME,localhost"
+        CORS_ALLOWED_ORIGINS="${PROTOCOL}://${HOSTNAME}"
+        CSRF_TRUSTED_ORIGINS="${PROTOCOL}://${HOSTNAME}"
+    fi
 
-    success "Domain configured: ${PROTOCOL}://${HOSTNAME}"
+    success "Domain configured: ${PROTOCOL}://${HOSTNAME} (Allowed Origins: ${CORS_ALLOWED_ORIGINS})"
 }
 
 # =============================================================================
 # Deployment Mode Configuration
 # =============================================================================
-# Determines how DFIRe will be accessed and configures security accordingly.
-#
-# Mode 1: LOCAL TESTING (no HTTPS)
-#   - Binds to 0.0.0.0:8080 for LAN access
-#   - AUTH_COOKIE_SECURE=False allows HTTP login
-#   - NOT suitable for production - session cookies not protected!
-#
-# Mode 2: PRODUCTION with nginx + Let's Encrypt
-#   - Binds to 127.0.0.1:8080 (localhost only)
-#   - nginx handles TLS termination on ports 80/443
-#   - AUTH_COOKIE_SECURE=True requires HTTPS
-#   - Automatic certificate renewal via certbot
-#
-# Mode 3: PRODUCTION with external reverse proxy
-#   - Binds to 0.0.0.0:8080 for external proxy access
-#   - User configures TLS on their load balancer/proxy
-#   - AUTH_COOKIE_SECURE=True requires HTTPS
-#   - Proxy must set X-Forwarded-Proto: https header
-#
-# SECURITY: AUTH_COOKIE_SECURE controls the Secure flag on session cookies.
-# When True, browsers only send cookies over HTTPS, preventing session
-# hijacking on unencrypted connections.
 collect_deployment_mode() {
     section "Deployment Mode"
 
@@ -958,11 +922,10 @@ show_summary() {
         echo "Database:      Internal PostgreSQL (testing only)"
     fi
 
-    # Access URL (nginx handles 443, others use 8080 directly)
-    if [[ "$DEPLOYMENT_MODE" == "local_proxy" ]]; then
-        echo "URL:           ${PROTOCOL}://${HOSTNAME}"
-    else
-        echo "URL:           ${PROTOCOL}://${HOSTNAME}:8080"
+    # Access URL
+    echo "URL:           ${PROTOCOL}://${HOSTNAME}"
+    if [[ "$DEPLOYMENT_MODE" == "local_test" ]]; then
+       echo "Access via:    ${PROTOCOL}://${HOSTNAME}:8080"
     fi
 
     # Security
@@ -982,16 +945,6 @@ show_summary() {
 # =============================================================================
 # Environment File Generation
 # =============================================================================
-# Creates the .env configuration file with all settings for DFIRe.
-#
-# SECURITY:
-#   - File permissions set to 600 (owner read/write only)
-#   - Contains sensitive secrets that must not be shared
-#   - Existing .env is backed up with timestamp before overwriting
-#
-# IMPORTANT: The CREDENTIAL_ENCRYPTION_KEY encrypts sensitive data in the
-# database (API tokens, credentials). Changing this key after deployment
-# will make all encrypted data unreadable!
 generate_env_file() {
     section "Creating Configuration"
 
@@ -1122,22 +1075,6 @@ EOF
 # =============================================================================
 # Start Services
 # =============================================================================
-# Pulls Docker images and starts all DFIRe containers.
-#
-# Services started:
-#   - db: PostgreSQL database (unless using external DB)
-#   - redis: Cache and message broker
-#   - backend: Django API server
-#   - qcluster: Django-Q2 background task worker
-#   - frontend: nginx serving React app + proxying to backend
-#
-# Health checking:
-#   - Waits up to 2.5 minutes for backend to become healthy
-#   - Backend health is critical - it runs migrations on startup
-#   - If not healthy in time, shows warning but doesn't fail
-#
-# IMAGES: By default pulls from Docker Hub (dfireadmin/dfire-*:latest)
-# Can be overridden via DFIRE_BACKEND_IMAGE and DFIRE_FRONTEND_IMAGE in .env
 start_services() {
     section "Starting Services"
 
@@ -1257,28 +1194,6 @@ show_completion() {
 # =============================================================================
 # HTTPS Setup (nginx + Let's Encrypt)
 # =============================================================================
-# Configures TLS/SSL for production deployments using Let's Encrypt.
-#
-# Process:
-#   1. Verify root privileges (required for nginx/certbot)
-#   2. Check port 80/443 availability
-#   3. Check for existing certificates (offer to reuse)
-#   4. Verify domain resolves to this server (warning only)
-#   5. Install nginx + certbot packages
-#   6. Obtain certificate via ACME HTTP-01 challenge
-#   7. Configure nginx as HTTPS reverse proxy
-#   8. Enable TRUST_PROXY_HEADERS in Django for X-Forwarded-Proto
-#
-# SECURITY NOTES:
-#   - Uses TLSv1.2 and TLSv1.3 only (no legacy protocols)
-#   - HSTS enabled with 2-year max-age
-#   - Certificate auto-renewal via certbot systemd timer
-#   - nginx runs as reverse proxy; Django never exposed directly
-#
-# PREREQUISITES:
-#   - Domain must resolve to this server's public IP
-#   - Ports 80 and 443 must be reachable from internet
-#   - Firewall must allow inbound TCP 80/443
 setup_https() {
     section "Setting Up HTTPS"
 
@@ -1295,7 +1210,6 @@ setup_https() {
     fi
 
     # Check if port 80 is available (required for certbot ACME challenge)
-    # Note: We check even if nginx is installed because nginx might be stopped
     if ! check_port_available 80; then
         # Check if it's nginx that's using port 80
         if systemctl is-active nginx &>/dev/null; then
@@ -1305,9 +1219,6 @@ setup_https() {
             echo ""
             echo "Let's Encrypt requires port 80 for the ACME challenge."
             echo "Please stop the service using port 80 before continuing."
-            echo ""
-            echo "To find what's using port 80:"
-            echo "  sudo ss -tulnp | grep :80"
             echo ""
             create_https_helper_script
             return
@@ -1353,23 +1264,6 @@ setup_https() {
         warn "Existing nginx configuration for DFIRe found - will be overwritten"
     fi
 
-    # Check if domain resolves to this server
-    info "Checking if ${HOSTNAME} resolves to this server..."
-    local server_ip domain_ip
-    server_ip=$(curl -s -4 --max-time 5 ifconfig.me 2>/dev/null || curl -s -4 --max-time 5 icanhazip.com 2>/dev/null || echo "")
-    domain_ip=$(dig +short "$HOSTNAME" 2>/dev/null | head -1 || echo "")
-
-    if [[ -n "$server_ip" && -n "$domain_ip" ]]; then
-        if [[ "$domain_ip" == "$server_ip" ]]; then
-            success "Domain $HOSTNAME resolves to this server ($server_ip)"
-        else
-            warn "Domain $HOSTNAME resolves to $domain_ip, but this server is $server_ip"
-            warn "Let's Encrypt verification may fail if domain doesn't point here"
-        fi
-    else
-        warn "Could not verify domain resolution. Make sure $HOSTNAME points to this server."
-    fi
-
     echo ""
     echo "This will:"
     echo "  1. Install nginx and certbot"
@@ -1379,11 +1273,15 @@ setup_https() {
     read -p "Continue with HTTPS setup? [Y/n]: " https_confirm
     https_confirm=${https_confirm:-Y}
 
-    if [[ ! "${https_confirm,,}" =~ ^y ]]; then
-        info "Skipping HTTPS setup. You'll need to configure a reverse proxy manually."
-        create_https_helper_script
-        return
-    fi
+    case "$https_confirm" in
+        [yY]|[yY][eE][sS])
+            ;;
+        *)
+            info "Skipping HTTPS setup. You'll need to configure a reverse proxy manually."
+            create_https_helper_script
+            return
+            ;;
+    esac
 
     # Get email for certificate
     while true; do
@@ -1509,10 +1407,8 @@ NGINX_EOF
         return
     fi
 
-    # Update .env for proxy headers
-    if grep -q "^TRUST_PROXY_HEADERS=false" "$ENV_FILE"; then
-        sed -i "s|^TRUST_PROXY_HEADERS=false|TRUST_PROXY_HEADERS=true|g" "$ENV_FILE"
-    fi
+    # Update .env for proxy headers (Use portable sed)
+    run_sed "s|^TRUST_PROXY_HEADERS=false|TRUST_PROXY_HEADERS=true|g" "$ENV_FILE"
 
     # Restart services
     systemctl enable nginx
@@ -1528,44 +1424,53 @@ NGINX_EOF
 
     echo ""
     echo -e "${GREEN}╔══════════════════════════════════════════════════════════════╗${NC}"
-    echo -e "${GREEN}║${NC}                   HTTPS Configuration Complete!              ${GREEN}║${NC}"
+    echo -e "${GREEN}║                  HTTPS Configuration Complete!               ║${NC}"
     echo -e "${GREEN}╠══════════════════════════════════════════════════════════════╣${NC}"
-    printf "${GREEN}║${NC}  DFIRe is now available at: %-33s${GREEN}║${NC}\n" "https://${HOSTNAME}"
-    echo -e "${GREEN}║${NC}  Certificate auto-renewal is configured via certbot.         ${GREEN}║${NC}"
+    printf "${GREEN}║  DFIRe is now available at: %-33s║${NC}\n" "https://${HOSTNAME}"
+    echo -e "${GREEN}║  Certificate auto-renewal is configured via certbot.         ║${NC}"
     echo -e "${GREEN}╚══════════════════════════════════════════════════════════════╝${NC}"
     echo ""
 }
 
 create_https_helper_script() {
+    # Determine which SED command to write into the helper script
+    # based on where it's being generated.
+    local sed_cmd
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        sed_cmd="sed -i ''"
+    else
+        sed_cmd="sed -i"
+    fi
+
     # Create a helper script that can be run later with sudo
-    cat > "${INSTALL_DIR}/setup-https.sh" << 'HELPER_EOF'
+    cat > "${INSTALL_DIR}/setup-https.sh" << HELPER_EOF
 #!/bin/bash
 # Run this script with sudo to set up HTTPS after installation
 # Usage: sudo ./setup-https.sh
 
 set -e
 
-INSTALL_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-ENV_FILE="${INSTALL_DIR}/.env"
+INSTALL_DIR="\$(cd "\$(dirname "\${BASH_SOURCE[0]}")" && pwd)"
+ENV_FILE="\${INSTALL_DIR}/.env"
 
-if [[ $EUID -ne 0 ]]; then
+if [[ \$EUID -ne 0 ]]; then
     echo "This script must be run as root (use sudo)"
     exit 1
 fi
 
-if [[ ! -f "$ENV_FILE" ]]; then
+if [[ ! -f "\$ENV_FILE" ]]; then
     echo ".env file not found. Run install.sh first."
     exit 1
 fi
 
 # Source env to get domain
 set -a
-source "$ENV_FILE"
+source "\$ENV_FILE"
 set +a
 
-DOMAIN=$(echo "$ALLOWED_HOSTS" | cut -d',' -f1 | xargs)
+DOMAIN=\$(echo "\$ALLOWED_HOSTS" | cut -d',' -f1 | xargs)
 
-echo "Setting up HTTPS for $DOMAIN"
+echo "Setting up HTTPS for \$DOMAIN"
 echo ""
 read -p "Email for Let's Encrypt: " CERT_EMAIL
 
@@ -1578,7 +1483,7 @@ fi
 
 systemctl stop nginx 2>/dev/null || true
 
-certbot certonly --standalone -d "$DOMAIN" --email "$CERT_EMAIL" --agree-tos --non-interactive
+certbot certonly --standalone -d "\$DOMAIN" --email "\$CERT_EMAIL" --agree-tos --non-interactive
 
 # Create nginx config
 rm -f /etc/nginx/sites-enabled/default 2>/dev/null || true
@@ -1586,26 +1491,26 @@ rm -f /etc/nginx/sites-enabled/default 2>/dev/null || true
 cat > /etc/nginx/sites-available/dfire << NGINX_EOF
 server {
     listen 80;
-    server_name ${DOMAIN};
+    server_name \${DOMAIN};
     location /.well-known/acme-challenge/ { root /var/www/html; }
-    location / { return 301 https://\$host\$request_uri; }
+    location / { return 301 https://\\\$host\\\$request_uri; }
 }
 server {
     listen 443 ssl;
     http2 on;
-    server_name ${DOMAIN};
-    ssl_certificate /etc/letsencrypt/live/${DOMAIN}/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/${DOMAIN}/privkey.pem;
+    server_name \${DOMAIN};
+    ssl_certificate /etc/letsencrypt/live/\${DOMAIN}/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/\${DOMAIN}/privkey.pem;
     ssl_protocols TLSv1.2 TLSv1.3;
     client_max_body_size 100M;
     location / {
         proxy_pass http://127.0.0.1:8080;
         proxy_http_version 1.1;
-        proxy_set_header Host \$host;
-        proxy_set_header X-Real-IP \$remote_addr;
-        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+        proxy_set_header Host \\\$host;
+        proxy_set_header X-Real-IP \\\$remote_addr;
+        proxy_set_header X-Forwarded-For \\\$proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto https;
-        proxy_set_header Upgrade \$http_upgrade;
+        proxy_set_header Upgrade \\\$http_upgrade;
         proxy_set_header Connection "upgrade";
     }
 }
@@ -1614,20 +1519,21 @@ NGINX_EOF
 ln -sf /etc/nginx/sites-available/dfire /etc/nginx/sites-enabled/dfire 2>/dev/null || \
     ln -sf /etc/nginx/sites-available/dfire /etc/nginx/conf.d/dfire.conf
 
-sed -i "s|^TRUST_PROXY_HEADERS=false|TRUST_PROXY_HEADERS=true|g" "$ENV_FILE"
+# Use the pre-calculated sed command for compatibility
+$sed_cmd "s|^TRUST_PROXY_HEADERS=false|TRUST_PROXY_HEADERS=true|g" "\$ENV_FILE"
 
 systemctl enable nginx
 systemctl start nginx
 
-cd "$INSTALL_DIR"
+cd "\$INSTALL_DIR"
 COMPOSE_CMD="docker compose -f docker-compose.prod.yml"
-if grep -q "^USE_EXTERNAL_DB=true" "$ENV_FILE"; then
-    COMPOSE_CMD="$COMPOSE_CMD -f docker-compose.external-db.yml"
+if grep -q "^USE_EXTERNAL_DB=true" "\$ENV_FILE"; then
+    COMPOSE_CMD="\$COMPOSE_CMD -f docker-compose.external-db.yml"
 fi
-$COMPOSE_CMD up -d
+\$COMPOSE_CMD up -d
 
 echo ""
-echo "HTTPS is now configured! Access DFIRe at: https://${DOMAIN}"
+echo "HTTPS is now configured! Access DFIRe at: https://\${DOMAIN}"
 HELPER_EOF
 
     chmod +x "${INSTALL_DIR}/setup-https.sh"
@@ -1651,10 +1557,14 @@ main() {
     read -p "Proceed with installation? [Y/n]: " proceed
     proceed=${proceed:-Y}
 
-    if [[ "${proceed,,}" != "y" && "${proceed,,}" != "yes" ]]; then
-        info "Installation cancelled."
-        exit 0
-    fi
+    case "$proceed" in
+        [yY]|[yY][eE][sS])
+            ;;
+        *)
+            info "Installation cancelled."
+            exit 0
+            ;;
+    esac
 
     # Mark installation as started (for cleanup messaging)
     INSTALL_STARTED=true
