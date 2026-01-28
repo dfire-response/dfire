@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evidence Types - DFIRe Documentation</title>
+    <meta name="description" content="Configure evidence types and categories for organizing digital forensic evidence.">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="docs.css">
+    <link rel="icon" type="image/png" href="../assets/logo.png">
+</head>
+<body>
+    <nav class="nav scrolled">
+        <div class="nav-container">
+            <a href="../" class="nav-logo">
+                <img src="../assets/logo.png" alt="DFIRe" class="logo-img">
+                <span class="logo-text">Documentation</span>
+            </a>
+            <div class="nav-links">
+                <a href="../#features">Features</a>
+                <a href="../#pricing">Pricing</a>
+                <a href="../#installation">Installation</a>
+                <a href="./" class="active">Docs</a>
+                <a href="../#contact">Contact</a>
+            </div>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="docs-layout">
+        <aside class="docs-sidebar">
+            <div class="sidebar-section">
+                <h3>Getting Started</h3>
+                <ul>
+                    <li><a href="getting-started.html">Quick Start Guide</a></li>
+                    <li><a href="deployment.html">Deployment</a></li>
+                    <li><a href="configuration.html">Configuration</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>User Guide</h3>
+                <ul>
+                    <li><a href="cases.html">Case Management</a></li>
+                    <li><a href="evidence.html">Evidence Tracking</a></li>
+                    <li><a href="incidents.html">Incident Response</a></li>
+                    <li><a href="reports.html">Reports</a></li>
+                    <li><a href="timeline.html">Timeline</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>Administration</h3>
+                <ul>
+                    <li><a href="users.html">User Management</a></li>
+                    <li><a href="sso.html">Single Sign-On</a></li>
+                    <li><a href="webhooks.html">Webhooks</a></li>
+                    <li><a href="storage.html">Storage Backends</a></li>
+                    <li><a href="backup.html">Backup & Recovery</a></li>
+                    <li><a href="security.html">Application Security</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>Reference</h3>
+                <ul>
+                    <li><a href="workflow.html">Workflow Configuration</a></li>
+                    <li><a href="case-types.html">Case Types</a></li>
+                    <li><a href="evidence-types.html" class="active">Evidence Types</a></li>
+                    <li><a href="compliance.html">Compliance Timers</a></li>
+                    <li><a href="licenses.html">Third-Party Licenses</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <main class="docs-content">
+            <div class="docs-header">
+                <h1>Evidence Types</h1>
+                <p class="docs-intro">Configure evidence types and categories to organize digital forensic evidence consistently across investigations.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>Default Evidence Types</h2>
+                <p>DFIRe includes common evidence types:</p>
+
+                <h3>Physical Media</h3>
+                <ul>
+                    <li>Hard Drive / SSD</li>
+                    <li>USB Drive</li>
+                    <li>Mobile Device</li>
+                    <li>Optical Media</li>
+                    <li>Memory Card</li>
+                </ul>
+
+                <h3>Digital Artifacts</h3>
+                <ul>
+                    <li>Disk Image</li>
+                    <li>Memory Dump</li>
+                    <li>Log Files</li>
+                    <li>Network Capture</li>
+                    <li>Email Export</li>
+                    <li>Database Export</li>
+                </ul>
+
+                <h3>Documents</h3>
+                <ul>
+                    <li>Chain of Custody Form</li>
+                    <li>Acquisition Notes</li>
+                    <li>Analysis Report</li>
+                    <li>Screenshots</li>
+                </ul>
+            </div>
+
+            <div class="docs-section">
+                <h2>Creating Evidence Types</h2>
+
+                <ol class="steps">
+                    <li>
+                        <strong>Go to Settings → Evidence Types</strong>
+                    </li>
+                    <li>
+                        <strong>Click "New Evidence Type"</strong>
+                    </li>
+                    <li>
+                        <strong>Configure the Type</strong>
+                        <ul>
+                            <li><strong>Name:</strong> Display name</li>
+                            <li><strong>Category:</strong> Grouping (Physical, Digital, Document)</li>
+                            <li><strong>Description:</strong> When to use this type</li>
+                            <li><strong>Icon:</strong> Visual identifier</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>Add Custom Fields</strong>
+                        <p>Define fields specific to this evidence type (e.g., Serial Number for hardware).</p>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="docs-section">
+                <h2>Evidence Categories</h2>
+                <p>Organize evidence types into categories for easier navigation:</p>
+
+                <ul>
+                    <li><strong>Physical:</strong> Tangible items requiring chain of custody</li>
+                    <li><strong>Digital:</strong> Files and data artifacts</li>
+                    <li><strong>Document:</strong> Supporting documentation</li>
+                    <li><strong>Network:</strong> Network-related evidence</li>
+                    <li><strong>Cloud:</strong> Cloud service exports</li>
+                </ul>
+
+                <p>Custom categories can be created at Settings → Evidence Types → Categories.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>Type-Specific Fields</h2>
+                <p>Each evidence type can have unique fields. Examples:</p>
+
+                <h3>Hard Drive</h3>
+                <ul>
+                    <li>Make/Model</li>
+                    <li>Serial Number</li>
+                    <li>Capacity</li>
+                    <li>Interface (SATA, NVMe, etc.)</li>
+                </ul>
+
+                <h3>Mobile Device</h3>
+                <ul>
+                    <li>Device Type (Phone, Tablet)</li>
+                    <li>Make/Model</li>
+                    <li>IMEI/Serial</li>
+                    <li>OS Version</li>
+                    <li>Passcode Status</li>
+                </ul>
+
+                <h3>Disk Image</h3>
+                <ul>
+                    <li>Image Format (E01, RAW, AFF)</li>
+                    <li>Hash Algorithm</li>
+                    <li>Hash Value</li>
+                    <li>Acquisition Tool</li>
+                </ul>
+            </div>
+
+            <nav class="docs-nav">
+                <a href="case-types.html" class="docs-nav-link prev">
+                    <span class="docs-nav-label">Previous</span>
+                    <span class="docs-nav-title">Case Types</span>
+                </a>
+                <a href="compliance.html" class="docs-nav-link next">
+                    <span class="docs-nav-label">Next</span>
+                    <span class="docs-nav-title">Compliance Timers</span>
+                </a>
+            </nav>
+        </main>
+    </div>
+
+    <footer class="docs-footer">
+        <div class="container">
+            <p>&copy; 2026 Tmi Antti Kurittu. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const navToggle = document.querySelector('.nav-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        navToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            navToggle.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

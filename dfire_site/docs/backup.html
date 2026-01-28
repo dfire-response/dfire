@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Backup & Recovery - DFIRe Documentation</title>
+    <meta name="description" content="Protect your investigation data with regular backups. Learn backup procedures for database, files, and encryption keys.">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="docs.css">
+    <link rel="icon" type="image/png" href="../assets/logo.png">
+</head>
+<body>
+    <nav class="nav scrolled">
+        <div class="nav-container">
+            <a href="../" class="nav-logo">
+                <img src="../assets/logo.png" alt="DFIRe" class="logo-img">
+                <span class="logo-text">Documentation</span>
+            </a>
+            <div class="nav-links">
+                <a href="../#features">Features</a>
+                <a href="../#pricing">Pricing</a>
+                <a href="../#installation">Installation</a>
+                <a href="./" class="active">Docs</a>
+                <a href="../#contact">Contact</a>
+            </div>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="docs-layout">
+        <aside class="docs-sidebar">
+            <div class="sidebar-section">
+                <h3>Getting Started</h3>
+                <ul>
+                    <li><a href="getting-started.html">Quick Start Guide</a></li>
+                    <li><a href="deployment.html">Deployment</a></li>
+                    <li><a href="configuration.html">Configuration</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>User Guide</h3>
+                <ul>
+                    <li><a href="cases.html">Case Management</a></li>
+                    <li><a href="evidence.html">Evidence Tracking</a></li>
+                    <li><a href="incidents.html">Incident Response</a></li>
+                    <li><a href="reports.html">Reports</a></li>
+                    <li><a href="timeline.html">Timeline</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>Administration</h3>
+                <ul>
+                    <li><a href="users.html">User Management</a></li>
+                    <li><a href="sso.html">Single Sign-On</a></li>
+                    <li><a href="webhooks.html">Webhooks</a></li>
+                    <li><a href="storage.html">Storage Backends</a></li>
+                    <li><a href="backup.html" class="active">Backup & Recovery</a></li>
+                    <li><a href="security.html">Application Security</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>Reference</h3>
+                <ul>
+                    <li><a href="workflow.html">Workflow Configuration</a></li>
+                    <li><a href="case-types.html">Case Types</a></li>
+                    <li><a href="evidence-types.html">Evidence Types</a></li>
+                    <li><a href="compliance.html">Compliance Timers</a></li>
+                    <li><a href="licenses.html">Third-Party Licenses</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <main class="docs-content">
+            <div class="docs-header">
+                <h1>Backup & Recovery</h1>
+                <p class="docs-intro">Understand what needs to be backed up to protect your investigation data and enable disaster recovery.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>Backup Responsibilities</h2>
+                <p>DFIRe is designed to integrate with your existing infrastructure. You are responsible for backing up the external services you provide:</p>
+
+                <table class="requirements-table">
+                    <thead>
+                        <tr>
+                            <th>Component</th>
+                            <th>Your Responsibility</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>PostgreSQL Database</strong></td>
+                            <td>Back up using your database provider's tools and documentation. Managed services (AWS RDS, Aiven, etc.) typically offer automated backups.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>File Storage</strong></td>
+                            <td>Back up according to your storage solution: S3 versioning/replication, NAS snapshots, or file server backups.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p>Consult your database and storage provider's documentation for backup procedures, retention policies, and disaster recovery options.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>DFIRe Configuration</h2>
+                <p>In addition to your database and storage, back up the following DFIRe-specific items:</p>
+
+                <h3>Environment File</h3>
+                <p>The <code>.env</code> file contains your deployment configuration including database connection strings, storage settings, and secret keys. Keep a secure copy of this file.</p>
+
+                <h3>Application Configuration Export</h3>
+                <p>DFIRe can export your application configuration as a JSON file. This includes case types, evidence types, workflow steps, webhooks, permission groups, and other customizations—but <strong>does not include secret keys or credentials</strong>.</p>
+
+                <p>To export your configuration:</p>
+                <ol>
+                    <li>Go to <strong>Settings &gt; Tenant &gt; Identity</strong></li>
+                    <li>Click <strong>Export JSON</strong> in the Data Portability section</li>
+                    <li>Save the exported file securely</li>
+                </ol>
+
+                <p>This export can be imported into a fresh DFIRe installation to restore your configuration.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>Secret Key Backup</h2>
+
+                <p>Store your secret keys in a secure location separate from your data backups:</p>
+                <ul>
+                    <li><strong>Password manager</strong> — Use your organization's password manager (1Password, Bitwarden, etc.)</li>
+                    <li><strong>Secrets manager</strong> — Use a dedicated secrets management solution (HashiCorp Vault, AWS Secrets Manager, etc.)</li>
+                    <li><strong>Secure offline storage</strong> — Print and store in a secure physical location as a last resort backup</li>
+                </ul>
+
+                <h3>Keys to Back Up</h3>
+                <table class="requirements-table">
+                    <thead>
+                        <tr>
+                            <th>Key</th>
+                            <th>Purpose</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>CREDENTIAL_ENCRYPTION_KEY</code></td>
+                            <td>Encrypts stored credentials (API keys, integration secrets, etc.).</td>
+                        </tr>
+                        <tr>
+                            <td><code>SECRET_KEY</code></td>
+                            <td>Django secret key for session management and CSRF protection.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="callout callout-warning">
+                    <p><strong>Never regenerate these keys</strong> on an existing installation. Changing the encryption key makes previously encrypted credentials unreadable.</p>
+                </div>
+            </div>
+
+            <div class="docs-section">
+                <h2>File Attachments and the Database</h2>
+
+                <div class="callout callout-danger">
+                    <p><strong>Critical:</strong> File attachment encryption keys are stored in the database, not in your environment file. Loss of the database means permanent loss of access to all file attachments and photos—even if the encrypted files themselves are intact in storage.</p>
+                </div>
+
+                <p>This tight coupling between the database and file storage means:</p>
+                <ul>
+                    <li><strong>Database backups are essential</strong> — Without the database, encrypted files cannot be decrypted</li>
+                    <li><strong>Database and storage must be backed up together</strong> — A database backup without the corresponding files (or vice versa) is incomplete</li>
+                    <li><strong>Point-in-time consistency matters</strong> — Ensure your database and storage backups are coordinated</li>
+                </ul>
+            </div>
+
+            <div class="docs-section">
+                <h2>Recovery</h2>
+                <p>To restore DFIRe after a disaster:</p>
+
+                <ol>
+                    <li><strong>Restore your database</strong> from backup using your provider's restore procedure</li>
+                    <li><strong>Restore your file storage</strong> or ensure DFIRe can access the restored storage location</li>
+                    <li><strong>Deploy DFIRe</strong> with your backed-up <code>.env</code> file (containing the original secret keys)</li>
+                    <li><strong>Import configuration</strong> (if needed) using the exported JSON file via Settings &gt; Tenant &gt; Identity</li>
+                    <li><strong>Verify</strong> that cases, evidence, and file attachments are accessible</li>
+                </ol>
+
+                <p>The database is the most critical component for recovery. It contains all case data, user accounts, and the encryption keys needed to decrypt file attachments.</p>
+            </div>
+
+            <nav class="docs-nav">
+                <a href="storage.html" class="docs-nav-link prev">
+                    <span class="docs-nav-label">Previous</span>
+                    <span class="docs-nav-title">Storage Backends</span>
+                </a>
+                <a href="security.html" class="docs-nav-link next">
+                    <span class="docs-nav-label">Next</span>
+                    <span class="docs-nav-title">Application Security</span>
+                </a>
+            </nav>
+        </main>
+    </div>
+
+    <footer class="docs-footer">
+        <div class="container">
+            <p>&copy; 2026 Tmi Antti Kurittu. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const navToggle = document.querySelector('.nav-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        navToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            navToggle.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

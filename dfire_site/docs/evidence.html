@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evidence Tracking - DFIRe Documentation</title>
+    <meta name="description" content="Learn how to track digital and physical evidence with chain of custody in DFIRe.">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="docs.css">
+    <link rel="icon" type="image/png" href="../assets/logo.png">
+</head>
+<body>
+    <nav class="nav scrolled">
+        <div class="nav-container">
+            <a href="../" class="nav-logo">
+                <img src="../assets/logo.png" alt="DFIRe" class="logo-img">
+                <span class="logo-text">Documentation</span>
+            </a>
+            <div class="nav-links">
+                <a href="../#features">Features</a>
+                <a href="../#pricing">Pricing</a>
+                <a href="../#installation">Installation</a>
+                <a href="./" class="active">Docs</a>
+                <a href="../#contact">Contact</a>
+            </div>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="docs-layout">
+        <aside class="docs-sidebar">
+            <div class="sidebar-section">
+                <h3>Getting Started</h3>
+                <ul>
+                    <li><a href="getting-started.html">Quick Start Guide</a></li>
+                    <li><a href="deployment.html">Deployment</a></li>
+                    <li><a href="configuration.html">Configuration</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>User Guide</h3>
+                <ul>
+                    <li><a href="cases.html">Case Management</a></li>
+                    <li><a href="evidence.html" class="active">Evidence Tracking</a></li>
+                    <li><a href="incidents.html">Incident Response</a></li>
+                    <li><a href="reports.html">Reports</a></li>
+                    <li><a href="timeline.html">Timeline</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>Administration</h3>
+                <ul>
+                    <li><a href="users.html">User Management</a></li>
+                    <li><a href="sso.html">Single Sign-On</a></li>
+                    <li><a href="webhooks.html">Webhooks</a></li>
+                    <li><a href="storage.html">Storage Backends</a></li>
+                    <li><a href="backup.html">Backup & Recovery</a></li>
+                    <li><a href="security.html">Application Security</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>Reference</h3>
+                <ul>
+                    <li><a href="workflow.html">Workflow Configuration</a></li>
+                    <li><a href="case-types.html">Case Types</a></li>
+                    <li><a href="evidence-types.html">Evidence Types</a></li>
+                    <li><a href="compliance.html">Compliance Timers</a></li>
+                    <li><a href="licenses.html">Third-Party Licenses</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <main class="docs-content">
+            <div class="docs-header">
+                <h1>Evidence Tracking</h1>
+                <p class="docs-intro">Track digital and physical evidence with detailed metadata, chain of custody, legal ownership, and encrypted file attachments.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>Understanding Evidence Items</h2>
+                <p>Evidence items in DFIRe represent both digital artifacts and physical items being analyzed as part of an investigation. Each evidence item can have:</p>
+                <ul>
+                    <li><strong>Type-specific metadata</strong> - Fields defined by the evidence type (e.g., hash values, serial numbers, device info)</li>
+                    <li><strong>Legal owner and custodian</strong> - Track who owns the device and who was using it</li>
+                    <li><strong>Storage location</strong> - Where the evidence is stored (physical location or digital path)</li>
+                    <li><strong>Investigation status</strong> - Current stage of processing (e.g., "Identification", "Acquisition", "Analysis")</li>
+                    <li><strong>Flags</strong> - Custom tags for categorization</li>
+                    <li><strong>File attachments</strong> - Related files, always encrypted at rest</li>
+                    <li><strong>Notes</strong> - Analysis notes and findings</li>
+                </ul>
+
+                <h3>Physical vs Digital Evidence</h3>
+                <p>DFIRe supports both types of evidence:</p>
+                <ul>
+                    <li><strong>Physical evidence</strong> - Computers, hard drives, mobile phones, paper documents, SIM cards. Storage location refers to a physical location (e.g., "Evidence Locker A, Shelf 3").</li>
+                    <li><strong>Digital evidence</strong> - Disk images, memory dumps, log files, network captures. Storage location can be a digital path (e.g., "\\fileserver\evidence\case001" or "/mnt/evidence/images/").</li>
+                </ul>
+
+                <div class="callout callout-info">
+                    <p><strong>Large Files:</strong> Although DFIRe supports large file attachments, items like full disk images or large memory dumps are best stored using a dedicated file storage solution. Use the storage location field to reference external storage paths.</p>
+                </div>
+
+                <h3>Evidence Hierarchy</h3>
+                <p>Evidence items can be organized hierarchically. For example:</p>
+                <ul>
+                    <li>A <strong>Laptop</strong> can be the parent of a <strong>Hard Drive Internal</strong></li>
+                    <li>A <strong>Hard Drive</strong> can be the parent of a <strong>Disk Image</strong></li>
+                    <li>A <strong>Mobile Phone</strong> can be the parent of a <strong>SIM Card</strong></li>
+                    <li>A <strong>Server</strong> can be the parent of a <strong>Memory Image (RAM)</strong></li>
+                </ul>
+                <p>This hierarchy helps maintain chain of custody relationships between items.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>Default Evidence Types</h2>
+                <p>DFIRe ships with a comprehensive set of preconfigured evidence types. Administrators can modify these or create new types in <strong>System Settings &gt; Evidence Types</strong>.</p>
+
+                <h3>Physical Devices</h3>
+                <table class="requirements-table">
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Key Fields</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Laptop</strong></td>
+                            <td>Serial Number, Hostname, MAC Address, Full Disk Encryption, User Password</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Workstation</strong></td>
+                            <td>Serial Number, Hostname, MAC Address, Full Disk Encryption</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Server</strong></td>
+                            <td>Hostname, IP Address, OS Version, Server Role, RAID Config, Is Virtual</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Mobile Phone</strong></td>
+                            <td>IMEI, Make, Model, Passcode, SIM Present, Faraday Bag</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Tablet</strong></td>
+                            <td>IMEI, Make, Model, Passcode, SIM Present</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Hard Drive (Internal/External)</strong></td>
+                            <td>Serial Number, Capacity, Interface, Manufacturer, Acquisition Hash</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Flash Media</strong></td>
+                            <td>Brand, Type (SD, USB), Capacity, Physical Description</td>
+                        </tr>
+                        <tr>
+                            <td><strong>SIM Card</strong></td>
+                            <td>ICCID Number, Carrier, Associated Phone Number</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Network Device</strong></td>
+                            <td>Make, Model, IP Address, MAC Address, Admin Access, Logs Preserved</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Drone / UAV</strong></td>
+                            <td>Manufacturer, FAA Registration, Serial Number, Onboard Storage</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Paper Documents</strong></td>
+                            <td>Document Type, Page Count, Condition</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Digital Artifacts</h3>
+                <table class="requirements-table">
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Key Fields</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Disk Image</strong></td>
+                            <td>Format (E01, RAW, VHD), Segment Size, Acquisition Hash, Source Drive Serial</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Memory Image (RAM)</strong></td>
+                            <td>Source Hostname, OS Build/Profile, Size, Acquisition Tool, Acquisition Hash</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Virtual Machine</strong></td>
+                            <td>Hostname, Format/Platform, IP Address, OS Version, Is Snapshot</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Network Capture (PCAP)</strong></td>
+                            <td>Source, Capture Duration, Endpoints Count, Traffic Encrypted</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Log File</strong></td>
+                            <td>Source System, Log Type, Format (EVTX, JSON), Period Start/End</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Malware Sample</strong></td>
+                            <td>File Name, File Type, MD5/SHA256 Hash, Source URL, Is Live/Dangerous</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Database</strong></td>
+                            <td>Database Role, Format, Contains Sensitive Content, Contains Payment Info</td>
+                        </tr>
+                        <tr>
+                            <td><strong>File</strong></td>
+                            <td>File Name, File Type, File Size, MD5 Hash</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Accounts &amp; Identities</h3>
+                <table class="requirements-table">
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Key Fields</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>User Account</strong></td>
+                            <td>Username/Email, Platform (AD, Okta, Gmail), User ID, MFA Enabled, Status</td>
+                        </tr>
+                        <tr>
+                            <td><strong>E-Mail Account</strong></td>
+                            <td>Service Provider, Is Active, Is Shared Account</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Email Message</strong></td>
+                            <td>Sender, Recipient, Subject, Message-ID, Format (MSG, EML)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="docs-section">
+                <h2>Adding Evidence</h2>
+
+                <ol class="steps">
+                    <li>
+                        <strong>Open a case and go to the Evidence tab</strong>
+                        <p>You can also click "Add Evidence" from the case header.</p>
+                    </li>
+                    <li>
+                        <strong>Select the Evidence Type</strong>
+                        <p>Choose from the configured evidence types. This determines which fields are available.</p>
+                    </li>
+                    <li>
+                        <strong>Fill in the Evidence Details</strong>
+                        <ul>
+                            <li><strong>Name / Label:</strong> Descriptive name for the item</li>
+                            <li><strong>Parent Item:</strong> If this is a child item (e.g., disk image from a hard drive)</li>
+                            <li><strong>Storage Location:</strong> Physical location or digital path where evidence is stored</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>Set Ownership &amp; Custody</strong>
+                        <ul>
+                            <li><strong>Legal Owner:</strong> Entity that owns the device (person or organization)</li>
+                            <li><strong>Primary User:</strong> Person who was using the device</li>
+                        </ul>
+                        <p>You can create new entities inline or select from existing ones.</p>
+                    </li>
+                    <li>
+                        <strong>Fill in Type-Specific Attributes</strong>
+                        <p>Complete the fields specific to your evidence type (serial numbers, hash values, etc.).</p>
+                    </li>
+                    <li>
+                        <strong>Click "Add Item"</strong>
+                        <p>The evidence item will be created and you'll be taken to its detail view.</p>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="docs-section">
+                <h2>The Evidence Detail View</h2>
+                <p>Click on any evidence item to view and manage it.</p>
+
+                <h3>Overview</h3>
+                <p>Shows all evidence attributes, ownership information, investigation status, and flags.</p>
+
+                <h3>Notes</h3>
+                <p>Add analysis notes specific to this evidence item. Notes support markdown formatting.</p>
+
+                <h3>Attachments</h3>
+                <p>Upload files related to this evidence item (chain of custody forms, acquisition logs, exported artifacts).</p>
+
+                <h3>History</h3>
+                <p>Full audit trail of changes made to the evidence item.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>Investigation Status Workflow</h2>
+                <p>Evidence items progress through investigation statuses. The default workflow includes:</p>
+
+                <table class="requirements-table">
+                    <thead>
+                        <tr>
+                            <th>Status</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Identification</strong></td>
+                            <td>Potential evidence identified</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Acquisition</strong></td>
+                            <td>Evidence seized and imaged/secured</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Processing</strong></td>
+                            <td>Indexing, hashing, and data extraction</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Analysis</strong></td>
+                            <td>Investigator review and artifact correlation</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Reporting</strong></td>
+                            <td>Findings documented and report generated</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Archived/Returned</strong></td>
+                            <td>Case closed, evidence returned or stored long-term</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p>To change the status, click on the status badge in the evidence detail view.</p>
+
+                <div class="callout callout-info">
+                    <p>Investigation workflow steps are configurable in <strong>System Settings &gt; Investigation Steps</strong>. You can customize the workflow to match your organization's procedures.</p>
+                </div>
+            </div>
+
+            <div class="docs-section">
+                <h2>Flags</h2>
+                <p>Flags are customizable tags you can apply to evidence items for categorization. Default flags include:</p>
+
+                <table class="requirements-table">
+                    <thead>
+                        <tr>
+                            <th>Flag</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Evidence</strong></td>
+                            <td>Contains evidence relevant to the case</td>
+                        </tr>
+                        <tr>
+                            <td><strong>No evidence</strong></td>
+                            <td>Contains no relevant evidence</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Malware</strong></td>
+                            <td>Contains malware</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Illegal content</strong></td>
+                            <td>Contains illegal content</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Broken</strong></td>
+                            <td>Device is broken or file corrupted</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Do not return</strong></td>
+                            <td>Do not return this item to owner</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p>Administrators can configure flags in <strong>System Settings &gt; Flags</strong>.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>Legal Entities</h2>
+                <p>Legal entities represent the people and organizations associated with evidence. Entities are managed from the top navigation bar by clicking <strong>Entities</strong> (next to Dashboard and Search).</p>
+
+                <h3>Entity Types</h3>
+                <table class="requirements-table">
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Use For</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Natural Person</strong></td>
+                            <td>Individual people (employees, suspects, witnesses)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Organization</strong></td>
+                            <td>Companies, corporations, departments</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Government Agency</strong></td>
+                            <td>Law enforcement, regulatory bodies</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Team</strong></td>
+                            <td>Internal teams or working groups</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Other</strong></td>
+                            <td>Any entity that doesn't fit the above categories</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Owner vs. Primary User</h3>
+                <ul>
+                    <li><strong>Legal Owner</strong> - The entity that legally owns the device (often the employer)</li>
+                    <li><strong>Primary User</strong> - The person who was actually using the device</li>
+                </ul>
+                <p>This distinction is important for establishing chain of custody and legal authority.</p>
+
+                <p>Entities are reusable across cases. When adding evidence, you can select existing entities or create new ones inline.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>File Attachments</h2>
+                <p>You can attach files to evidence items. Common use cases:</p>
+                <ul>
+                    <li>Chain of custody forms</li>
+                    <li>Acquisition logs</li>
+                    <li>Analysis reports</li>
+                    <li>Exported artifacts</li>
+                    <li>Screenshots</li>
+                </ul>
+
+                <h3>Encryption</h3>
+                <p>All attachments are encrypted at rest using AES-256-GCM. The encryption key is derived from:</p>
+                <ul>
+                    <li>The tenant's master key</li>
+                    <li>The case-specific key</li>
+                    <li>An attachment-specific salt</li>
+                </ul>
+
+                <div class="callout callout-warning">
+                    <p><strong>Important:</strong> Attachment data is <strong>never</strong> stored unencrypted. Deleting the tenant, case, or evidence item renders all associated attachments permanently unreadable. There is no recovery mechanism - this is by design for security.</p>
+                </div>
+
+                <h3>Large Files</h3>
+                <p>DFIRe uses chunked uploads for files over 8MB. While there's no hard limit on file size, large forensic images (disk images, memory dumps) are best stored on dedicated file storage infrastructure. Use the evidence item's storage location field to reference the external path.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>Evidence Organization</h2>
+
+                <h3>Viewing Options</h3>
+                <p>The Evidence tab provides several ways to view items:</p>
+                <ul>
+                    <li><strong>List view</strong> - Simple list sorted by creation date</li>
+                    <li><strong>Tree view</strong> - Hierarchical view showing parent/child relationships</li>
+                </ul>
+
+                <h3>Filtering</h3>
+                <p>Filter evidence by:</p>
+                <ul>
+                    <li>Evidence type</li>
+                    <li>Investigation status</li>
+                    <li>Flags</li>
+                    <li>Owner or custodian</li>
+                </ul>
+            </div>
+
+            <nav class="docs-nav">
+                <a href="cases.html" class="docs-nav-link prev">
+                    <span class="docs-nav-label">Previous</span>
+                    <span class="docs-nav-title">Case Management</span>
+                </a>
+                <a href="incidents.html" class="docs-nav-link next">
+                    <span class="docs-nav-label">Next</span>
+                    <span class="docs-nav-title">Incident Response</span>
+                </a>
+            </nav>
+        </main>
+    </div>
+
+    <footer class="docs-footer">
+        <div class="container">
+            <p>&copy; 2026 Tmi Antti Kurittu. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const navToggle = document.querySelector('.nav-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        navToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            navToggle.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DFIRe - Digital Forensics and Incident Response Platform</title>
+    <meta name="description" content="DFIRe is a comprehensive case management platform for digital forensics investigations and incident response. Self-hosted, secure, and built for DFIR professionals.">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" href="assets/logo.png">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">
+                <img src="assets/logo.png" alt="DFIRe" class="logo-img">
+            </a>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#screenshots">Screenshots</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#installation">Installation</a>
+                <a href="docs/">Docs</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <img src="assets/logo.png" alt="DFIRe" class="hero-logo">
+                <h1>Digital Forensics &amp; Incident Response Platform</h1>
+                <p class="hero-subtitle">
+                    Comprehensive case management for DFIR professionals. Track investigations,
+                    manage evidence, coordinate incident response, and generate reports &mdash;
+                    all in one secure, self-hosted platform.
+                </p>
+                <div class="hero-cta">
+                    <a href="#installation" class="btn btn-primary">Get Started Free</a>
+                    <a href="#features" class="btn btn-secondary">Learn More</a>
+                </div>
+                <p class="hero-trial">30-day free trial. No credit card required.</p>
+            </div>
+            <div class="hero-image">
+                <div class="hero-screenshot-carousel">
+                    <img src="screenshots/evidence-list.jpg" alt="DFIRe Evidence Management" class="screenshot-main active">
+                    <img src="screenshots/dashboard.jpg" alt="DFIRe Dashboard" class="screenshot-main">
+                    <img src="screenshots/timeline.jpg" alt="DFIRe Timeline" class="screenshot-main">
+                    <img src="screenshots/incident-actions.jpg" alt="DFIRe Incident Actions" class="screenshot-main">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Data Sovereignty Section -->
+    <section class="data-sovereignty">
+        <div class="container">
+            <div class="sovereignty-grid">
+                <div class="sovereignty-content">
+                    <h2>Your Data. Your Infrastructure. Your Control.</h2>
+                    <p>DFIRe is a fully self-hosted solution. Deploy it on your own servers, behind your firewall, with your security policies. No incident data ever leaves your infrastructure.</p>
+                    <ul class="sovereignty-benefits">
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                            <span><strong>Complete Data Sovereignty</strong> &mdash; Sensitive investigation data stays within your organization. No third-party cloud services handle your case files.</span>
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                            <span><strong>Air-Gapped Compatible</strong> &mdash; Works in isolated networks and high-security environments where internet connectivity is restricted or prohibited.</span>
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+                            <span><strong>Your Database, Your Storage</strong> &mdash; Bring your own PostgreSQL database (self-hosted or managed DBaaS like Aiven, DigitalOcean, AWS RDS) and choose local filesystem, S3-compatible, or SMB/CIFS storage for evidence files.</span>
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                            <span><strong>Regulatory Compliance</strong> &mdash; Meet data residency requirements and industry regulations by keeping evidence within your jurisdiction.</span>
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+                            <span><strong>No AI, No Black Boxes</strong> &mdash; Incidents are handled by humans, not computers. Your investigation decisions remain fully transparent and explainable.</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="sovereignty-visual">
+                    <div class="sovereignty-diagram">
+                        <div class="diagram-box your-infrastructure">
+                            <span class="diagram-label">Your Infrastructure</span>
+                            <div class="diagram-inner-grid">
+                                <div class="diagram-item-box">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                                    <span>DFIRe Application</span>
+                                </div>
+                                <div class="diagram-item-box">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+                                    <span>PostgreSQL Database</span>
+                                </div>
+                                <div class="diagram-item-box">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+                                    <span>File Storage</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="diagram-arrow-bidirectional">
+                            <span class="arrow-label">Integrations</span>
+                        </div>
+                        <div class="diagram-box external">
+                            <span class="diagram-label">External (Optional)</span>
+                            <div class="diagram-inner">
+                                <div class="diagram-item">Incoming Webhooks</div>
+                                <div class="diagram-item">Outgoing Webhooks</div>
+                                <div class="diagram-item">Slack Integration</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">Built for DFIR Professionals</h2>
+            <p class="section-subtitle">Everything your team needs to manage forensic investigations and incident response workflows.</p>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
+                    </div>
+                    <h3>Case Management</h3>
+                    <p>Organize investigations with customizable case types, severity levels, and team assignments. Support for both forensic investigations and incident response workflows.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                    </div>
+                    <h3>Evidence Tracking</h3>
+                    <p>Track digital and physical evidence with detailed metadata, chain of custody, legal ownership, and hierarchical organization. Customize your evidence types with configurable attributes.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                    </div>
+                    <h3>Incident Timeline</h3>
+                    <p>Visual timeline for tracking incident phases, from detection through recovery. Guided response actions with phase-based checklists and automatic progress tracking.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    </div>
+                    <h3>Compliance Timers</h3>
+                    <p>Built-in SLA tracking for regulatory requirements like GDPR breach notifications. Automatic reminders and deadline tracking to ensure compliance.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    </div>
+                    <h3>End-to-End Encryption</h3>
+                    <p>AES-256 encryption for all file and image attachments with a three-layer key hierarchy. Per-case and per-item encryption keys ensure data isolation and secure deletion. Your data is unreadable even if the storage backend gets compromised.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </div>
+                    <h3>Team Collaboration</h3>
+                    <p>Atomic role-based access control with customizable permission groups. Define granular rights for your team with lead investigators, case members, and viewers. Slack integration for collaboration, workflow management and notifications.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+                    </div>
+                    <h3>Report Generation</h3>
+                    <p>Structured investigation reports with customizable sections, QA workflow, and markdown support. Auto-generated evidence inventories and timelines.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                    </div>
+                    <h3>Webhooks &amp; Integrations</h3>
+                    <p>Outgoing webhooks for SIEM integration and notifications. Incoming webhooks allow SOAR platforms to create cases automatically.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                    </div>
+                    <h3>SSO &amp; Enterprise Auth</h3>
+                    <p>SSO integration via the OIDC standard, compatible with any OIDC provider including Google Workspace, Microsoft Entra ID, and Auth0. Session management with instant revocation and IP tracking.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Screenshots Section -->
+    <section id="screenshots" class="screenshots">
+        <div class="container">
+            <h2 class="section-title">See It in Action</h2>
+            <p class="section-subtitle">Modern, intuitive interface designed for efficiency.</p>
+
+            <div class="screenshot-gallery">
+                <div class="screenshot-item" data-title="Dashboard">
+                    <img src="screenshots/dashboard.jpg" alt="Dashboard view showing active cases" loading="lazy">
+                    <span class="screenshot-label">Dashboard</span>
+                </div>
+                <div class="screenshot-item" data-title="Incident Timeline">
+                    <img src="screenshots/timeline.jpg" alt="Incident timeline with phase tracking" loading="lazy">
+                    <span class="screenshot-label">Incident Timeline</span>
+                </div>
+                <div class="screenshot-item" data-title="Response Actions">
+                    <img src="screenshots/incident-actions.jpg" alt="Incident response action checklist" loading="lazy">
+                    <span class="screenshot-label">Response Actions</span>
+                </div>
+                <div class="screenshot-item" data-title="Evidence Management">
+                    <img src="screenshots/evidence-list.jpg" alt="Evidence item list with metadata" loading="lazy">
+                    <span class="screenshot-label">Evidence Management</span>
+                </div>
+                <div class="screenshot-item" data-title="Compliance Timers">
+                    <img src="screenshots/compliance-timers.jpg" alt="GDPR compliance timer tracking" loading="lazy">
+                    <span class="screenshot-label">Compliance Timers</span>
+                </div>
+                <div class="screenshot-item" data-title="Report Editor">
+                    <img src="screenshots/report-editor.jpg" alt="Investigation report editor" loading="lazy">
+                    <span class="screenshot-label">Report Editor</span>
+                </div>
+                <div class="screenshot-item" data-title="Case Configuration">
+                    <img src="screenshots/case-types.jpg" alt="Custom case type configuration" loading="lazy">
+                    <span class="screenshot-label">Case Configuration</span>
+                </div>
+                <div class="screenshot-item" data-title="Webhooks">
+                    <img src="screenshots/webhooks.jpg" alt="Webhook integration settings" loading="lazy">
+                    <span class="screenshot-label">Webhook Integrations</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing">
+        <div class="container">
+            <h2 class="section-title">Simple, Transparent Pricing</h2>
+            <p class="section-subtitle">All features included. No per-user fees. No feature tiers.</p>
+
+            <div class="pricing-cards">
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Free Trial</h3>
+                        <div class="pricing-amount">
+                            <div class="price-row">
+                                <span class="price">Free</span>
+                            </div>
+                            <span class="period">for 30 days</span>
+                        </div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>All features included</li>
+                        <li>Unlimited users</li>
+                        <li>Unlimited cases</li>
+                        <li>Full encryption</li>
+                        <li>No credit card required</li>
+                    </ul>
+                    <a href="#installation" class="btn btn-primary">Start Free Trial</a>
+                    <p class="pricing-note">Need more time? Contact <a href="mailto:contact@dfire.fi">contact@dfire.fi</a> for an extended trial.</p>
+                </div>
+
+                <div class="pricing-card featured">
+                    <div class="pricing-badge">Most Popular</div>
+                    <div class="pricing-header">
+                        <h3>Annual License</h3>
+                        <div class="pricing-amount">
+                            <div class="price-row">
+                                <span class="price">2,499</span>
+                                <span class="currency">EUR</span>
+                            </div>
+                            <span class="period">per year</span>
+                        </div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>All features included</li>
+                        <li>No extra feature charges</li>
+                        <li>Unlimited users</li>
+                        <li>Unlimited cases</li>
+                    </ul>
+                    <a href="#" class="btn btn-primary" id="buy-license">Purchase License</a>
+                </div>
+
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Multi-Year</h3>
+                        <div class="pricing-amount">
+                            <div class="price-row">
+                                <span class="price">Save 15-25%</span>
+                            </div>
+                            <span class="period">with longer terms</span>
+                        </div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>2-year: 15% discount</li>
+                        <li>3-year: 25% discount</li>
+                        <li>All features included</li>
+                    </ul>
+                    <a href="mailto:contact@dfire.fi" class="btn btn-secondary">Contact Sales</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack Section -->
+    <section class="tech-stack">
+        <div class="container">
+            <h2 class="section-title">Built with Modern Standards</h2>
+            <div class="tech-grid">
+                <div class="tech-item">
+                    <strong>Backend</strong>
+                    <span>Django 6.0 + PostgreSQL</span>
+                </div>
+                <div class="tech-item">
+                    <strong>Frontend</strong>
+                    <span>React 19 + TypeScript</span>
+                </div>
+                <div class="tech-item">
+                    <strong>Real-time</strong>
+                    <span>WebSocket updates</span>
+                </div>
+                <div class="tech-item">
+                    <strong>Deployment</strong>
+                    <span>Docker + Docker Compose</span>
+                </div>
+                <div class="tech-item">
+                    <strong>Encryption</strong>
+                    <span>AES-256-GCM</span>
+                </div>
+                <div class="tech-item">
+                    <strong>Storage</strong>
+                    <span>Local, S3, or SMB</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Installation Section -->
+    <section id="installation" class="installation">
+        <div class="container">
+            <h2 class="section-title">Get Started in Minutes</h2>
+            <p class="section-subtitle">Deploy DFIRe with Docker Compose. Self-hosted means your data stays on your infrastructure.</p>
+
+            <div class="install-steps">
+                <div class="install-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Download the installer</h3>
+                        <div class="code-block">
+                            <code>curl -fsSL https://dfire.fi/install.sh -o install.sh</code>
+                            <button class="copy-btn" data-copy="curl -fsSL https://dfire.fi/install.sh -o install.sh">Copy</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="install-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Run the installation script</h3>
+                        <div class="code-block">
+                            <code>chmod +x install.sh && ./install.sh</code>
+                            <button class="copy-btn" data-copy="chmod +x install.sh && ./install.sh">Copy</button>
+                        </div>
+                        <p class="step-note">The script will guide you through configuration and start the services.</p>
+                    </div>
+                </div>
+
+                <div class="install-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Access your instance</h3>
+                        <div class="code-block">
+                            <code>https://your-server:443</code>
+                        </div>
+                        <p class="step-note">Create your admin account and start investigating.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="install-requirements">
+                <h3>System Requirements</h3>
+                <ul>
+                    <li>Docker 24.0+ and Docker Compose 2.20+</li>
+                    <li>4GB RAM minimum (8GB recommended)</li>
+                    <li>20GB disk space for application</li>
+                    <li>Additional storage for evidence files</li>
+                    <li>Linux, Windows, or macOS host</li>
+                    <li>PostgreSQL 15+ database (self-hosted or managed DBaaS)</li>
+                </ul>
+            </div>
+
+            <div class="install-manual">
+                <h3>Manual Installation</h3>
+                <p>For advanced deployments, custom configurations, or air-gapped environments, see the
+                   <a href="docs/deployment.html">deployment documentation</a>.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Get in Touch</h2>
+            <p class="section-subtitle">Questions about DFIRe? We're here to help.</p>
+
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                        <div>
+                            <strong>Email</strong>
+                            <a href="mailto:contact@dfire.fi">contact@dfire.fi</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                        <div>
+                            <strong>GitHub</strong>
+                            <a href="https://github.com/dfire-response/dfire" target="_blank" rel="noopener">github.com/dfire-response/dfire</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="assets/logo.png" alt="DFIRe" class="footer-logo">
+                    <p>Digital Forensics and Incident Response Platform</p>
+                </div>
+                <div class="footer-links">
+                    <a href="#features">Features</a>
+                    <a href="#pricing">Pricing</a>
+                    <a href="#installation">Installation</a>
+                    <a href="docs/">Documentation</a>
+                    <a href="#contact">Contact</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Tmi Antti Kurittu. All rights reserved. | <a href="terms.html">Terms & Conditions</a> | <a href="terms.html#privacy-policy">Privacy Policy</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Lightbox for screenshots -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close">&times;</button>
+        <img src="" alt="" class="lightbox-img">
+        <div class="lightbox-caption"></div>
+    </div>
+
+    <script>
+        // Mobile navigation toggle
+        const navToggle = document.querySelector('.nav-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        navToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            navToggle.classList.toggle('active');
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    navLinks.classList.remove('active');
+                    navToggle.classList.remove('active');
+                }
+            });
+        });
+
+        // Copy button functionality
+        document.querySelectorAll('.copy-btn').forEach(btn => {
+            btn.addEventListener('click', async () => {
+                const text = btn.dataset.copy;
+                try {
+                    await navigator.clipboard.writeText(text);
+                    btn.textContent = 'Copied!';
+                    setTimeout(() => btn.textContent = 'Copy', 2000);
+                } catch (err) {
+                    btn.textContent = 'Failed';
+                    setTimeout(() => btn.textContent = 'Copy', 2000);
+                }
+            });
+        });
+
+        // Screenshot lightbox
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = lightbox.querySelector('.lightbox-img');
+        const lightboxCaption = lightbox.querySelector('.lightbox-caption');
+
+        document.querySelectorAll('.screenshot-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const img = item.querySelector('img');
+                const title = item.dataset.title;
+                lightboxImg.src = img.src;
+                lightboxImg.alt = img.alt;
+                lightboxCaption.textContent = title;
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox || e.target.classList.contains('lightbox-close')) {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // Navbar background on scroll
+        const nav = document.querySelector('.nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Hero screenshot carousel
+        const carouselImages = document.querySelectorAll('.hero-screenshot-carousel .screenshot-main');
+        let currentImage = 0;
+
+        function rotateScreenshot() {
+            carouselImages[currentImage].classList.remove('active');
+            currentImage = (currentImage + 1) % carouselImages.length;
+            carouselImages[currentImage].classList.add('active');
+        }
+
+        if (carouselImages.length > 1) {
+            setInterval(rotateScreenshot, 5000);
+        }
+    </script>
+</body>
+</html>

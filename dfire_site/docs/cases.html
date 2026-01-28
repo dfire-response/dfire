@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Management - DFIRe Documentation</title>
+    <meta name="description" content="Learn how to create and manage forensic investigation cases in DFIRe.">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="docs.css">
+    <link rel="icon" type="image/png" href="../assets/logo.png">
+</head>
+<body>
+    <nav class="nav scrolled">
+        <div class="nav-container">
+            <a href="../" class="nav-logo">
+                <img src="../assets/logo.png" alt="DFIRe" class="logo-img">
+                <span class="logo-text">Documentation</span>
+            </a>
+            <div class="nav-links">
+                <a href="../#features">Features</a>
+                <a href="../#pricing">Pricing</a>
+                <a href="../#installation">Installation</a>
+                <a href="./" class="active">Docs</a>
+                <a href="../#contact">Contact</a>
+            </div>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="docs-layout">
+        <aside class="docs-sidebar">
+            <div class="sidebar-section">
+                <h3>Getting Started</h3>
+                <ul>
+                    <li><a href="getting-started.html">Quick Start Guide</a></li>
+                    <li><a href="deployment.html">Deployment</a></li>
+                    <li><a href="configuration.html">Configuration</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>User Guide</h3>
+                <ul>
+                    <li><a href="cases.html" class="active">Case Management</a></li>
+                    <li><a href="evidence.html">Evidence Tracking</a></li>
+                    <li><a href="incidents.html">Incident Response</a></li>
+                    <li><a href="reports.html">Reports</a></li>
+                    <li><a href="timeline.html">Timeline</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>Administration</h3>
+                <ul>
+                    <li><a href="users.html">User Management</a></li>
+                    <li><a href="sso.html">Single Sign-On</a></li>
+                    <li><a href="webhooks.html">Webhooks</a></li>
+                    <li><a href="storage.html">Storage Backends</a></li>
+                    <li><a href="backup.html">Backup & Recovery</a></li>
+                    <li><a href="security.html">Application Security</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>Reference</h3>
+                <ul>
+                    <li><a href="workflow.html">Workflow Configuration</a></li>
+                    <li><a href="case-types.html">Case Types</a></li>
+                    <li><a href="evidence-types.html">Evidence Types</a></li>
+                    <li><a href="compliance.html">Compliance Timers</a></li>
+                    <li><a href="licenses.html">Third-Party Licenses</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <main class="docs-content">
+            <div class="docs-header">
+                <h1>Case Management</h1>
+                <p class="docs-intro">Cases are the central organizing unit in DFIRe. Every investigation, incident, or forensic analysis is tracked as a case.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>Understanding Cases</h2>
+                <p>A case in DFIRe represents a single investigation or incident. Cases contain:</p>
+                <ul>
+                    <li><strong>Evidence items</strong> - Digital artifacts being analyzed</li>
+                    <li><strong>Attachments</strong> - Files related to the investigation</li>
+                    <li><strong>Notes</strong> - Investigation notes and findings</li>
+                    <li><strong>Timeline events</strong> - Chronological record of activities (incident mode)</li>
+                    <li><strong>Reports</strong> - Formal investigation documentation with QA workflow</li>
+                    <li><strong>Team assignments</strong> - Who is working on the case</li>
+                </ul>
+
+                <h3>Case Modes</h3>
+                <p>DFIRe supports two case modes, each with a different set of features:</p>
+
+                <table class="requirements-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Investigation</th>
+                            <th>Incident</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Case Report</td>
+                            <td>Yes</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td>Evidence</td>
+                            <td>Yes</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td>Notes</td>
+                            <td>Yes</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td>Attachments</td>
+                            <td>Yes</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td>Timeline</td>
+                            <td>-</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td>Actions Checklist</td>
+                            <td>-</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td>Compliance Timers</td>
+                            <td>-</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td>Phase-based Workflow</td>
+                            <td>-</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td>CAN Report</td>
+                            <td>-</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td>Duration Tracking</td>
+                            <td>-</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td>Slack Workspace</td>
+                            <td>Optional</td>
+                            <td>Optional</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="callout callout-info">
+                    <p>You can escalate an Investigation to an Incident at any time if the situation requires active response coordination.</p>
+                </div>
+            </div>
+
+            <div class="docs-section">
+                <h2>Default Case Types</h2>
+                <p>DFIRe ships with preconfigured case types for common scenarios. Each case type includes custom fields and, for incident types, a predefined action checklist. Administrators can modify these or create new types in <strong>System Settings &gt; Case Types</strong>.</p>
+
+                <h3>Incident Response Types</h3>
+                <table class="requirements-table">
+                    <thead>
+                        <tr>
+                            <th>Case Type</th>
+                            <th>Key Custom Fields</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>General Incident Response</strong></td>
+                            <td>Attack Vector, Containment Status, PII Involved, Systems Affected</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ransomware Attack</strong></td>
+                            <td>Ransom Amount, Cryptocurrency Wallet, Decryptor Available, Backup Status</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Phishing Campaign</strong></td>
+                            <td>Sender Domain, Users Targeted, Users Clicked, Credentials Harvested</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Malware Infection</strong></td>
+                            <td>Malware Family, Detection Source, File Hash, Auto-Action Taken</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cloud Security Incident</strong></td>
+                            <td>Cloud Provider, Account ID, Resource ID, Publicly Exposed</td>
+                        </tr>
+                        <tr>
+                            <td><strong>DDoS Attack</strong></td>
+                            <td>Attack Type, Target Asset, Peak Bandwidth, ISP Ticket Reference</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Network &amp; Perimeter Compromise</strong></td>
+                            <td>Entry Point, Lateral Movement, C2 Detected, Data Exfiltration</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Critical Vulnerability Response</strong></td>
+                            <td>CVE ID, CVSS Score, Exploited in Wild, Assets Affected, Patch Deadline</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Accidental Data Leak</strong></td>
+                            <td>Data Types, Leak Source, Recipient Type, Records Exposed</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Financial Fraud</strong></td>
+                            <td>Fraud Type (BEC, Invoice, CEO), Attack Method, Est. Loss Amount</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Lost/Stolen Equipment</strong></td>
+                            <td>Device Type, Serial Number, Encrypted, Contains PII, Police Report</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Physical Security Incident</strong></td>
+                            <td>Incident Location, Access Method, CCTV Available, Assets Affected</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Supply Chain / Third-Party Incident</strong></td>
+                            <td>Vendor Name, Service Affected, Data Shared, Contract Reference</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Investigation Types</h3>
+                <table class="requirements-table">
+                    <thead>
+                        <tr>
+                            <th>Case Type</th>
+                            <th>Key Custom Fields</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>General Forensic Investigation</strong></td>
+                            <td>Scope of Work, Legal Authority, Requestor, External Case Ref, Data Size</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Internal Compliance Violation</strong></td>
+                            <td>Violation Category, Subject Employee, HR Case Ref, Legal Hold, Financial Impact</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Malware Analysis Request</strong></td>
+                            <td>File Hash, Analysis Depth, Source IP, Submitter, Appears Targeted</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="callout callout-info">
+                    <p>Incident case types include pre-built action checklists organized by incident phase. When you create a case with one of these types, the Actions tab is automatically populated with relevant response steps.</p>
+                </div>
+            </div>
+
+            <div class="docs-section">
+                <h2>Creating a Case</h2>
+
+                <ol class="steps">
+                    <li>
+                        <strong>Navigate to the Dashboard</strong>
+                        <p>The Dashboard is the main landing page showing all active cases.</p>
+                    </li>
+                    <li>
+                        <strong>Click "New Case"</strong>
+                        <p>The button is located in the top-right corner of the Dashboard.</p>
+                    </li>
+                    <li>
+                        <strong>Select the Case Mode</strong>
+                        <p>Choose between <strong>Investigation</strong> or <strong>Incident</strong> mode. This determines which features are available.</p>
+                    </li>
+                    <li>
+                        <strong>Set Severity</strong>
+                        <p>Select the severity level: Critical, High, Medium, Low, or Info.</p>
+                    </li>
+                    <li>
+                        <strong>Enter Case Details</strong>
+                        <ul>
+                            <li><strong>Title:</strong> A descriptive name for the case</li>
+                            <li><strong>Case Number:</strong> Auto-generated unique identifier (displayed for reference)</li>
+                            <li><strong>Status:</strong> Initial status (Open, Closed, or Archived)</li>
+                            <li><strong>Classification:</strong> Select a case type to define the schema and workflows</li>
+                            <li><strong>Project:</strong> Optional - group related cases together</li>
+                            <li><strong>Description:</strong> Summary of what you're investigating</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>Create the Case</strong>
+                        <p>Click "Create Case" to save. You'll be taken to the case detail view.</p>
+                    </li>
+                </ol>
+
+                <div class="callout callout-info">
+                    <p><strong>Team Assignment:</strong> Team members are assigned after case creation using the "Manage Team" button in the case header, not during the initial creation.</p>
+                </div>
+            </div>
+
+            <div class="docs-section">
+                <h2>The Case Detail View</h2>
+                <p>The case detail view is divided into two main areas: the tabbed content area and the collapsible sidebar.</p>
+
+                <img src="../screenshots/case-report.jpg" alt="Case Detail View" class="screenshot">
+
+                <h3>Tab Organization</h3>
+                <p>Tabs are organized differently depending on the case mode:</p>
+
+                <h4>Investigation Mode Tabs</h4>
+                <ol>
+                    <li><strong>Case Report</strong> - Investigation report with sections and QA workflow</li>
+                    <li><strong>Evidence</strong> - Digital artifacts being analyzed</li>
+                    <li><strong>Notes</strong> - Investigation notes with markdown support</li>
+                    <li><strong>Attachments</strong> - Files related to the case</li>
+                    <li><strong>Workspace</strong> - Slack collaboration (if enabled)</li>
+                </ol>
+
+                <h4>Incident Mode Tabs</h4>
+                <ol>
+                    <li><strong>Case Report</strong> - CAN Report and investigation report</li>
+                    <li><strong>Timeline</strong> - Chronological event log</li>
+                    <li><strong>Workspace</strong> - Slack collaboration (if enabled)</li>
+                    <li><strong>Actions</strong> - Phase-based response checklist</li>
+                    <li><strong>Notes</strong> - Investigation notes</li>
+                    <li><strong>Attachments</strong> - Case files</li>
+                    <li><strong>Evidence</strong> - Digital artifacts</li>
+                    <li><strong>Compliance</strong> - Regulatory timers and deadlines</li>
+                </ol>
+            </div>
+
+            <div class="docs-section">
+                <h2>Case Report Tab</h2>
+                <p>The Case Report tab contains the formal documentation for your case.</p>
+
+                <h3>CAN Report (Incident Mode Only)</h3>
+                <p>For incident cases, the CAN Report provides a structured summary:</p>
+                <ul>
+                    <li><strong>Conditions:</strong> Current state of the incident - what is happening</li>
+                    <li><strong>Actions:</strong> Steps being taken or that have been taken</li>
+                    <li><strong>Needs:</strong> Resources, approvals, or assistance required</li>
+                </ul>
+
+                <h3>Investigation Report</h3>
+                <p>The Investigation Report is a sectioned document with a three-stage QA workflow:</p>
+
+                <table class="requirements-table">
+                    <thead>
+                        <tr>
+                            <th>Stage</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Draft</strong></td>
+                            <td>Section is being written and edited</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ready for QA</strong></td>
+                            <td>Section is complete and awaiting review</td>
+                        </tr>
+                        <tr>
+                            <td><strong>QA Completed</strong></td>
+                            <td>Section has been reviewed and approved</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p>Report sections are defined by your case type configuration. Each section can be independently tracked through the QA workflow.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>Timeline Tab (Incident Mode)</h2>
+                <p>The Timeline provides a chronological view of all case events:</p>
+                <ul>
+                    <li>Case creation and status changes</li>
+                    <li>Phase transitions</li>
+                    <li>Notes added (with "Add to Timeline" option)</li>
+                    <li>Evidence added or modified</li>
+                    <li>Team changes</li>
+                    <li>Action completions</li>
+                </ul>
+                <p>For detailed timeline documentation, see <a href="timeline.html">Timeline</a>.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>Actions Tab (Incident Mode)</h2>
+                <p>The Actions tab displays the incident response checklist organized by phase. Actions are automatically populated based on your configured incident phases.</p>
+
+                <h3>Action States</h3>
+                <ul>
+                    <li><strong>Pending:</strong> Not yet started</li>
+                    <li><strong>Done:</strong> Completed successfully</li>
+                    <li><strong>Ignored:</strong> Skipped (not applicable to this incident)</li>
+                </ul>
+
+                <p>Progress is tracked in the sidebar, showing completed actions vs total actions.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>Notes Tab</h2>
+                <p>The Notes tab provides a space for investigation notes, updates, and findings. Notes are available in both Investigation and Incident modes.</p>
+
+                <h3>Features</h3>
+                <ul>
+                    <li><strong>Markdown support:</strong> Format notes using headers, lists, code blocks, tables, and other markdown syntax</li>
+                    <li><strong>Case updates:</strong> Document progress, findings, and decisions as the investigation progresses</li>
+                    <li><strong>Timeline integration:</strong> Optionally post notes to the case timeline for visibility (incident mode)</li>
+                </ul>
+
+                <p>Each note is timestamped and attributed to the user who created it. Notes can be edited or deleted by their author or users with appropriate permissions.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>Workspace Tab</h2>
+                <p>When Slack collaboration is enabled for your tenant, the Workspace tab provides integrated communication:</p>
+                <ul>
+                    <li>Create a dedicated Slack channel for the case</li>
+                    <li>View channel messages directly in DFIRe</li>
+                    <li>Cross-reference Slack discussions with case data</li>
+                </ul>
+
+                <div class="callout callout-info">
+                    <p>Slack collaboration must be configured by an administrator in <strong>System Settings &gt; Collaboration</strong>. See <a href="configuration.html#collaboration">Configuration</a> for setup instructions.</p>
+                </div>
+            </div>
+
+            <div class="docs-section">
+                <h2>The Case Sidebar</h2>
+                <p>The collapsible sidebar on the right displays key case information at a glance.</p>
+
+                <h3>Incident Mode Sidebar</h3>
+                <ul>
+                    <li><strong>Incident Phase:</strong> Current phase with color indicator and timestamp of last change</li>
+                    <li><strong>Actions Progress:</strong> Visual progress bar showing completed/total actions</li>
+                    <li><strong>Incident Duration:</strong> Live counter showing time since case creation (stops when case reaches final phase or is closed)</li>
+                    <li><strong>Compliance Status:</strong> Overview of active compliance timers (click to navigate to Compliance tab)</li>
+                </ul>
+
+                <h3>All Cases</h3>
+                <ul>
+                    <li><strong>Case Info:</strong> Project, Classification, Reference ID, Lead Investigator, Team Members, Description</li>
+                    <li><strong>Attributes:</strong> Custom fields defined by your case type</li>
+                </ul>
+            </div>
+
+            <div class="docs-section">
+                <h2>Managing Team Access</h2>
+                <p>Click "Manage Team" in the case header to modify team assignments after case creation.</p>
+
+                <h3>Roles</h3>
+                <table class="requirements-table">
+                    <thead>
+                        <tr>
+                            <th>Role</th>
+                            <th>Permissions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Lead Investigator</strong></td>
+                            <td>Full control including case deletion, team management, and closing the case</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Investigator</strong></td>
+                            <td>Full read/write access to all case content</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Viewer</strong></td>
+                            <td>Read-only access to case content</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="callout callout-warning">
+                    <p><strong>Note:</strong> Users with the global "View All Cases" permission can see all cases regardless of assignment. Users with "Edit All Cases" permission have full access to all cases.</p>
+                </div>
+            </div>
+
+            <div class="docs-section">
+                <h2>Case Status Lifecycle</h2>
+                <p>Cases progress through these statuses:</p>
+
+                <table class="requirements-table">
+                    <thead>
+                        <tr>
+                            <th>Status</th>
+                            <th>Description</th>
+                            <th>Editable</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Open</strong></td>
+                            <td>Active investigation in progress</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Closed</strong></td>
+                            <td>Investigation complete, case is read-only</td>
+                            <td>No (can reopen)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Archived</strong></td>
+                            <td>Permanently closed, hidden from default views</td>
+                            <td>No</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p>To close a case, click "Edit Case" and change the status. Closing a case makes it read-only to prevent accidental modifications.</p>
+
+                <div class="callout callout-info">
+                    <p><strong>Incident Duration:</strong> For incident cases, the duration counter stops when the case reaches its final phase or is set to Closed/Archived status.</p>
+                </div>
+            </div>
+
+            <div class="docs-section">
+                <h2>Projects</h2>
+                <p>Projects allow you to group related cases together. For example, you might create a project for:</p>
+                <ul>
+                    <li>A large investigation spanning multiple devices</li>
+                    <li>Recurring investigations for a specific client</li>
+                    <li>Related incidents that share context</li>
+                </ul>
+
+                <p>To create a project, click "New Project" on the Dashboard. You can then assign cases to the project when creating or editing them.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>Filtering and Searching</h2>
+                <p>The Dashboard provides several ways to find cases:</p>
+
+                <h3>Filters</h3>
+                <ul>
+                    <li><strong>Project:</strong> Show cases in a specific project</li>
+                    <li><strong>Investigator:</strong> Show cases assigned to a specific user</li>
+                    <li><strong>Status:</strong> Filter by Open, Closed, or all active statuses</li>
+                    <li><strong>Mode:</strong> Show only Investigations or only Incidents</li>
+                </ul>
+
+                <h3>Tabs</h3>
+                <ul>
+                    <li><strong>Active Cases:</strong> Open cases you're assigned to</li>
+                    <li><strong>Archived:</strong> Cases that have been archived</li>
+                </ul>
+
+                <h3>Global Search</h3>
+                <p>Use the search icon in the header for full-text search across all cases, evidence, and notes.</p>
+            </div>
+
+            <nav class="docs-nav">
+                <a href="configuration.html" class="docs-nav-link prev">
+                    <span class="docs-nav-label">Previous</span>
+                    <span class="docs-nav-title">Configuration</span>
+                </a>
+                <a href="evidence.html" class="docs-nav-link next">
+                    <span class="docs-nav-label">Next</span>
+                    <span class="docs-nav-title">Evidence Tracking</span>
+                </a>
+            </nav>
+        </main>
+    </div>
+
+    <footer class="docs-footer">
+        <div class="container">
+            <p>&copy; 2026 Tmi Antti Kurittu. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const navToggle = document.querySelector('.nav-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        navToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            navToggle.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

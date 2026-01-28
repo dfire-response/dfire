@@ -1,0 +1,3523 @@
+{
+    "version": "1.0",
+    "generated_at": "2026-01-26T12:17:01.748835+00:00",
+    "groups": [
+        {
+            "name": "DFIRe Admin",
+            "permissions": [
+                "add_group",
+                "change_group",
+                "delete_group",
+                "view_group",
+                "add_user",
+                "change_user",
+                "view_user",
+                "add_collaborationchannel",
+                "change_collaborationchannel",
+                "delete_collaborationchannel",
+                "view_collaborationchannel",
+                "add_collaborationmessage",
+                "change_collaborationmessage",
+                "delete_collaborationmessage",
+                "view_collaborationmessage",
+                "add_attachment",
+                "change_attachment",
+                "delete_attachment",
+                "view_attachment",
+                "view_auditlog",
+                "add_auditlogdelivery",
+                "change_auditlogdelivery",
+                "delete_auditlogdelivery",
+                "view_auditlogdelivery",
+                "add_auditlogsenderconfig",
+                "change_auditlogsenderconfig",
+                "delete_auditlogsenderconfig",
+                "view_auditlogsenderconfig",
+                "add_canreport",
+                "change_canreport",
+                "delete_canreport",
+                "view_canreport",
+                "add_case",
+                "change_case",
+                "delete_case",
+                "edit_all_cases",
+                "manage_team",
+                "view_all_cases",
+                "view_archived_cases",
+                "view_case",
+                "view_statistics",
+                "add_casenote",
+                "change_casenote",
+                "delete_casenote",
+                "view_casenote",
+                "add_casetimer",
+                "change_casetimer",
+                "delete_casetimer",
+                "view_casetimer",
+                "add_casetype",
+                "change_casetype",
+                "delete_casetype",
+                "view_casetype",
+                "add_compliancetimer",
+                "change_compliancetimer",
+                "delete_compliancetimer",
+                "view_compliancetimer",
+                "add_incidentphase",
+                "change_incidentphase",
+                "delete_incidentphase",
+                "view_incidentphase",
+                "add_incomingwebhook",
+                "change_incomingwebhook",
+                "delete_incomingwebhook",
+                "view_incomingwebhook",
+                "add_investigationreport",
+                "change_investigationreport",
+                "delete_investigationreport",
+                "view_investigationreport",
+                "add_investigationreportsection",
+                "change_investigationreportsection",
+                "delete_investigationreportsection",
+                "view_investigationreportsection",
+                "add_investigationstep",
+                "change_investigationstep",
+                "delete_investigationstep",
+                "view_investigationstep",
+                "add_item",
+                "change_item",
+                "delete_item",
+                "view_item",
+                "add_itemflag",
+                "change_itemflag",
+                "delete_itemflag",
+                "view_itemflag",
+                "add_itemnote",
+                "change_itemnote",
+                "delete_itemnote",
+                "view_itemnote",
+                "add_itemtype",
+                "change_itemtype",
+                "delete_itemtype",
+                "view_itemtype",
+                "add_legalentity",
+                "change_legalentity",
+                "delete_legalentity",
+                "view_legalentity",
+                "add_message",
+                "change_message",
+                "delete_message",
+                "view_message",
+                "add_project",
+                "change_project",
+                "delete_project",
+                "view_project",
+                "add_reportsectiontemplate",
+                "change_reportsectiontemplate",
+                "delete_reportsectiontemplate",
+                "view_reportsectiontemplate",
+                "change_tenant",
+                "view_tenant",
+                "add_timelineevent",
+                "change_timelineevent",
+                "delete_timelineevent",
+                "view_timelineevent",
+                "add_userpreference",
+                "change_userpreference",
+                "delete_userpreference",
+                "view_userpreference",
+                "add_usersession",
+                "change_usersession",
+                "delete_usersession",
+                "view_usersession",
+                "add_webhookconfig",
+                "change_webhookconfig",
+                "delete_webhookconfig",
+                "view_webhookconfig",
+                "add_webhookdelivery",
+                "change_webhookdelivery",
+                "delete_webhookdelivery",
+                "view_webhookdelivery",
+                "add_webhooksecret",
+                "change_webhooksecret",
+                "delete_webhooksecret",
+                "view_webhooksecret"
+            ]
+        },
+        {
+            "name": "Standard user",
+            "permissions": [
+                "view_group",
+                "view_user",
+                "add_collaborationchannel",
+                "view_collaborationchannel",
+                "add_collaborationmessage",
+                "change_collaborationmessage",
+                "view_collaborationmessage",
+                "add_attachment",
+                "change_attachment",
+                "delete_attachment",
+                "view_attachment",
+                "view_auditlog",
+                "add_canreport",
+                "view_canreport",
+                "add_case",
+                "change_case",
+                "delete_case",
+                "manage_team",
+                "view_case",
+                "add_casenote",
+                "change_casenote",
+                "delete_casenote",
+                "view_casenote",
+                "add_casetimer",
+                "change_casetimer",
+                "delete_casetimer",
+                "view_casetimer",
+                "view_casetype",
+                "view_compliancetimer",
+                "view_incidentphase",
+                "view_incomingwebhook",
+                "add_investigationreport",
+                "change_investigationreport",
+                "view_investigationreport",
+                "view_investigationreportsection",
+                "view_investigationstep",
+                "add_item",
+                "change_item",
+                "delete_item",
+                "view_item",
+                "view_itemflag",
+                "add_itemnote",
+                "change_itemnote",
+                "delete_itemnote",
+                "view_itemnote",
+                "view_itemtype",
+                "add_legalentity",
+                "change_legalentity",
+                "delete_legalentity",
+                "view_legalentity",
+                "view_message",
+                "add_project",
+                "change_project",
+                "view_project",
+                "view_reportsectiontemplate",
+                "view_tenant",
+                "add_timelineevent",
+                "change_timelineevent",
+                "view_timelineevent",
+                "add_userpreference",
+                "change_userpreference",
+                "delete_userpreference",
+                "view_userpreference",
+                "view_usersession",
+                "view_webhookconfig"
+            ]
+        },
+        {
+            "name": "Team Lead",
+            "permissions": [
+                "view_group",
+                "view_user",
+                "view_collaborationchannel",
+                "add_collaborationmessage",
+                "change_collaborationmessage",
+                "view_collaborationmessage",
+                "add_attachment",
+                "change_attachment",
+                "delete_attachment",
+                "view_attachment",
+                "view_auditlog",
+                "add_canreport",
+                "view_canreport",
+                "add_case",
+                "change_case",
+                "delete_case",
+                "edit_all_cases",
+                "manage_team",
+                "view_all_cases",
+                "view_archived_cases",
+                "view_case",
+                "view_statistics",
+                "add_casenote",
+                "change_casenote",
+                "delete_casenote",
+                "view_casenote",
+                "add_casetimer",
+                "change_casetimer",
+                "delete_casetimer",
+                "view_casetimer",
+                "view_casetype",
+                "view_compliancetimer",
+                "view_incidentphase",
+                "view_incomingwebhook",
+                "add_investigationreport",
+                "change_investigationreport",
+                "view_investigationreport",
+                "view_investigationreportsection",
+                "view_investigationstep",
+                "add_item",
+                "change_item",
+                "delete_item",
+                "view_item",
+                "view_itemflag",
+                "add_itemnote",
+                "change_itemnote",
+                "delete_itemnote",
+                "view_itemnote",
+                "view_itemtype",
+                "add_legalentity",
+                "change_legalentity",
+                "delete_legalentity",
+                "view_legalentity",
+                "view_message",
+                "add_project",
+                "change_project",
+                "delete_project",
+                "view_project",
+                "add_reportsectiontemplate",
+                "change_reportsectiontemplate",
+                "delete_reportsectiontemplate",
+                "view_reportsectiontemplate",
+                "view_tenant",
+                "add_timelineevent",
+                "change_timelineevent",
+                "delete_timelineevent",
+                "view_timelineevent",
+                "add_userpreference",
+                "change_userpreference",
+                "delete_userpreference",
+                "view_userpreference",
+                "view_usersession",
+                "view_webhookconfig"
+            ]
+        },
+        {
+            "name": "View Only",
+            "permissions": [
+                "view_group",
+                "view_user",
+                "view_collaborationchannel",
+                "view_collaborationmessage",
+                "view_attachment",
+                "view_auditlog",
+                "view_canreport",
+                "view_case",
+                "view_casenote",
+                "view_casetimer",
+                "view_casetype",
+                "view_compliancetimer",
+                "view_incidentphase",
+                "view_incomingwebhook",
+                "view_investigationreport",
+                "view_investigationreportsection",
+                "view_investigationstep",
+                "view_item",
+                "view_itemflag",
+                "view_itemnote",
+                "view_itemtype",
+                "view_legalentity",
+                "view_message",
+                "view_project",
+                "view_reportsectiontemplate",
+                "view_tenant",
+                "view_timelineevent",
+                "view_userpreference",
+                "view_usersession",
+                "view_webhookconfig"
+            ]
+        }
+    ],
+    "item_flags": [
+        {
+            "name": "Broken",
+            "color": "purple",
+            "description": "Device is broken or file corrupted"
+        },
+        {
+            "name": "Do not return",
+            "color": "red",
+            "description": "Do not return this item to owner"
+        },
+        {
+            "name": "Evidence",
+            "color": "red",
+            "description": "Contains evidence"
+        },
+        {
+            "name": "Illegal content",
+            "color": "red",
+            "description": "This evidence item contains illegal content"
+        },
+        {
+            "name": "Malware",
+            "color": "red",
+            "description": "Contains malware"
+        },
+        {
+            "name": "No evidence",
+            "color": "green",
+            "description": "Contains no evidence"
+        },
+        {
+            "name": "OS Reimaged",
+            "color": "green",
+            "description": "This device has been wiped empty"
+        },
+        {
+            "name": "Personal",
+            "color": "blue",
+            "description": "Personal property"
+        },
+        {
+            "name": "Reimage OS",
+            "color": "yellow",
+            "description": "This device needs to be reimaged"
+        },
+        {
+            "name": "Return",
+            "color": "blue",
+            "description": "Return to owner"
+        }
+    ],
+    "incident_phases": [
+        {
+            "name": "Preparation & Immediate Actions",
+            "order": 0,
+            "color": "slate",
+            "description": "Case is opened, immediate actions might be required but incident response activities haven't started"
+        },
+        {
+            "name": "Detection & Analysis",
+            "order": 10,
+            "color": "blue",
+            "description": "Initial detection and analysis of the incident"
+        },
+        {
+            "name": "Containment",
+            "order": 20,
+            "color": "amber",
+            "description": "Short-term and long-term containment strategies"
+        },
+        {
+            "name": "Eradication",
+            "order": 30,
+            "color": "red",
+            "description": "Removal of threat actors and malware"
+        },
+        {
+            "name": "Recovery",
+            "order": 40,
+            "color": "emerald",
+            "description": "Restoration of systems and services"
+        },
+        {
+            "name": "Post-Incident Activities",
+            "order": 50,
+            "color": "purple",
+            "description": "Lessons learned and documentation"
+        },
+        {
+            "name": "Resolved",
+            "order": 99,
+            "color": "slate",
+            "description": "Case is closed"
+        }
+    ],
+    "investigation_steps": [
+        {
+            "name": "Identification",
+            "order": 10,
+            "description": "Potential evidence identified."
+        },
+        {
+            "name": "Acquisition",
+            "order": 20,
+            "description": "Evidence seized and imaged/secured."
+        },
+        {
+            "name": "Processing",
+            "order": 30,
+            "description": "Indexing, hashing, and data extraction."
+        },
+        {
+            "name": "Analysis",
+            "order": 40,
+            "description": "Investigator review and artifact correlation."
+        },
+        {
+            "name": "Reporting",
+            "order": 50,
+            "description": "Findings documented and report generated."
+        },
+        {
+            "name": "Archived/Returned",
+            "order": 60,
+            "description": "Case closed, evidence returned or stored long-term."
+        },
+        {
+            "name": "Finalized",
+            "order": 99,
+            "description": "Case closed, evidence returned or stored long-term."
+        }
+    ],
+    "item_types": [
+        {
+            "name": "Cloud Resource",
+            "icon": "cloud",
+            "schema_definition": {
+                "region": {
+                    "type": "text",
+                    "label": "Region",
+                    "required": false
+                },
+                "provider": {
+                    "type": "text",
+                    "label": "Provider (AWS, Azure, GCP)",
+                    "required": true
+                },
+                "is_public": {
+                    "type": "boolean",
+                    "label": "Is Publicly Accessible?",
+                    "required": false
+                },
+                "resource_id": {
+                    "type": "text",
+                    "label": "Resource ID / ARN",
+                    "required": true
+                },
+                "resource_type": {
+                    "type": "text",
+                    "label": "Type (S3 Bucket, EC2, Lambda)",
+                    "required": true
+                }
+            }
+        },
+        {
+            "name": "Cryptocurrency Wallet",
+            "icon": "lock",
+            "schema_definition": {
+                "address": {
+                    "type": "text",
+                    "label": "Wallet Address",
+                    "required": true
+                },
+                "currency": {
+                    "type": "text",
+                    "label": "Currency (BTC, ETH, XMR)",
+                    "required": true
+                },
+                "exchange": {
+                    "type": "text",
+                    "label": "Exchange / Host (if known)",
+                    "required": false
+                },
+                "tag_memo": {
+                    "type": "text",
+                    "label": "Destination Tag / Memo",
+                    "required": false
+                }
+            }
+        },
+        {
+            "name": "Database",
+            "icon": "database",
+            "schema_definition": {
+                "role": {
+                    "type": "text",
+                    "label": "Database Role",
+                    "required": false
+                },
+                "format": {
+                    "type": "text",
+                    "label": "Database Format",
+                    "required": false
+                },
+                "sensitive": {
+                    "type": "boolean",
+                    "label": "Contains Sensitive Content",
+                    "required": true
+                },
+                "payment_info": {
+                    "type": "boolean",
+                    "label": "Contains Payment Information",
+                    "required": false
+                }
+            }
+        },
+        {
+            "name": "Disk Image",
+            "icon": "disc",
+            "schema_definition": {
+                "image_format": {
+                    "type": "text",
+                    "label": "Format (E01, RAW, VHD)"
+                },
+                "segment_size": {
+                    "type": "text",
+                    "label": "Segment Size (e.g. 2GB)"
+                },
+                "acquisition_hash": {
+                    "type": "text",
+                    "label": "Acquisition Hash"
+                },
+                "source_drive_serial": {
+                    "type": "text",
+                    "label": "Source Drive Serial"
+                },
+                "verification_status": {
+                    "type": "text",
+                    "label": "Verification Status"
+                }
+            }
+        },
+        {
+            "name": "Drone / UAV",
+            "icon": "plane",
+            "schema_definition": {
+                "make": {
+                    "type": "text",
+                    "label": "Manufacturer",
+                    "required": false
+                },
+                "faa_number": {
+                    "type": "text",
+                    "label": "FAA Registration #",
+                    "required": false
+                },
+                "serial_number": {
+                    "type": "text",
+                    "label": "Serial Number",
+                    "required": false
+                },
+                "sd_card_present": {
+                    "type": "boolean",
+                    "label": "Onboard Storage/SD?",
+                    "required": false
+                }
+            }
+        },
+        {
+            "name": "E-Mail Account",
+            "icon": "mail",
+            "schema_definition": {
+                "active": {
+                    "type": "boolean",
+                    "label": "Is this account active",
+                    "required": false
+                },
+                "service": {
+                    "type": "text",
+                    "label": "E-Mail service provider",
+                    "required": false
+                },
+                "shared_account": {
+                    "type": "boolean",
+                    "label": "Is this a shared account?",
+                    "required": false
+                }
+            }
+        },
+        {
+            "name": "Email Message",
+            "icon": "mail",
+            "schema_definition": {
+                "sender": {
+                    "type": "text",
+                    "label": "Sender Address",
+                    "required": true
+                },
+                "subject": {
+                    "type": "text",
+                    "label": "Subject Line",
+                    "required": true
+                },
+                "recipient": {
+                    "type": "text",
+                    "label": "Recipient Address",
+                    "required": true
+                },
+                "message_id": {
+                    "type": "text",
+                    "label": "Message-ID Header",
+                    "required": false
+                },
+                "file_format": {
+                    "type": "text",
+                    "label": "Format (MSG, EML)",
+                    "required": false
+                }
+            }
+        },
+        {
+            "name": "File",
+            "icon": "archive",
+            "schema_definition": {
+                "md5_hash": {
+                    "type": "text",
+                    "label": "MD5 Hash",
+                    "required": false
+                },
+                "file_name": {
+                    "type": "text",
+                    "label": "File name",
+                    "required": true
+                },
+                "file_size": {
+                    "type": "text",
+                    "label": "File size",
+                    "required": false
+                },
+                "file_type": {
+                    "type": "text",
+                    "label": "File type",
+                    "required": true
+                }
+            }
+        },
+        {
+            "name": "Flash Media",
+            "icon": "usb",
+            "schema_definition": {
+                "make": {
+                    "type": "text",
+                    "label": "Brand"
+                },
+                "type": {
+                    "type": "text",
+                    "label": "Type (SD, USB, etc)"
+                },
+                "capacity": {
+                    "type": "text",
+                    "label": "Capacity"
+                },
+                "found_at": {
+                    "type": "text",
+                    "label": "Found At (Specific location)"
+                },
+                "description": {
+                    "type": "text",
+                    "label": "Physical Description"
+                }
+            }
+        },
+        {
+            "name": "Hard Drive External",
+            "icon": "hard-drive",
+            "schema_definition": {
+                "capacity": {
+                    "type": "text",
+                    "label": "Capacity (e.g. 500GB)"
+                },
+                "md5_hash": {
+                    "type": "text",
+                    "label": "Acquisition Hash (MD5)"
+                },
+                "interface": {
+                    "type": "text",
+                    "label": "Interface (SATA, SAS, USB)"
+                },
+                "manufacturer": {
+                    "type": "text",
+                    "label": "Manufacturer"
+                },
+                "serial_number": {
+                    "type": "text",
+                    "label": "Serial Number",
+                    "required": true
+                }
+            }
+        },
+        {
+            "name": "Hard Drive Internal",
+            "icon": "hard-drive",
+            "schema_definition": {
+                "capacity": {
+                    "type": "text",
+                    "label": "Capacity (e.g. 500GB)"
+                },
+                "md5_hash": {
+                    "type": "text",
+                    "label": "Acquisition Hash (MD5)"
+                },
+                "interface": {
+                    "type": "text",
+                    "label": "Interface (SATA, SAS, USB)"
+                },
+                "manufacturer": {
+                    "type": "text",
+                    "label": "Manufacturer"
+                },
+                "serial_number": {
+                    "type": "text",
+                    "label": "Serial Number",
+                    "required": true
+                }
+            }
+        },
+        {
+            "name": "Laptop",
+            "icon": "laptop",
+            "schema_definition": {
+                "make": {
+                    "type": "text",
+                    "label": "Manufacturer"
+                },
+                "model": {
+                    "type": "text",
+                    "label": "Model Name"
+                },
+                "hostname": {
+                    "type": "text",
+                    "label": "Hostname"
+                },
+                "mac_address": {
+                    "type": "text",
+                    "label": "MAC Address"
+                },
+                "is_encrypted": {
+                    "type": "boolean",
+                    "label": "Full Disk Encryption?"
+                },
+                "serial_number": {
+                    "type": "text",
+                    "label": "Serial Number",
+                    "required": true
+                },
+                "user_password": {
+                    "type": "text",
+                    "label": "User Password/PIN"
+                }
+            }
+        },
+        {
+            "name": "Log File",
+            "icon": "file-code",
+            "schema_definition": {
+                "log_type": {
+                    "type": "text",
+                    "label": "Type (IIS, Firewall, System)",
+                    "required": false
+                },
+                "log_format": {
+                    "type": "text",
+                    "label": "Format (EVTX, Text, JSON)",
+                    "required": false
+                },
+                "period_end": {
+                    "type": "text",
+                    "label": "Period End (Date/Time)",
+                    "required": false
+                },
+                "period_start": {
+                    "type": "text",
+                    "label": "Period Start (Date/Time)",
+                    "required": false
+                },
+                "source_system": {
+                    "type": "text",
+                    "label": "Source System/Hostname",
+                    "required": true
+                }
+            }
+        },
+        {
+            "name": "Malware Sample",
+            "icon": "bug",
+            "schema_definition": {
+                "is_live": {
+                    "type": "boolean",
+                    "label": "Is Live/Dangerous?"
+                },
+                "md5_hash": {
+                    "type": "text",
+                    "label": "MD5 Hash"
+                },
+                "file_name": {
+                    "type": "text",
+                    "label": "File Name",
+                    "required": true
+                },
+                "file_type": {
+                    "type": "text",
+                    "label": "File Type (EXE, DLL, PDF)"
+                },
+                "source_url": {
+                    "type": "text",
+                    "label": "Source URL / Path"
+                },
+                "sha256_hash": {
+                    "type": "text",
+                    "label": "SHA256 Hash"
+                }
+            }
+        },
+        {
+            "name": "Memory Image (RAM)",
+            "icon": "zap",
+            "schema_definition": {
+                "md5_hash": {
+                    "type": "text",
+                    "label": "Acquisition Hash",
+                    "required": false
+                },
+                "os_build": {
+                    "type": "text",
+                    "label": "OS Build / Profile",
+                    "required": false
+                },
+                "image_size": {
+                    "type": "text",
+                    "label": "Size",
+                    "required": false
+                },
+                "source_hostname": {
+                    "type": "text",
+                    "label": "Source Hostname",
+                    "required": true
+                },
+                "acquisition_tool": {
+                    "type": "text",
+                    "label": "Acquisition Tool (DumpIt, WinPMEM)",
+                    "required": false
+                }
+            }
+        },
+        {
+            "name": "Mobile Phone",
+            "icon": "smartphone",
+            "schema_definition": {
+                "imei": {
+                    "type": "text",
+                    "label": "IMEI Number",
+                    "required": true
+                },
+                "make": {
+                    "type": "text",
+                    "label": "Make",
+                    "required": false
+                },
+                "type": {
+                    "type": "text",
+                    "label": "Type (phone, tablet, other?)",
+                    "required": false
+                },
+                "model": {
+                    "type": "text",
+                    "label": "Model",
+                    "required": false
+                },
+                "passcode": {
+                    "type": "text",
+                    "label": "Unlock Passcode",
+                    "required": false
+                },
+                "faraday_bag": {
+                    "type": "boolean",
+                    "label": "Secured in Faraday Bag?",
+                    "required": false
+                },
+                "sim_present": {
+                    "type": "boolean",
+                    "label": "SIM Card Present?",
+                    "required": false
+                }
+            }
+        },
+        {
+            "name": "Network Capture (PCAP)",
+            "icon": "activity",
+            "schema_definition": {
+                "source": {
+                    "type": "text",
+                    "label": "Source (Firewall, Tap, Host)",
+                    "required": true
+                },
+                "duration": {
+                    "type": "text",
+                    "label": "Capture Duration",
+                    "required": false
+                },
+                "endpoints_count": {
+                    "type": "number",
+                    "label": "Endpoints Count",
+                    "required": false
+                },
+                "contains_encrypted": {
+                    "type": "boolean",
+                    "label": "Traffic Encrypted?",
+                    "required": false
+                }
+            }
+        },
+        {
+            "name": "Network Device",
+            "icon": "router",
+            "schema_definition": {
+                "make": {
+                    "type": "text",
+                    "label": "Make",
+                    "required": false
+                },
+                "model": {
+                    "type": "text",
+                    "label": "Model",
+                    "required": false
+                },
+                "network": {
+                    "type": "text",
+                    "label": "Network",
+                    "required": false
+                },
+                "ip_address": {
+                    "type": "text",
+                    "label": "IP address",
+                    "required": false
+                },
+                "mac_address": {
+                    "type": "text",
+                    "label": "MAC Address",
+                    "required": false
+                },
+                "admin_access": {
+                    "type": "boolean",
+                    "label": "Admin Access Obtained?",
+                    "required": false
+                },
+                "logs_preserved": {
+                    "type": "boolean",
+                    "label": "Logs Preserved?",
+                    "required": false
+                }
+            }
+        },
+        {
+            "name": "Other",
+            "icon": "box",
+            "schema_definition": {
+                "category": {
+                    "type": "text",
+                    "label": "Category/Type"
+                },
+                "condition": {
+                    "type": "text",
+                    "label": "Condition"
+                },
+                "description": {
+                    "type": "text",
+                    "label": "Description",
+                    "required": true
+                },
+                "is_physical": {
+                    "type": "boolean",
+                    "label": "Is Physical Item?"
+                }
+            }
+        },
+        {
+            "name": "Paper Documents",
+            "icon": "file-text",
+            "schema_definition": {
+                "condition": {
+                    "type": "text",
+                    "label": "Condition"
+                },
+                "page_count": {
+                    "type": "number",
+                    "label": "Page Count"
+                },
+                "document_type": {
+                    "type": "text",
+                    "label": "Type (Contract, Letter, Note)"
+                }
+            }
+        },
+        {
+            "name": "SIM Card",
+            "icon": "cpu",
+            "schema_definition": {
+                "iccid": {
+                    "type": "text",
+                    "label": "ICCID Number",
+                    "required": true
+                },
+                "carrier": {
+                    "type": "text",
+                    "label": "Carrier Name"
+                },
+                "phone_number": {
+                    "type": "text",
+                    "label": "Associated Phone Number"
+                }
+            }
+        },
+        {
+            "name": "Server",
+            "icon": "server",
+            "schema_definition": {
+                "role": {
+                    "type": "text",
+                    "label": "Server Role (e.g., DC, Web, DB)"
+                },
+                "hostname": {
+                    "type": "text",
+                    "label": "Hostname",
+                    "required": true
+                },
+                "ip_address": {
+                    "type": "text",
+                    "label": "IP Address"
+                },
+                "os_version": {
+                    "type": "text",
+                    "label": "Operating System"
+                },
+                "raid_config": {
+                    "type": "text",
+                    "label": "RAID Configuration"
+                },
+                "is_virtualized": {
+                    "type": "boolean",
+                    "label": "Is Virtual Machine?"
+                }
+            }
+        },
+        {
+            "name": "Tablet",
+            "icon": "tablet",
+            "schema_definition": {
+                "imei": {
+                    "type": "text",
+                    "label": "IMEI Number",
+                    "required": true
+                },
+                "make": {
+                    "type": "text",
+                    "label": "Make",
+                    "required": false
+                },
+                "type": {
+                    "type": "text",
+                    "label": "Type (phone, tablet, other?)",
+                    "required": false
+                },
+                "model": {
+                    "type": "text",
+                    "label": "Model",
+                    "required": false
+                },
+                "passcode": {
+                    "type": "text",
+                    "label": "Unlock Passcode",
+                    "required": false
+                },
+                "faraday_bag": {
+                    "type": "boolean",
+                    "label": "Secured in Faraday Bag?",
+                    "required": false
+                },
+                "sim_present": {
+                    "type": "boolean",
+                    "label": "SIM Card Present?",
+                    "required": false
+                }
+            }
+        },
+        {
+            "name": "User Account",
+            "icon": "user",
+            "schema_definition": {
+                "status": {
+                    "type": "text",
+                    "label": "Current Status (Active, Suspended)",
+                    "required": false
+                },
+                "user_id": {
+                    "type": "text",
+                    "label": "User ID (GUID/SID)",
+                    "required": false
+                },
+                "platform": {
+                    "type": "text",
+                    "label": "Platform (AD, Okta, Gmail)",
+                    "required": true
+                },
+                "username": {
+                    "type": "text",
+                    "label": "Username / Email",
+                    "required": true
+                },
+                "mfa_enabled": {
+                    "type": "boolean",
+                    "label": "MFA Enabled?",
+                    "required": false
+                }
+            }
+        },
+        {
+            "name": "Virtual Machine",
+            "icon": "server",
+            "schema_definition": {
+                "role": {
+                    "type": "text",
+                    "label": "Server Role (e.g., DC, Web, DB)",
+                    "required": false
+                },
+                "format": {
+                    "type": "text",
+                    "label": "VM format / platform",
+                    "required": true
+                },
+                "hostname": {
+                    "type": "text",
+                    "label": "Hostname",
+                    "required": true
+                },
+                "ip_address": {
+                    "type": "text",
+                    "label": "IP Address",
+                    "required": false
+                },
+                "os_version": {
+                    "type": "text",
+                    "label": "Operating System",
+                    "required": false
+                },
+                "is_snapshot": {
+                    "type": "boolean",
+                    "label": "Is snapshot?",
+                    "required": false
+                }
+            }
+        },
+        {
+            "name": "Workstation",
+            "icon": "monitor",
+            "schema_definition": {
+                "make": {
+                    "type": "text",
+                    "label": "Manufacturer"
+                },
+                "model": {
+                    "type": "text",
+                    "label": "Model Name"
+                },
+                "hostname": {
+                    "type": "text",
+                    "label": "Hostname"
+                },
+                "mac_address": {
+                    "type": "text",
+                    "label": "MAC Address"
+                },
+                "is_encrypted": {
+                    "type": "boolean",
+                    "label": "Full Disk Encryption?"
+                },
+                "serial_number": {
+                    "type": "text",
+                    "label": "Serial Number",
+                    "required": true
+                },
+                "user_password": {
+                    "type": "text",
+                    "label": "User Password/PIN"
+                }
+            }
+        }
+    ],
+    "case_types": [
+        {
+            "name": "Accidental Data Leak",
+            "schema_definition": {
+                "data_types": {
+                    "type": "text",
+                    "label": "Data Types (PII, PHI, PCI, IP)",
+                    "required": false
+                },
+                "leak_source": {
+                    "type": "text",
+                    "label": "Source (Email, SaaS, AI Tool, Paper)",
+                    "required": false
+                },
+                "recipient_type": {
+                    "type": "text",
+                    "label": "Recipient (Trusted Partner, Public, Unknown)",
+                    "required": false
+                },
+                "affected_department": {
+                    "type": "text",
+                    "label": "Affected Department",
+                    "required": false
+                },
+                "data_classification": {
+                    "type": "text",
+                    "label": "Data Classification (Public, Internal, Confidential)",
+                    "required": false
+                },
+                "records_exposed_count": {
+                    "type": "number",
+                    "label": "Est. Number of Records",
+                    "required": false
+                }
+            },
+            "todo_template": [
+                {
+                    "order": 1,
+                    "description": "Interview the reporter/sender to understand exactly what was sent",
+                    "phase_order": 0
+                },
+                {
+                    "order": 2,
+                    "description": "Preserve a copy of the leaked message/file for evidence",
+                    "phase_order": 10
+                },
+                {
+                    "order": 3,
+                    "description": "Determine if the recipient is 'Trusted' (e.g., a known vendor)",
+                    "phase_order": 10
+                },
+                {
+                    "order": 4,
+                    "description": "Attempt to Recall the email (if internal or supported)",
+                    "phase_order": 20
+                },
+                {
+                    "order": 5,
+                    "description": "Contact recipient and request deletion/destruction of data (Attestation)",
+                    "phase_order": 20
+                },
+                {
+                    "order": 6,
+                    "description": "If SaaS/Web: Change permissions to Private or delete the shared link",
+                    "phase_order": 20
+                },
+                {
+                    "order": 7,
+                    "description": "Purge file from Email Gateway/Server logs if necessary",
+                    "phase_order": 20
+                },
+                {
+                    "order": 8,
+                    "description": "Search for other exposures of similar data (DLP Scan)",
+                    "phase_order": 30
+                },
+                {
+                    "order": 9,
+                    "description": "Consult Privacy Officer regarding Regulatory Notification (GDPR/CCPA)",
+                    "phase_order": 40
+                },
+                {
+                    "order": 10,
+                    "description": "Notify affected individuals (if required by Legal)",
+                    "phase_order": 40
+                },
+                {
+                    "order": 11,
+                    "description": "Assign remedial training to the employee involved",
+                    "phase_order": 50
+                },
+                {
+                    "order": 12,
+                    "description": "Schedule a post-incident review meeting",
+                    "phase_order": 50
+                },
+                {
+                    "order": 13,
+                    "description": "Save PIR findings document and ticket findings",
+                    "phase_order": 50
+                },
+                {
+                    "order": 14,
+                    "description": "Close incident",
+                    "phase_order": 99
+                }
+            ]
+        },
+        {
+            "name": "Cloud Security Incident",
+            "schema_definition": {
+                "cloud_provider": {
+                    "type": "text",
+                    "label": "Cloud Provider (AWS, Azure, GCP)",
+                    "required": false
+                },
+                "affected_region": {
+                    "type": "text",
+                    "label": "Region (e.g., us-east-1)",
+                    "required": false
+                },
+                "affected_department": {
+                    "type": "text",
+                    "label": "Affected Department",
+                    "required": false
+                },
+                "is_publicly_exposed": {
+                    "type": "boolean",
+                    "label": "Is Resource Publicly Exposed?",
+                    "required": false
+                },
+                "affected_resource_id": {
+                    "type": "text",
+                    "label": "Resource ID (Instance, Bucket, DB)",
+                    "required": false
+                },
+                "account_subscription_id": {
+                    "type": "text",
+                    "label": "Account / Subscription ID",
+                    "required": false
+                },
+                "compromised_identity_arn": {
+                    "type": "text",
+                    "label": "Compromised User/Role ARN",
+                    "required": false
+                }
+            },
+            "todo_template": [
+                {
+                    "order": 1,
+                    "description": "EMERGENCY: Deactivate Access Keys for affected IAM User",
+                    "phase_order": 0
+                },
+                {
+                    "order": 2,
+                    "description": "EMERGENCY: Deny All login access to the console for affected User",
+                    "phase_order": 0
+                },
+                {
+                    "order": 3,
+                    "description": "EMERGENCY: Attach 'DenyAll' Policy to affected Role/User",
+                    "phase_order": 0
+                },
+                {
+                    "order": 4,
+                    "description": "Revoke all active sessions (Invalidate Tokens)",
+                    "phase_order": 10
+                },
+                {
+                    "order": 5,
+                    "description": "Verify CloudTrail/Audit Logs to determine scope of activity",
+                    "phase_order": 10
+                },
+                {
+                    "order": 6,
+                    "description": "Check for newly created resources (e.g., rogue EC2 instances for mining)",
+                    "phase_order": 10
+                },
+                {
+                    "order": 7,
+                    "description": "Check for modified Security Groups (0.0.0.0/0 rules)",
+                    "phase_order": 10
+                },
+                {
+                    "order": 8,
+                    "description": "Check for unauthorized IAM User creation or Privilege Escalation",
+                    "phase_order": 10
+                },
+                {
+                    "order": 9,
+                    "description": "Modify Security Groups to restrict traffic to known IPs only",
+                    "phase_order": 20
+                },
+                {
+                    "order": 10,
+                    "description": "Make S3 Buckets private / Remove public access blocks",
+                    "phase_order": 20
+                },
+                {
+                    "order": 11,
+                    "description": "Snapshot affected volumes/databases for forensics",
+                    "phase_order": 20
+                },
+                {
+                    "order": 12,
+                    "description": "Terminate rogue compute instances",
+                    "phase_order": 30
+                },
+                {
+                    "order": 13,
+                    "description": "Delete unauthorized IAM Users and Roles",
+                    "phase_order": 30
+                },
+                {
+                    "order": 14,
+                    "description": "Rotate secrets and keys for any service accessed by the attacker",
+                    "phase_order": 30
+                },
+                {
+                    "order": 15,
+                    "description": "Enable Multi-Factor Authentication (MFA) on Root and IAM users if missing",
+                    "phase_order": 40
+                },
+                {
+                    "order": 16,
+                    "description": "Restore data/configurations from clean snapshots/Terraform state",
+                    "phase_order": 40
+                },
+                {
+                    "order": 17,
+                    "description": "Review Service Quotas to ensure no limits were raised for future abuse",
+                    "phase_order": 40
+                },
+                {
+                    "order": 18,
+                    "description": "Schedule a post-incident review meeting",
+                    "phase_order": 50
+                },
+                {
+                    "order": 19,
+                    "description": "Save PIR findings document and ticket findings",
+                    "phase_order": 50
+                },
+                {
+                    "order": 20,
+                    "description": "Close incident",
+                    "phase_order": 99
+                }
+            ]
+        },
+        {
+            "name": "Critical Vulnerability Response",
+            "schema_definition": {
+                "cve_id": {
+                    "type": "text",
+                    "label": "CVE ID (e.g., CVE-2024-XXXX)",
+                    "required": false
+                },
+                "cvss_score": {
+                    "type": "text",
+                    "label": "CVSS Score (0-10)",
+                    "required": false
+                },
+                "patch_deadline": {
+                    "type": "text",
+                    "label": "Patch Deadline (Date/Time)",
+                    "required": false
+                },
+                "software_vendor": {
+                    "type": "text",
+                    "label": "Software Vendor/Product",
+                    "required": false
+                },
+                "exploited_in_wild": {
+                    "type": "boolean",
+                    "label": "Exploited in the Wild?",
+                    "required": false
+                },
+                "affected_department": {
+                    "type": "text",
+                    "label": "Affected Department",
+                    "required": false
+                },
+                "assets_affected_count": {
+                    "type": "number",
+                    "label": "Est. Assets to Patch",
+                    "required": false
+                },
+                "affected_version_range": {
+                    "type": "text",
+                    "label": "Affected Version Range",
+                    "required": false
+                }
+            },
+            "todo_template": [
+                {
+                    "order": 1,
+                    "description": "Review Vendor Advisory and confirm applicability to environment",
+                    "phase_order": 0
+                },
+                {
+                    "order": 2,
+                    "description": "Subscribe to vendor alerts/mailing list for updates",
+                    "phase_order": 0
+                },
+                {
+                    "order": 3,
+                    "description": "Launch authenticated vulnerability scan to identify all affected assets",
+                    "phase_order": 10
+                },
+                {
+                    "order": 4,
+                    "description": "Identify internet-facing assets (Priority 1 targets)",
+                    "phase_order": 10
+                },
+                {
+                    "order": 5,
+                    "description": "Verify if Proof of Concept (PoC) code is public",
+                    "phase_order": 10
+                },
+                {
+                    "order": 6,
+                    "description": "Implement 'Virtual Patch' via WAF rules (Block specific payloads)",
+                    "phase_order": 20
+                },
+                {
+                    "order": 7,
+                    "description": "Disable affected feature/service if patch is not yet available",
+                    "phase_order": 20
+                },
+                {
+                    "order": 8,
+                    "description": "Restrict network access to affected ports (Allowlist only)",
+                    "phase_order": 20
+                },
+                {
+                    "order": 9,
+                    "description": "Deploy patch to Staging/Test environment",
+                    "phase_order": 30
+                },
+                {
+                    "order": 10,
+                    "description": "Validate patch does not break business critical functionality",
+                    "phase_order": 30
+                },
+                {
+                    "order": 11,
+                    "description": "Deploy patch to Production (Emergency Change Request)",
+                    "phase_order": 30
+                },
+                {
+                    "order": 12,
+                    "description": "Apply mitigation/registry fix if full patch is not possible",
+                    "phase_order": 30
+                },
+                {
+                    "order": 13,
+                    "description": "Re-scan assets to verify the vulnerability is closed",
+                    "phase_order": 40
+                },
+                {
+                    "order": 14,
+                    "description": "Process Exception/Waiver for assets that cannot be patched (Legacy)",
+                    "phase_order": 40
+                },
+                {
+                    "order": 15,
+                    "description": "Schedule a post-incident review meeting",
+                    "phase_order": 50
+                },
+                {
+                    "order": 16,
+                    "description": "Save PIR findings document and ticket findings",
+                    "phase_order": 50
+                },
+                {
+                    "order": 17,
+                    "description": "Close incident",
+                    "phase_order": 99
+                }
+            ]
+        },
+        {
+            "name": "DDoS Attack",
+            "schema_definition": {
+                "attack_type": {
+                    "type": "text",
+                    "label": "DDoS Type (Volumetric, Protocol, App Layer)",
+                    "required": false
+                },
+                "target_asset": {
+                    "type": "text",
+                    "label": "Targeted Asset/URL",
+                    "required": false
+                },
+                "isp_ticket_ref": {
+                    "type": "text",
+                    "label": "ISP/Scrubbing Center Ticket #",
+                    "required": false
+                },
+                "peak_bandwidth": {
+                    "type": "text",
+                    "label": "Peak Bandwidth (e.g., 10 Gbps)",
+                    "required": false
+                },
+                "affected_department": {
+                    "type": "text",
+                    "label": "Affected Department",
+                    "required": false
+                }
+            },
+            "todo_template": [
+                {
+                    "order": 1,
+                    "description": "Verify website/service availability from external monitoring (e.g., DownDetector)",
+                    "phase_order": 0
+                },
+                {
+                    "order": 2,
+                    "description": "Identify traffic characteristics (Source IPs, Protocol, Volume)",
+                    "phase_order": 10
+                },
+                {
+                    "order": 3,
+                    "description": "Engage ISP or Anti-DDoS vendor (Akamai/Cloudflare)",
+                    "phase_order": 10
+                },
+                {
+                    "order": 4,
+                    "description": "Enable 'Under Attack' mode or Rate Limiting on WAF",
+                    "phase_order": 20
+                },
+                {
+                    "order": 5,
+                    "description": "Scale up server resources (Auto-scaling) to absorb load",
+                    "phase_order": 20
+                },
+                {
+                    "order": 6,
+                    "description": "Implement Geo-blocking if traffic is from specific regions",
+                    "phase_order": 20
+                },
+                {
+                    "order": 7,
+                    "description": "Monitor bandwidth and error rates (HTTP 502/503)",
+                    "phase_order": 30
+                },
+                {
+                    "order": 8,
+                    "description": "Tune WAF rules based on attack signature",
+                    "phase_order": 30
+                },
+                {
+                    "order": 9,
+                    "description": "Scale down resources once traffic normalizes",
+                    "phase_order": 40
+                },
+                {
+                    "order": 10,
+                    "description": "Schedule a post-incident review meeting",
+                    "phase_order": 50
+                },
+                {
+                    "order": 11,
+                    "description": "Save PIR findings document and ticket findings",
+                    "phase_order": 50
+                },
+                {
+                    "order": 12,
+                    "description": "Close incident",
+                    "phase_order": 99
+                }
+            ]
+        },
+        {
+            "name": "Financial Fraud",
+            "schema_definition": {
+                "method": {
+                    "type": "text",
+                    "label": "Attack Method",
+                    "required": false
+                },
+                "country": {
+                    "type": "text",
+                    "label": "Country",
+                    "required": false
+                },
+                "fraud_type": {
+                    "type": "text",
+                    "label": "Fraud Type (BEC, Invoice, CEO Fraud)",
+                    "required": false
+                },
+                "affected_department": {
+                    "type": "text",
+                    "label": "Affected department",
+                    "required": false
+                },
+                "financial_loss_amount": {
+                    "type": "number",
+                    "label": "Est. Loss Amount",
+                    "required": false
+                }
+            },
+            "todo_template": [
+                {
+                    "order": 1,
+                    "description": "Establish a communication channel with law enforcement (if Severity > Medium)",
+                    "phase_order": 0
+                },
+                {
+                    "order": 2,
+                    "description": "Preserve evidence (email headers, invoices, chat logs) immediately",
+                    "phase_order": 10
+                },
+                {
+                    "order": 3,
+                    "description": "Identify suspicious email activity across organization (Phishing Search)",
+                    "phase_order": 10
+                },
+                {
+                    "order": 4,
+                    "description": "Review logs for signs of unauthorized access or anomalies",
+                    "phase_order": 10
+                },
+                {
+                    "order": 5,
+                    "description": "Cross-check fraudulent invoices with procurement systems",
+                    "phase_order": 10
+                },
+                {
+                    "order": 6,
+                    "description": "Disable fraudulent payment transactions or freeze accounts",
+                    "phase_order": 20
+                },
+                {
+                    "order": 7,
+                    "description": "Immediately suspend compromised email accounts",
+                    "phase_order": 20
+                },
+                {
+                    "order": 8,
+                    "description": "Reset passwords for accounts involved or suspected",
+                    "phase_order": 20
+                },
+                {
+                    "order": 9,
+                    "description": "Blacklist beneficiary bank accounts in finance system",
+                    "phase_order": 20
+                },
+                {
+                    "order": 10,
+                    "description": "Conduct a full system scan for persistence (malware/backdoors)",
+                    "phase_order": 30
+                },
+                {
+                    "order": 11,
+                    "description": "Patch any system weaknesses (e.g., email servers, MFA gaps)",
+                    "phase_order": 30
+                },
+                {
+                    "order": 12,
+                    "description": "Coordinate with HR and Legal regarding internal consequences",
+                    "phase_order": 40
+                },
+                {
+                    "order": 13,
+                    "description": "Schedule a post-incident review meeting",
+                    "phase_order": 50
+                },
+                {
+                    "order": 14,
+                    "description": "Save PIR findings document and ticket findings",
+                    "phase_order": 50
+                },
+                {
+                    "order": 15,
+                    "description": "Incident resolved",
+                    "phase_order": 99
+                }
+            ]
+        },
+        {
+            "name": "General Forensic Investigation",
+            "schema_definition": {
+                "data_size_gb": {
+                    "type": "number",
+                    "label": "Total Data Size (GB)",
+                    "required": false
+                },
+                "scope_of_work": {
+                    "type": "text",
+                    "label": "Scope (e.g., 'Find user activity from July 2024')",
+                    "required": true
+                },
+                "requestor_name": {
+                    "type": "text",
+                    "label": "Requestor Name",
+                    "required": true
+                },
+                "legal_authority": {
+                    "type": "text",
+                    "label": "Legal Authority (Consent, Warrant, HR Policy)",
+                    "required": true
+                },
+                "external_case_ref": {
+                    "type": "text",
+                    "label": "External Ref (Police/Court #)",
+                    "required": false
+                },
+                "evidence_custodian": {
+                    "type": "text",
+                    "label": "Evidence Custodian (Current Owner)",
+                    "required": false
+                }
+            },
+            "todo_template": [
+                {
+                    "order": 1,
+                    "description": "Validate Request and Legal Authority (Ensure we have right-to-search)",
+                    "phase_order": 0
+                },
+                {
+                    "order": 2,
+                    "description": "Initiate Chain of Custody (CoC) for all received items",
+                    "phase_order": 0
+                },
+                {
+                    "order": 3,
+                    "description": "Photograph physical condition of evidence upon intake",
+                    "phase_order": 10
+                },
+                {
+                    "order": 4,
+                    "description": "Sanitize/Wipe destination media (Target Drives) and document verification",
+                    "phase_order": 10
+                },
+                {
+                    "order": 5,
+                    "description": "Perform Forensic Acquisition (Imaging) of digital media",
+                    "phase_order": 10
+                },
+                {
+                    "order": 6,
+                    "description": "Verify Acquisition Hashes (MD5/SHA256 match source)",
+                    "phase_order": 10
+                },
+                {
+                    "order": 7,
+                    "description": "Store original evidence in Secure Evidence Locker (Faraday bag if mobile)",
+                    "phase_order": 20
+                },
+                {
+                    "order": 8,
+                    "description": "Process evidence in Forensic Tool (Index, Carve, OCR)",
+                    "phase_order": 20
+                },
+                {
+                    "order": 9,
+                    "description": "Analyze User Artifacts (LNK files, Jumplists, Shellbags, Browser History)",
+                    "phase_order": 30
+                },
+                {
+                    "order": 10,
+                    "description": "Analyze System Artifacts (Event Logs, Registry Hives, Amcache)",
+                    "phase_order": 30
+                },
+                {
+                    "order": 11,
+                    "description": "Review Findings against Scope of Work",
+                    "phase_order": 40
+                },
+                {
+                    "order": 12,
+                    "description": "Conduct Peer Review of findings (Second Examiner check)",
+                    "phase_order": 40
+                },
+                {
+                    "order": 13,
+                    "description": "Draft Forensic Report / Expert Witness Statement",
+                    "phase_order": 50
+                },
+                {
+                    "order": 14,
+                    "description": "Assess findings for escalation to Incident (If malware/breach discovered)",
+                    "phase_order": 50
+                },
+                {
+                    "order": 15,
+                    "description": "Return Evidence to owner or move to Long Term Archive",
+                    "phase_order": 99
+                }
+            ]
+        },
+        {
+            "name": "General Incident Response",
+            "schema_definition": {
+                "attack_vector": {
+                    "type": "text",
+                    "label": "Suspected Vector (Phishing, Web, Insider)",
+                    "required": false
+                },
+                "pii_data_involved": {
+                    "type": "boolean",
+                    "label": "PII/Personal Data Involved?",
+                    "required": false
+                },
+                "containment_status": {
+                    "type": "text",
+                    "label": "Status (Active, Contained, Recovering)",
+                    "required": false
+                },
+                "affected_department": {
+                    "type": "text",
+                    "label": "Affected Department",
+                    "required": false
+                },
+                "systems_affected_count": {
+                    "type": "number",
+                    "label": "Est. Systems Affected",
+                    "required": false
+                }
+            },
+            "todo_template": [
+                {
+                    "order": 1,
+                    "description": "Assign Incident Commander and Scribe",
+                    "phase_order": 0
+                },
+                {
+                    "order": 2,
+                    "description": "Set up a dedicated secure communication channel",
+                    "phase_order": 0
+                },
+                {
+                    "order": 3,
+                    "description": "Inform the CISO and Legal (if data breach suspected)",
+                    "phase_order": 0
+                },
+                {
+                    "order": 4,
+                    "description": "Determine scope: Query EDR/Logs for similar indicators",
+                    "phase_order": 10
+                },
+                {
+                    "order": 5,
+                    "description": "Capture forensic image of volatile memory (RAM) before isolation",
+                    "phase_order": 10
+                },
+                {
+                    "order": 6,
+                    "description": "Isolate affected endpoints from the network",
+                    "phase_order": 20
+                },
+                {
+                    "order": 7,
+                    "description": "Block attacker IPs/Domains at Firewall and Web Proxy",
+                    "phase_order": 20
+                },
+                {
+                    "order": 8,
+                    "description": "Disable compromised user accounts (AD/SSO)",
+                    "phase_order": 20
+                },
+                {
+                    "order": 9,
+                    "description": "Remove malicious artifacts (Files, Registry Keys, Persistence)",
+                    "phase_order": 30
+                },
+                {
+                    "order": 10,
+                    "description": "Patch the vulnerability exploited (Root Cause Fix)",
+                    "phase_order": 30
+                },
+                {
+                    "order": 11,
+                    "description": "Force password reset for all affected identities (2x)",
+                    "phase_order": 30
+                },
+                {
+                    "order": 12,
+                    "description": "Reimage workstations / Restore servers from clean backups",
+                    "phase_order": 40
+                },
+                {
+                    "order": 13,
+                    "description": "Schedule a post-incident review meeting",
+                    "phase_order": 50
+                },
+                {
+                    "order": 14,
+                    "description": "Save PIR findings document and ticket findings",
+                    "phase_order": 50
+                },
+                {
+                    "order": 15,
+                    "description": "Mark Incident as Resolved",
+                    "phase_order": 99
+                }
+            ]
+        },
+        {
+            "name": "Internal Compliance Violation",
+            "schema_definition": {
+                "hr_ticket_ref": {
+                    "type": "text",
+                    "label": "HR Case Reference #",
+                    "required": false
+                },
+                "legal_hold_active": {
+                    "type": "boolean",
+                    "label": "Legal Hold Active",
+                    "required": false
+                },
+                "reporter_anonymity": {
+                    "type": "boolean",
+                    "label": "Reporter Requested Anonymity",
+                    "required": false
+                },
+                "violation_category": {
+                    "type": "text",
+                    "label": "Violation Type (Fraud, Harassment, IP Theft)",
+                    "required": false
+                },
+                "affected_department": {
+                    "type": "text",
+                    "label": "Affected department",
+                    "required": false
+                },
+                "suspect_employee_id": {
+                    "type": "text",
+                    "label": "Subject Employee ID/Username",
+                    "required": false
+                },
+                "financial_impact_est": {
+                    "type": "number",
+                    "label": "Est. Financial Impact (USD)",
+                    "required": false
+                },
+                "data_exfiltration_suspected": {
+                    "type": "boolean",
+                    "label": "Data Exfiltration Suspected",
+                    "required": false
+                }
+            },
+            "todo_template": [
+                {
+                    "order": 1,
+                    "description": "Establish 'Need to Know' list and restrict Case permissions",
+                    "phase_order": 0
+                },
+                {
+                    "order": 2,
+                    "description": "Engage Legal Counsel and HR Representative",
+                    "phase_order": 0
+                },
+                {
+                    "order": 3,
+                    "description": "Verify the initial report/allegation validity",
+                    "phase_order": 10
+                },
+                {
+                    "order": 4,
+                    "description": "Implement 'Silent' Logging on User's accounts",
+                    "phase_order": 10
+                },
+                {
+                    "order": 5,
+                    "description": "Preserve snapshot of User's mailbox and OneDrive/Home Drive",
+                    "phase_order": 10
+                },
+                {
+                    "order": 6,
+                    "description": "Review physical access logs (badge swipes) vs Login times",
+                    "phase_order": 10
+                },
+                {
+                    "order": 7,
+                    "description": "Check DLP logs for unauthorized data movement",
+                    "phase_order": 10
+                },
+                {
+                    "order": 8,
+                    "description": "Issue Legal Hold on all relevant data assets",
+                    "phase_order": 20
+                },
+                {
+                    "order": 9,
+                    "description": "Suspend User accounts (SSO, VPN, Email) - Coordinate with HR Interview",
+                    "phase_order": 20
+                },
+                {
+                    "order": 10,
+                    "description": "Remote wipe or seize corporate mobile devices",
+                    "phase_order": 20
+                },
+                {
+                    "order": 11,
+                    "description": "Revoke physical access (Badge/Keys)",
+                    "phase_order": 20
+                },
+                {
+                    "order": 12,
+                    "description": "Terminate active sessions and rotate API keys accessible by User",
+                    "phase_order": 30
+                },
+                {
+                    "order": 13,
+                    "description": "Identify and revert any unauthorized configuration changes",
+                    "phase_order": 30
+                },
+                {
+                    "order": 14,
+                    "description": "Audit shared folders for deletion or tampering",
+                    "phase_order": 30
+                },
+                {
+                    "order": 15,
+                    "description": "Transfer critical files/knowledge to manager/replacement",
+                    "phase_order": 40
+                },
+                {
+                    "order": 16,
+                    "description": "Re-image User's workstation for redeployment",
+                    "phase_order": 40
+                },
+                {
+                    "order": 17,
+                    "description": "Conduct Exit Interview (if applicable) and document findings",
+                    "phase_order": 50
+                },
+                {
+                    "order": 18,
+                    "description": "Finalize Chain of Custody forms for digital evidence",
+                    "phase_order": 50
+                },
+                {
+                    "order": 19,
+                    "description": "Schedule a post-incident review meeting",
+                    "phase_order": 50
+                },
+                {
+                    "order": 20,
+                    "description": "Save PIR findings document and ticket findings",
+                    "phase_order": 50
+                },
+                {
+                    "order": 21,
+                    "description": "Close Case and Archive Evidence",
+                    "phase_order": 99
+                }
+            ]
+        },
+        {
+            "name": "Lost/Stolen Equipment",
+            "schema_definition": {
+                "device_type": {
+                    "type": "text",
+                    "label": "Device Type (Laptop, Mobile, Tablet)",
+                    "required": false
+                },
+                "contains_pii": {
+                    "type": "boolean",
+                    "label": "Contains PII/Sensitive Data?",
+                    "required": false
+                },
+                "is_encrypted": {
+                    "type": "boolean",
+                    "label": "Device Encrypted (Bitlocker/FileVault)?",
+                    "required": false
+                },
+                "device_serial": {
+                    "type": "text",
+                    "label": "Serial Number / Asset Tag",
+                    "required": false
+                },
+                "police_report_ref": {
+                    "type": "text",
+                    "label": "Police Report Number",
+                    "required": false
+                },
+                "affected_department": {
+                    "type": "text",
+                    "label": "Affected Department",
+                    "required": false
+                }
+            },
+            "todo_template": [
+                {
+                    "order": 1,
+                    "description": "Confirm device details in Asset Management System",
+                    "phase_order": 10
+                },
+                {
+                    "order": 2,
+                    "description": "Initiate Remote Wipe command via MDM (Intune/Jamf)",
+                    "phase_order": 20
+                },
+                {
+                    "order": 3,
+                    "description": "Reset User's AD and SSO passwords immediately",
+                    "phase_order": 20
+                },
+                {
+                    "order": 4,
+                    "description": "Revoke MFA tokens and active sessions",
+                    "phase_order": 20
+                },
+                {
+                    "order": 5,
+                    "description": "Mark device as 'Stolen/Lost' in Asset Database",
+                    "phase_order": 30
+                },
+                {
+                    "order": 6,
+                    "description": "Assess data sensitivity (Was the device unlocked? Unencrypted?)",
+                    "phase_order": 30
+                },
+                {
+                    "order": 7,
+                    "description": "Instruct user to file a police report (if stolen outside office)",
+                    "phase_order": 40
+                },
+                {
+                    "order": 8,
+                    "description": "Provision replacement device for user",
+                    "phase_order": 40
+                },
+                {
+                    "order": 9,
+                    "description": "Schedule a post-incident review meeting",
+                    "phase_order": 50
+                },
+                {
+                    "order": 10,
+                    "description": "Save PIR findings document and ticket findings",
+                    "phase_order": 50
+                },
+                {
+                    "order": 11,
+                    "description": "Close incident",
+                    "phase_order": 99
+                }
+            ]
+        },
+        {
+            "name": "Malware Analysis Request",
+            "schema_definition": {
+                "file_hash": {
+                    "type": "text",
+                    "label": "File Hash (SHA256)",
+                    "required": false
+                },
+                "is_targeted": {
+                    "type": "boolean",
+                    "label": "Appears Targeted?",
+                    "required": false
+                },
+                "analysis_depth": {
+                    "type": "text",
+                    "label": "Depth (Basic, Behavioral, Reverse Engineering)",
+                    "required": false
+                },
+                "submitter_name": {
+                    "type": "text",
+                    "label": "Submitted By",
+                    "required": true
+                },
+                "source_system_ip": {
+                    "type": "text",
+                    "label": "Source IP/Hostname",
+                    "required": false
+                }
+            },
+            "todo_template": [
+                {
+                    "order": 1,
+                    "description": "Transfer sample to Isolated/Air-gapped Network",
+                    "phase_order": 0
+                },
+                {
+                    "order": 2,
+                    "description": "Compute hashes (MD5, SHA1, SHA256, IMPHASH)",
+                    "phase_order": 10
+                },
+                {
+                    "order": 3,
+                    "description": "Perform Static Analysis (Strings, PE Headers, Packer detection)",
+                    "phase_order": 10
+                },
+                {
+                    "order": 4,
+                    "description": "Perform Dynamic Analysis (Detonate in Sandbox)",
+                    "phase_order": 20
+                },
+                {
+                    "order": 5,
+                    "description": "Capture Network Indicators (C2 Domains, IPs, User-Agents)",
+                    "phase_order": 30
+                },
+                {
+                    "order": 6,
+                    "description": "Capture Host Indicators (Registry Keys, File Drops, Mutexes)",
+                    "phase_order": 30
+                },
+                {
+                    "order": 7,
+                    "description": "Extract Config / Decrypt Payload (if applicable)",
+                    "phase_order": 40
+                },
+                {
+                    "order": 8,
+                    "description": "Generate YARA/IOC rules for detection",
+                    "phase_order": 50
+                },
+                {
+                    "order": 9,
+                    "description": "Publish internal Threat Advisory",
+                    "phase_order": 50
+                },
+                {
+                    "order": 10,
+                    "description": "Close Request",
+                    "phase_order": 99
+                }
+            ]
+        },
+        {
+            "name": "Malware Infection",
+            "schema_definition": {
+                "malware_family": {
+                    "type": "text",
+                    "label": "Malware Family (Emotet, Miner, Spyware)",
+                    "required": false
+                },
+                "detection_source": {
+                    "type": "text",
+                    "label": "Detected By (EDR, Firewall, User)",
+                    "required": false
+                },
+                "file_hash_sha256": {
+                    "type": "text",
+                    "label": "File Hash (SHA256)",
+                    "required": false
+                },
+                "affected_department": {
+                    "type": "text",
+                    "label": "Affected Department",
+                    "required": false
+                },
+                "automated_action_taken": {
+                    "type": "text",
+                    "label": "Auto-Action (Quarantined, Blocked, Failed)",
+                    "required": false
+                }
+            },
+            "todo_template": [
+                {
+                    "order": 1,
+                    "description": "Verify if the alert is a False Positive (check file signature)",
+                    "phase_order": 10
+                },
+                {
+                    "order": 2,
+                    "description": "Isolate the endpoint immediately (Network Quarantine)",
+                    "phase_order": 20
+                },
+                {
+                    "order": 3,
+                    "description": "Identify the 'Patient Zero' and entry vector (Web/USB/Email)",
+                    "phase_order": 10
+                },
+                {
+                    "order": 4,
+                    "description": "Collect the malware sample (if not automatically quarantined)",
+                    "phase_order": 10
+                },
+                {
+                    "order": 5,
+                    "description": "Upload hash to VirusTotal or internal sandbox for analysis",
+                    "phase_order": 10
+                },
+                {
+                    "order": 6,
+                    "description": "Search EDR/SIEM for this Hash across the entire fleet (Scoping)",
+                    "phase_order": 10
+                },
+                {
+                    "order": 7,
+                    "description": "Kill malicious processes",
+                    "phase_order": 20
+                },
+                {
+                    "order": 8,
+                    "description": "Delete malicious files and persistence keys",
+                    "phase_order": 30
+                },
+                {
+                    "order": 9,
+                    "description": "Run a full disk scan using a secondary scanner",
+                    "phase_order": 30
+                },
+                {
+                    "order": 10,
+                    "description": "Reset user credentials if keylogger/stealer is suspected",
+                    "phase_order": 30
+                },
+                {
+                    "order": 11,
+                    "description": "Re-image machine (Recommended if rootkit suspected)",
+                    "phase_order": 40
+                },
+                {
+                    "order": 12,
+                    "description": "Un-isolate endpoint and verify network connectivity",
+                    "phase_order": 40
+                },
+                {
+                    "order": 13,
+                    "description": "Ticket the new IOCs to the Threat Intel team",
+                    "phase_order": 50
+                },
+                {
+                    "order": 14,
+                    "description": "Schedule a post-incident review meeting",
+                    "phase_order": 50
+                },
+                {
+                    "order": 15,
+                    "description": "Save PIR findings document and ticket findings",
+                    "phase_order": 50
+                },
+                {
+                    "order": 16,
+                    "description": "Close incident",
+                    "phase_order": 99
+                }
+            ]
+        },
+        {
+            "name": "Network & Perimeter Compromise",
+            "schema_definition": {
+                "device_type": {
+                    "type": "text",
+                    "label": "Device Type (Firewall, Switch, VPN)",
+                    "required": false
+                },
+                "vendor_model": {
+                    "type": "text",
+                    "label": "Vendor/Model (Cisco, Fortinet, Palo Alto)",
+                    "required": false
+                },
+                "management_ip": {
+                    "type": "text",
+                    "label": "Management IP Address",
+                    "required": false
+                },
+                "device_hostname": {
+                    "type": "text",
+                    "label": "Device Hostname",
+                    "required": false
+                },
+                "firmware_version": {
+                    "type": "text",
+                    "label": "Current Firmware Version",
+                    "required": false
+                },
+                "is_internet_facing": {
+                    "type": "boolean",
+                    "label": "Is Device Internet Facing?",
+                    "required": false
+                },
+                "affected_department": {
+                    "type": "text",
+                    "label": "Affected Department",
+                    "required": false
+                }
+            },
+            "todo_template": [
+                {
+                    "order": 1,
+                    "description": "EMERGENCY: Disconnect Management Interface / Uplink (Out-of-Band)",
+                    "phase_order": 0
+                },
+                {
+                    "order": 2,
+                    "description": "EMERGENCY: Failover to High Availability (HA) peer if safe",
+                    "phase_order": 0
+                },
+                {
+                    "order": 3,
+                    "description": "Capture running configuration (Show Run) for forensic comparison",
+                    "phase_order": 10
+                },
+                {
+                    "order": 4,
+                    "description": "Capture volatile state (ARP table, MAC table, Active Connections)",
+                    "phase_order": 10
+                },
+                {
+                    "order": 5,
+                    "description": "Dump logs to external syslog server (ensure logs aren't being wiped)",
+                    "phase_order": 10
+                },
+                {
+                    "order": 6,
+                    "description": "Check for unauthorized Local Accounts or SSH keys",
+                    "phase_order": 10
+                },
+                {
+                    "order": 7,
+                    "description": "Check for unexpected Traffic Forwarding rules or Tunnels (GRE/IPSec)",
+                    "phase_order": 10
+                },
+                {
+                    "order": 8,
+                    "description": "Verify integrity of the firmware image (Checksum verification)",
+                    "phase_order": 10
+                },
+                {
+                    "order": 9,
+                    "description": "Apply Access Control Lists (ACLs) to block attacker IPs",
+                    "phase_order": 20
+                },
+                {
+                    "order": 10,
+                    "description": "Reset all Administrative passwords and SNMP strings",
+                    "phase_order": 20
+                },
+                {
+                    "order": 11,
+                    "description": "Revoke and reissue SSL/VPN Certificates",
+                    "phase_order": 20
+                },
+                {
+                    "order": 12,
+                    "description": "Re-flash firmware from trusted source (Safe Mode boot)",
+                    "phase_order": 30
+                },
+                {
+                    "order": 13,
+                    "description": "Restore configuration from known-good 'Gold Image' backup",
+                    "phase_order": 30
+                },
+                {
+                    "order": 14,
+                    "description": "Patch known vulnerabilities (if exploit was via unpatched CVE)",
+                    "phase_order": 30
+                },
+                {
+                    "order": 15,
+                    "description": "Reconnect to network and monitor NetFlow for anomalies",
+                    "phase_order": 40
+                },
+                {
+                    "order": 16,
+                    "description": "Validate failover mechanisms and redundancy",
+                    "phase_order": 40
+                },
+                {
+                    "order": 17,
+                    "description": "Schedule a post-incident review meeting",
+                    "phase_order": 50
+                },
+                {
+                    "order": 18,
+                    "description": "Save PIR findings document and ticket findings",
+                    "phase_order": 50
+                },
+                {
+                    "order": 19,
+                    "description": "Close incident",
+                    "phase_order": 99
+                }
+            ]
+        },
+        {
+            "name": "Phishing Campaign",
+            "schema_definition": {
+                "sender_domain": {
+                    "type": "text",
+                    "label": "Sender Domain/Address",
+                    "required": false
+                },
+                "has_attachment": {
+                    "type": "boolean",
+                    "label": "Contains Malicious Attachment?",
+                    "required": false
+                },
+                "email_subject_line": {
+                    "type": "text",
+                    "label": "Email Subject Line",
+                    "required": false
+                },
+                "affected_department": {
+                    "type": "text",
+                    "label": "Affected Department",
+                    "required": false
+                },
+                "users_clicked_count": {
+                    "type": "number",
+                    "label": "Total Users Clicked/Compromised",
+                    "required": false
+                },
+                "users_targeted_count": {
+                    "type": "number",
+                    "label": "Total Users Targeted",
+                    "required": false
+                }
+            },
+            "todo_template": [
+                {
+                    "order": 1,
+                    "description": "Alert Service Desk of potential ticket flood",
+                    "phase_order": 0
+                },
+                {
+                    "order": 2,
+                    "description": "Acquire original email headers from a reporter",
+                    "phase_order": 10
+                },
+                {
+                    "order": 3,
+                    "description": "Analyze URL/Attachment in a sandbox environment",
+                    "phase_order": 10
+                },
+                {
+                    "order": 4,
+                    "description": "Perform message trace to identify all recipients",
+                    "phase_order": 10
+                },
+                {
+                    "order": 5,
+                    "description": "Block sender domain and IP at Email Gateway",
+                    "phase_order": 20
+                },
+                {
+                    "order": 6,
+                    "description": "Block malicious URL at Web Proxy/DNS filter",
+                    "phase_order": 20
+                },
+                {
+                    "order": 7,
+                    "description": "Execute 'Search and Purge' to remove email from all inboxes",
+                    "phase_order": 20
+                },
+                {
+                    "order": 8,
+                    "description": "Reset passwords for all users who clicked the link",
+                    "phase_order": 30
+                },
+                {
+                    "order": 9,
+                    "description": "Enable MFA if not already enabled for affected users",
+                    "phase_order": 30
+                },
+                {
+                    "order": 10,
+                    "description": "Unblock user accounts after password reset",
+                    "phase_order": 40
+                },
+                {
+                    "order": 11,
+                    "description": "Assign mandatory phishing awareness training to clickers",
+                    "phase_order": 50
+                },
+                {
+                    "order": 12,
+                    "description": "Schedule a post-incident review meeting",
+                    "phase_order": 50
+                },
+                {
+                    "order": 13,
+                    "description": "Save PIR findings document and ticket findings",
+                    "phase_order": 50
+                },
+                {
+                    "order": 14,
+                    "description": "Close incident",
+                    "phase_order": 99
+                }
+            ]
+        },
+        {
+            "name": "Physical Security Incident",
+            "schema_definition": {
+                "incident_type": {
+                    "type": "text",
+                    "label": "Type (Tailgating, Break-in, Lost Badge)",
+                    "required": false
+                },
+                "location_site": {
+                    "type": "text",
+                    "label": "Site / Office Location",
+                    "required": false
+                },
+                "location_zone": {
+                    "type": "text",
+                    "label": "Specific Zone (Server Room, Lobby, Loading Dock)",
+                    "required": false
+                },
+                "police_called": {
+                    "type": "boolean",
+                    "label": "Law Enforcement Contacted?",
+                    "required": false
+                },
+                "assets_impacted": {
+                    "type": "text",
+                    "label": "Assets Impacted (Hardware, Documents)",
+                    "required": false
+                },
+                "police_report_ref": {
+                    "type": "text",
+                    "label": "Police Report Number",
+                    "required": false
+                }
+            },
+            "todo_template": [
+                {
+                    "order": 1,
+                    "description": "EMERGENCY: Dispatch onsite security / guard to the location",
+                    "phase_order": 0
+                },
+                {
+                    "order": 2,
+                    "description": "EMERGENCY: Contact Law Enforcement (if immediate threat to safety)",
+                    "phase_order": 0
+                },
+                {
+                    "order": 3,
+                    "description": "Secure the area / Lock down entry points",
+                    "phase_order": 0
+                },
+                {
+                    "order": 4,
+                    "description": "Pull CCTV footage for the relevant timeframe",
+                    "phase_order": 10
+                },
+                {
+                    "order": 5,
+                    "description": "Review Badge Access Control System (ACS) logs",
+                    "phase_order": 10
+                },
+                {
+                    "order": 6,
+                    "description": "Interview witnesses or security guards on duty",
+                    "phase_order": 10
+                },
+                {
+                    "order": 7,
+                    "description": "Identify the intruder (Employee, Contractor, Stranger)",
+                    "phase_order": 10
+                },
+                {
+                    "order": 8,
+                    "description": "Deactivate compromised badges immediately",
+                    "phase_order": 20
+                },
+                {
+                    "order": 9,
+                    "description": "Revoke network access for the individual (if Employee/Insider)",
+                    "phase_order": 20
+                },
+                {
+                    "order": 10,
+                    "description": "Conduct physical inventory of the area to check for theft",
+                    "phase_order": 30
+                },
+                {
+                    "order": 11,
+                    "description": "Check for planting of rogue devices (Keyloggers, Wi-Fi Pineapples)",
+                    "phase_order": 30
+                },
+                {
+                    "order": 12,
+                    "description": "Coordinate with Facilities to repair any physical damage (doors/locks)",
+                    "phase_order": 40
+                },
+                {
+                    "order": 13,
+                    "description": "Issue 'Be on the Lookout' (BOLO) alert to other sites if necessary",
+                    "phase_order": 40
+                },
+                {
+                    "order": 14,
+                    "description": "Schedule a post-incident review meeting",
+                    "phase_order": 50
+                },
+                {
+                    "order": 15,
+                    "description": "Save PIR findings document and ticket findings",
+                    "phase_order": 50
+                },
+                {
+                    "order": 16,
+                    "description": "Close incident",
+                    "phase_order": 99
+                }
+            ]
+        },
+        {
+            "name": "Ransomware Attack",
+            "schema_definition": {
+                "backups_available": {
+                    "type": "boolean",
+                    "label": "Viable Backups Available?",
+                    "required": false
+                },
+                "ransom_note_found": {
+                    "type": "boolean",
+                    "label": "Ransom Note Found?",
+                    "required": false
+                },
+                "ransomware_strain": {
+                    "type": "text",
+                    "label": "Ransomware Strain/Variant",
+                    "required": false
+                },
+                "data_leak_site_url": {
+                    "type": "text",
+                    "label": "Tor Leak Site URL",
+                    "required": false
+                },
+                "affected_department": {
+                    "type": "text",
+                    "label": "Affected Department",
+                    "required": false
+                },
+                "encrypted_extension": {
+                    "type": "text",
+                    "label": "Encrypted File Extension",
+                    "required": false
+                },
+                "systems_encrypted_count": {
+                    "type": "number",
+                    "label": "Est. Encrypted Systems",
+                    "required": false
+                }
+            },
+            "todo_template": [
+                {
+                    "order": 1,
+                    "description": "Activate Crisis Management Team / War Room",
+                    "phase_order": 0
+                },
+                {
+                    "order": 2,
+                    "description": "Establish out-of-band communication (Signal/Cell)",
+                    "phase_order": 0
+                },
+                {
+                    "order": 3,
+                    "description": "Identify the scope of encryption (Servers vs Endpoints)",
+                    "phase_order": 10
+                },
+                {
+                    "order": 4,
+                    "description": "Identify the ransomware strain using ID Ransomware",
+                    "phase_order": 10
+                },
+                {
+                    "order": 5,
+                    "description": "Preserve one encrypted sample and the ransom note",
+                    "phase_order": 10
+                },
+                {
+                    "order": 6,
+                    "description": "Sever internet connection to affect subnets (Pull the plug)",
+                    "phase_order": 20
+                },
+                {
+                    "order": 7,
+                    "description": "Isolate backup servers from the main network immediately",
+                    "phase_order": 20
+                },
+                {
+                    "order": 8,
+                    "description": "Reset domain admin and service account credentials",
+                    "phase_order": 20
+                },
+                {
+                    "order": 9,
+                    "description": "Locate patient zero (entry point)",
+                    "phase_order": 30
+                },
+                {
+                    "order": 10,
+                    "description": "Wipe infected drives (do not attempt to clean, wipe only)",
+                    "phase_order": 30
+                },
+                {
+                    "order": 11,
+                    "description": "Patch the vulnerability used for entry (VPN, RDP, Phishing)",
+                    "phase_order": 30
+                },
+                {
+                    "order": 12,
+                    "description": "Scan backups for malware before restoration",
+                    "phase_order": 40
+                },
+                {
+                    "order": 13,
+                    "description": "Restore critical services from offline backups",
+                    "phase_order": 40
+                },
+                {
+                    "order": 14,
+                    "description": "File insurance claim and regulatory notifications",
+                    "phase_order": 50
+                },
+                {
+                    "order": 15,
+                    "description": "Schedule a post-incident review meeting",
+                    "phase_order": 50
+                },
+                {
+                    "order": 16,
+                    "description": "Save PIR findings document and ticket findings",
+                    "phase_order": 50
+                },
+                {
+                    "order": 17,
+                    "description": "Mark incident resolved",
+                    "phase_order": 99
+                }
+            ]
+        },
+        {
+            "name": "Supply Chain / Third-Party Incident",
+            "schema_definition": {
+                "vendor_name": {
+                    "type": "text",
+                    "label": "Vendor / Service Provider Name",
+                    "required": false
+                },
+                "service_type": {
+                    "type": "text",
+                    "label": "Service Type (SaaS, PaaS, MSP)",
+                    "required": false
+                },
+                "integration_type": {
+                    "type": "text",
+                    "label": "Integration Method (API, VPN, SSO)",
+                    "required": false
+                },
+                "affected_department": {
+                    "type": "text",
+                    "label": "Affected Department",
+                    "required": false
+                },
+                "data_shared_with_vendor": {
+                    "type": "text",
+                    "label": "Data Types Shared (PII, IP, Financial)",
+                    "required": false
+                },
+                "vendor_breach_notice_url": {
+                    "type": "text",
+                    "label": "Vendor Status Page / Notice URL",
+                    "required": false
+                },
+                "legal_notification_required": {
+                    "type": "boolean",
+                    "label": "Legal/Privacy Notification Required?",
+                    "required": false
+                }
+            },
+            "todo_template": [
+                {
+                    "order": 1,
+                    "description": "Establish contact with Vendor Account Manager for official updates",
+                    "phase_order": 0
+                },
+                {
+                    "order": 2,
+                    "description": "Notify Legal and Privacy teams immediately (Data Processor Breach)",
+                    "phase_order": 0
+                },
+                {
+                    "order": 3,
+                    "description": "Identify all data types stored or processed by the vendor",
+                    "phase_order": 10
+                },
+                {
+                    "order": 4,
+                    "description": "Audit system logs for unusual activity originating from Vendor IPs/Accounts",
+                    "phase_order": 10
+                },
+                {
+                    "order": 5,
+                    "description": "Review recent code/config changes pushed by the vendor (if MSP/Dev)",
+                    "phase_order": 10
+                },
+                {
+                    "order": 6,
+                    "description": "Suspend Third-Party Integration (Disable API Keys / OAuth Tokens)",
+                    "phase_order": 20
+                },
+                {
+                    "order": 7,
+                    "description": "Sever Site-to-Site VPN or Direct Connect links",
+                    "phase_order": 20
+                },
+                {
+                    "order": 8,
+                    "description": "Block Vendor IP addresses at the perimeter firewall",
+                    "phase_order": 20
+                },
+                {
+                    "order": 9,
+                    "description": "Disable Federated Identity (SSO/SAML) trust for the application",
+                    "phase_order": 20
+                },
+                {
+                    "order": 10,
+                    "description": "Rotate all shared secrets (API Keys, Service Account Passwords)",
+                    "phase_order": 30
+                },
+                {
+                    "order": 11,
+                    "description": "Force logout/session revocation for any internal users accessing the tool",
+                    "phase_order": 30
+                },
+                {
+                    "order": 12,
+                    "description": "Search internal environment for 'Lateral Movement' from the vendor connection",
+                    "phase_order": 30
+                },
+                {
+                    "order": 13,
+                    "description": "Wait for 'All Clear' and Root Cause Analysis (RCA) from Vendor",
+                    "phase_order": 40
+                },
+                {
+                    "order": 14,
+                    "description": "Re-enable integrations sequentially (Read-Only access first if possible)",
+                    "phase_order": 40
+                },
+                {
+                    "order": 15,
+                    "description": "Review Vendor Contract for SLA penalties or liability clauses",
+                    "phase_order": 50
+                },
+                {
+                    "order": 16,
+                    "description": "Schedule a post-incident review meeting",
+                    "phase_order": 50
+                },
+                {
+                    "order": 17,
+                    "description": "Save PIR findings document and ticket findings",
+                    "phase_order": 50
+                },
+                {
+                    "order": 18,
+                    "description": "Close incident",
+                    "phase_order": 99
+                }
+            ]
+        }
+    ],
+    "compliance_timers": [
+        {
+            "id": "timer_gdpr_dpa",
+            "framework": "GDPR (EU)",
+            "name": "Data Protection Authority Notification",
+            "duration_hours": 72,
+            "is_business_days": false,
+            "trigger_guidance": "Start when you become aware of a personal data breach posing risk to individuals.",
+            "authority_name": "Local DPA (e.g., CNIL, ICO, DPC)",
+            "reference_url": "https://gdpr-info.eu/art-33-gdpr/"
+        },
+        {
+            "id": "timer_nis2_early",
+            "framework": "NIS 2 (EU)",
+            "name": "Early Warning Report",
+            "duration_hours": 24,
+            "is_business_days": false,
+            "trigger_guidance": "Start immediately upon detecting a significant incident (severe disruption/financial loss).",
+            "authority_name": "CSIRT / Competent National Authority",
+            "reference_url": "https://digital-strategy.ec.europa.eu/en/policies/nis2-directive"
+        },
+        {
+            "id": "timer_nis2_incident",
+            "framework": "NIS 2 (EU)",
+            "name": "Incident Notification",
+            "duration_hours": 72,
+            "is_business_days": false,
+            "trigger_guidance": "Follow-up to the Early Warning. Start at the same time as Early Warning awareness.",
+            "authority_name": "CSIRT / Competent National Authority",
+            "reference_url": "https://digital-strategy.ec.europa.eu/en/policies/nis2-directive"
+        },
+        {
+            "id": "timer_dora_initial",
+            "framework": "DORA (EU Finance)",
+            "name": "Major ICT-Related Incident Report",
+            "duration_hours": 24,
+            "is_business_days": false,
+            "trigger_guidance": "Start upon detection of a major ICT-related incident affecting financial entities.",
+            "authority_name": "Competent Authority (e.g., Central Bank)",
+            "reference_url": "https://www.eiopa.europa.eu/digital-operational-resilience-act-dora_en"
+        },
+        {
+            "id": "timer_sec_material",
+            "framework": "SEC (US Public)",
+            "name": "Form 8-K Filing (Materiality)",
+            "duration_hours": 96,
+            "is_business_days": true,
+            "trigger_guidance": "Start ONLY after the Board/Legal determines the incident is 'Material'.",
+            "authority_name": "SEC (EDGAR System)",
+            "reference_url": "https://www.sec.gov/news/press-release/2023-139"
+        },
+        {
+            "id": "timer_circia_covered",
+            "framework": "CIRCIA (US Critical Infra)",
+            "name": "Covered Cyber Incident Report",
+            "duration_hours": 72,
+            "is_business_days": false,
+            "trigger_guidance": "Start when you reasonably believe a covered cyber incident has occurred.",
+            "authority_name": "CISA",
+            "reference_url": "https://www.cisa.gov/circia"
+        },
+        {
+            "id": "timer_circia_ransom",
+            "framework": "CIRCIA (US Critical Infra)",
+            "name": "Ransom Payment Report",
+            "duration_hours": 24,
+            "is_business_days": false,
+            "trigger_guidance": "Start immediately upon making a ransom payment.",
+            "authority_name": "CISA",
+            "reference_url": "https://www.cisa.gov/circia"
+        },
+        {
+            "id": "timer_nydfs_500",
+            "framework": "NYDFS 500 (US Finance)",
+            "name": "Cybersecurity Event Notice",
+            "duration_hours": 72,
+            "is_business_days": false,
+            "trigger_guidance": "Start upon determination that a cybersecurity event has occurred.",
+            "authority_name": "Superintendent of Financial Services",
+            "reference_url": "https://www.dfs.ny.gov/industry_guidance/cybersecurity"
+        },
+        {
+            "id": "timer_hipaa_breach",
+            "framework": "HIPAA (US Health)",
+            "name": "Breach Notification",
+            "duration_hours": 1440,
+            "is_business_days": false,
+            "trigger_guidance": "Maximum limit. Start upon discovery of Unsecured PHI breach.",
+            "authority_name": "HHS Secretary & Affected Individuals",
+            "reference_url": "https://www.hhs.gov/hipaa/for-professionals/breach-notification/"
+        },
+        {
+            "id": "timer_pci_dss",
+            "framework": "PCI DSS (Global)",
+            "name": "Account Data Compromise",
+            "duration_hours": 24,
+            "is_business_days": false,
+            "trigger_guidance": "Start immediately upon suspicion of cardholder data compromise.",
+            "authority_name": "Payment Brand (Visa/MC) & Acquirer",
+            "reference_url": "https://www.pcisecuritystandards.org/"
+        },
+        {
+            "id": "Test Compliance Timer",
+            "framework": "TEST",
+            "name": "Test Timer (1 hour)",
+            "duration_hours": 1,
+            "is_business_days": false,
+            "trigger_guidance": "When testing the timers.",
+            "authority_name": "The developer",
+            "reference_url": "https://www.yle.fi"
+        }
+    ],
+    "report_section_templates": [
+        {
+            "slug": "_title_page",
+            "title": "Title Page",
+            "order": 1,
+            "section_type": "generated",
+            "generated_component": "title_page",
+            "page_break_before": false,
+            "writing_guide": "",
+            "template_content": "",
+            "include_in_incidents": true,
+            "include_in_investigations": true,
+            "default_excluded": false
+        },
+        {
+            "slug": "_table_of_contents",
+            "title": "Table of Contents",
+            "order": 10,
+            "section_type": "generated",
+            "generated_component": "table_of_contents",
+            "page_break_before": true,
+            "writing_guide": "",
+            "template_content": "",
+            "include_in_incidents": true,
+            "include_in_investigations": true,
+            "default_excluded": false
+        },
+        {
+            "slug": "disclaimer_reading_guide",
+            "title": "Disclaimer and Reading Guide",
+            "order": 20,
+            "section_type": "editable",
+            "generated_component": null,
+            "page_break_before": true,
+            "writing_guide": "This part provides guidance to the reader on how to interpret the report contents.\n\nInclude:\n- Statement that findings are based on materials delivered and discovered during investigation\n- Timestamp format explanation (UTC, ISO 8601)\n- Statements of probability scale (1-10% = Very Unlikely, 11-40% = Unlikely, 41-60% = Even Chance, 61-90% = Likely, 90-99% = Very Likely)\n- Statements of confidence (High/Medium/Low)\n- How \"Investigator's Interpretation\" sections should be read",
+            "template_content": "This report has been written based on the facts found during an investigation into a cyber security incident. The investigation conclusions and findings are based on the materials delivered for inspection and discovered during the investigation. All findings in this report are subject to change if new evidence is discovered or presented to the investigation team.\n\n## Timestamps\n\nUnless otherwise stated, all timestamps are presented in Coordinated Universal Time (UTC) following the ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ.\n\n## Statements of Probability\n\n| Chance | Statement                           |\n| ------ | ----------------------------------- |\n|  1-10% | Very Unlikely, Almost certainly not |\n| 11-40% | Unlikely, Improbable                |\n| 41-60% | Even Chance                         |\n| 61-90% | Probably, Likely                    |\n| 90-99% | Very Likely, Almost Certainly       |\n\n## Statements of Confidence\n\n- **High Confidence**: Evidence strongly supports the statement with no contrary evidence\n- **Medium Confidence**: Evidence supports the statement but other evidence could surface\n- **Low Confidence**: Missing evidence, major questions unanswered",
+            "include_in_incidents": true,
+            "include_in_investigations": true,
+            "default_excluded": false
+        },
+        {
+            "slug": "distribution_list",
+            "title": "Distribution List",
+            "order": 21,
+            "section_type": "editable",
+            "generated_component": null,
+            "page_break_before": false,
+            "writing_guide": "The final report will be delivered to the following people.\n\nInclude a table with:\n| Name | Role | Method of delivery |\n| --- | --- | --- |\n| Example Person | Chief Information Security Officer | email |",
+            "template_content": "| Name | Role | Method of delivery |\n| ---- | ---- | ------------------ |\n|      |      |                    |",
+            "include_in_incidents": true,
+            "include_in_investigations": true,
+            "default_excluded": false
+        },
+        {
+            "slug": "intended_audience",
+            "title": "Intended Audience",
+            "order": 22,
+            "section_type": "editable",
+            "generated_component": null,
+            "page_break_before": false,
+            "writing_guide": "Describe who this report is written for and what level of technical detail they should expect.\n\nConsider:\n- Technical vs. non-technical readers\n- Management vs. operational staff\n- Internal vs. external stakeholders",
+            "template_content": "",
+            "include_in_incidents": true,
+            "include_in_investigations": true,
+            "default_excluded": false
+        },
+        {
+            "slug": "executive_summary",
+            "title": "Executive Summary",
+            "order": 30,
+            "section_type": "editable",
+            "generated_component": null,
+            "page_break_before": true,
+            "writing_guide": "A clear and concise summary of the event, excluding technical details unless absolutely necessary.\n\nGuidelines:\n- Written for a business audience with no assumed technical expertise\n- Should be written LAST, after all other reporting is done\n- Target length: less than one printed page\n- Start with the most critical information: nature of incident, impact, steps taken\n- Include: key findings, incident summary, remediation recommendations\n- Include metrics: time from detection to resolution, economic impacts where measurable\n\nExample opening: \"Our investigation revealed a data breach that compromised sensitive information of 500 users, prompting immediate remediation actions and enhanced security protocols.\"",
+            "template_content": "",
+            "include_in_incidents": true,
+            "include_in_investigations": false,
+            "default_excluded": false
+        },
+        {
+            "slug": "business_impact",
+            "title": "Business Impact Analysis",
+            "order": 31,
+            "section_type": "editable",
+            "generated_component": null,
+            "page_break_before": false,
+            "writing_guide": "Assess the potential implications of the incident on the organization's operations.\n\nStructure:\n1. **Immediate Impact**: Unauthorized access, service disruption, malware propagation\n2. **Short-Term Consequences**: Financial losses, data breach risk, loss of trust\n3. **Long-Term Ramifications**: Reputational damage, customer attrition, regulatory consequences\n\nInclude recommendations for immediate actions and long-term resilience strategies.",
+            "template_content": "## Immediate Impact\n\n-\n\n## Short-Term Consequences\n\n-\n\n## Long-Term Ramifications\n\n-",
+            "include_in_incidents": true,
+            "include_in_investigations": false,
+            "default_excluded": false
+        },
+        {
+            "slug": "investigation_limitations",
+            "title": "Investigation Limitations",
+            "order": 40,
+            "section_type": "editable",
+            "generated_component": null,
+            "page_break_before": true,
+            "writing_guide": "All investigations have limitations. Document them here.\n\nCommon limitations:\n- Log retention periods (suggest PCI DSS: 90 days indexed, 365 days cold storage)\n- Unavailable endpoints or devices\n- Time constraints from customer\n- Wiped or destroyed evidence\n- Missing forensic images\n- Incomplete AV/EDR coverage\n\nThis chapter can include recommendations for ensuring evidence availability in future incidents.",
+            "template_content": "-",
+            "include_in_incidents": true,
+            "include_in_investigations": true,
+            "default_excluded": false
+        },
+        {
+            "slug": "investigation_goals",
+            "title": "Investigation Goals and Research Questions",
+            "order": 41,
+            "section_type": "editable",
+            "generated_component": null,
+            "page_break_before": false,
+            "writing_guide": "The goals of the investigation formulated as research questions.\n\nResearch questions guide the investigation and are answered in the conclusions.\n\nExample questions:\n- What was the initial point of entry to the network?\n  - Subquestion: What method was used to gain initial access?\n- Which credentials are suspected of being compromised?\n- Are there any signs of data exfiltration?\n- Was personal data compromised?\n  - Subquestion: How many records were compromised?\n  - Subquestion: Which regulatory environment applies?",
+            "template_content": "## Investigation Research Questions\n\n-",
+            "include_in_incidents": true,
+            "include_in_investigations": true,
+            "default_excluded": false
+        },
+        {
+            "slug": "investigation_details",
+            "title": "Investigation Details",
+            "order": 42,
+            "section_type": "editable",
+            "generated_component": null,
+            "page_break_before": false,
+            "writing_guide": "This is the main chapter of the report. Describe the investigation method, actions taken, outcomes, and how the incident was resolved.\n\nGuidelines:\n- Break into subchapters for individual \"subplots\" (compromised accounts, endpoints, malware analysis)\n- If a section runs several pages, break it into parts\n- Use monospace font for `usernames`, `servernames`, `ip addresses`, and `software`\n- Use code blocks for lists of IP addresses\n- Long lists belong in attachments, not inline\n\nExample structure:\n## 4.1 Account Compromise for admin01\n### 4.1.1 Initial Access on Admin Endpoint\n### 4.1.2 Privilege Escalation Attempts\n### 4.1.3 RDP Password Spraying Attacks\n\n## 4.2 Attacker Activities on XMPL-DC02\n### 4.2.1 Lateral Movement\n### 4.2.2 Compromised Credentials\n\n## 4.3 Indicators of Compromise",
+            "template_content": "",
+            "include_in_incidents": true,
+            "include_in_investigations": true,
+            "default_excluded": false
+        },
+        {
+            "slug": "conclusions_recommendations",
+            "title": "Conclusions and Recommendations",
+            "order": 43,
+            "section_type": "editable",
+            "generated_component": null,
+            "page_break_before": false,
+            "writing_guide": "Carry the conclusions of the investigation and recommendations for improvement.\n\n## Conclusions\n- Take original research questions and answer them based on facts\n- Address unanswered questions (reference limitations chapter)\n- Be careful with certainty and culpability statements\n- Describe what an *account* did, not what a *user* did (factual, provable)\n- Remain neutral and technical\n\n## Recommendations\n- Based on conclusions and your security expertise\n- Focus on preventing similar incidents\n- Must be grounded in concrete findings\n- Be specific enough to be actionable\n- General recommendations (\"do security better\") are not useful\n- Actionable recommendations (\"monitor and block open RDP ports\") are useful",
+            "template_content": "## Conclusions\n\n\n\n## Recommendations\n\n\n| Recommendations |\n| --------------- |\n| [EXAMPLE] Ensure all endpoints have EDR tooling installed |\n| [EXAMPLE] Deploy passkeys for domain administrators |",
+            "include_in_incidents": true,
+            "include_in_investigations": false,
+            "default_excluded": false
+        },
+        {
+            "slug": "_timeline",
+            "title": "Timeline",
+            "order": 50,
+            "section_type": "generated",
+            "generated_component": "timeline",
+            "page_break_before": true,
+            "writing_guide": "",
+            "template_content": "",
+            "include_in_incidents": true,
+            "include_in_investigations": false,
+            "default_excluded": false
+        },
+        {
+            "slug": "_evidence_inventory",
+            "title": "Evidence Inventory",
+            "order": 70,
+            "section_type": "generated",
+            "generated_component": "evidence_inventory",
+            "page_break_before": true,
+            "writing_guide": "",
+            "template_content": "",
+            "include_in_incidents": true,
+            "include_in_investigations": true,
+            "default_excluded": false
+        },
+        {
+            "slug": "_detailed_items",
+            "title": "Detailed Item Reports",
+            "order": 71,
+            "section_type": "generated",
+            "generated_component": "detailed_items",
+            "page_break_before": false,
+            "writing_guide": "",
+            "template_content": "",
+            "include_in_incidents": true,
+            "include_in_investigations": true,
+            "default_excluded": false
+        },
+        {
+            "slug": "glossary",
+            "title": "Glossary of Terms",
+            "order": 101,
+            "section_type": "editable",
+            "generated_component": null,
+            "page_break_before": true,
+            "writing_guide": "Expand all less-known acronyms and gather them here.\n\nEven common terms like IDS, IPS, Firewall, and Port scanning may require explanation for lay audiences.\n\n| Term | Explanation |\n| --- | --- |\n| IDS | Intrusion Detection System |\n| IPS | Intrusion Prevention System |",
+            "template_content": "| Term | Explanation |\n| --- | --- |\n| | |",
+            "include_in_incidents": true,
+            "include_in_investigations": true,
+            "default_excluded": false
+        },
+        {
+            "slug": "scratch_pad",
+            "title": "Scratch pad",
+            "order": 9999,
+            "section_type": "editable",
+            "generated_component": null,
+            "page_break_before": true,
+            "writing_guide": "This section is for random investigation notes and is not meant to be included in the report.",
+            "template_content": "",
+            "include_in_incidents": true,
+            "include_in_investigations": true,
+            "default_excluded": true
+        },
+        {
+            "slug": "style_guide",
+            "title": "Style Guide",
+            "order": 9999,
+            "section_type": "editable",
+            "generated_component": null,
+            "page_break_before": true,
+            "writing_guide": "This section is a general style guide and is not meant to be included in the report.",
+            "template_content": "# General Style Guide\n\n1. Use clear, simple and careful language.\n2. Avoid overly long or overly short sentences.\n3. State only facts in the text body, leave the interpretations and conclusions to the \"investigators interpretation\" paragraphs.\n4. Do not try to explain what a user did, explain instead what the user _account_ was observed doing.\n5. Use a monospace font for all technical indicators, including program names, IP addresses, URLs, computer names, network locations, etc.\n6. Use item references where reasonable to tie the text to evidence items\n7. If a key item is being referenced in the report, add it as an evidence item first, then use the reference in the report.\n8. Present malicious or suspicious URL and IP's in a defanged format: hxxps://www[.]evilsite[.]com[:]8080.\n9. Use a light background colour when taking screenshots. Disable dark mode for screenshots. Reports are often printed.\n10. Use screenshots when possible. Remember that text in screenshots is not searchable, so copy-paste the text contents alongside the screenshot if possible. Attach screenshots to the case and use references to bring them in the report body.\n11. Mask out personal information in the embedded image files using solid masks that are a part of the image file.\n12. If a table or chart spans several pages, move it to an attachment. Instead of presenting the table, explain the table contents and refer to the attachment for full details.\n13. When explaining anything that takes more than two steps, draw a diagram, attach it to the case and reference it in the report body.\n14. When attaching live malware samples, add a warning and compress the malware sample using password protection. Define the password in the report. If no password is specified, use default \"`infected`\" as the password. Some security tools will decrypt zip files with the default password and remove the malware sample, so using a different password is recommended.\n15. Use [Markdown syntax](https://www.markdownguide.org/basic-syntax/) to keep the report portable.",
+            "include_in_incidents": true,
+            "include_in_investigations": false,
+            "default_excluded": true
+        }
+    ],
+    "webhooks": [
+        {
+            "name": "Case priority escalated",
+            "description": "Send a Pushover notification to oncall on new cases",
+            "endpoint_url": "https://api.pushover.net/1/messages.json",
+            "is_enabled": false,
+            "event_types": [
+                "severity_escalated"
+            ],
+            "content_filter": "@page",
+            "auth_type": "none",
+            "auth_username": "",
+            "payload_template": "{\n  \"token\": \"{{secret.pushover_api_token}}\",\n  \"user\": \"{{secret.pushover_api_user}}\",\n  \"title\": \"Severity upgraded to {{case.severity}} on [{{case.case_number}}] {{case.title}} ({{case.case_type_name}})\",\n  \"message\": \"An incident has been upgraded to severity {{case.severity}}. The lead investigator is {{case.lead_investigator}}. The case is currently {{case.status}} and in {{case.phase_name}} phase.\",\n  \"data\": {\n    \"priority\": \"{{case.severity|mapped}}\"\n  }\n}",
+            "value_mappings": {
+                "severity": {
+                    "low": -1,
+                    "high": 1,
+                    "info": -2,
+                    "medium": 0,
+                    "critical": 2
+                }
+            },
+            "max_retries": 3,
+            "timeout_seconds": 30
+        },
+        {
+            "name": "New case created",
+            "description": "Send a Pushover notification to oncall on new cases",
+            "endpoint_url": "https://api.pushover.net/1/messages.json",
+            "is_enabled": false,
+            "event_types": [
+                "case_escalated",
+                "incident_created"
+            ],
+            "content_filter": "@page",
+            "auth_type": "none",
+            "auth_username": "",
+            "payload_template": "{\n  \"token\": \"{{secret.pushover_api_token}}\",\n  \"user\": \"{{secret.pushover_api_user}}\",\n  \"title\": \"New {{case.severity}} incident: [{{case.case_number}}] {{case.title}} ({{case.case_type_name}})\",\n  \"message\": \"A new incident has been opened. The lead investigator is {{case.lead_investigator}}. The case is currently {{case.status}} and in {{case.phase_name}} phase.\",\n  \"url_title\": \"Access the case here\",\n  \"url\": \"{{meta.case_url}}\",\n  \"data\": {\n    \"priority\": \"{{case.severity|mapped}}\"\n  }\n}",
+            "value_mappings": {
+                "severity": {
+                    "low": -1,
+                    "high": 1,
+                    "info": -2,
+                    "medium": 0,
+                    "critical": 2
+                }
+            },
+            "max_retries": 3,
+            "timeout_seconds": 30
+        },
+        {
+            "name": "Pushover on Timeline @page event",
+            "description": "Send a Pushover notification to oncall on timeline events that contain the word @page",
+            "endpoint_url": "https://api.pushover.net/1/messages.json",
+            "is_enabled": false,
+            "event_types": [
+                "timeline_event"
+            ],
+            "content_filter": "@page",
+            "auth_type": "none",
+            "auth_username": "",
+            "payload_template": "{\n  \"token\": \"{{secret.pushover_api_token}}\",\n  \"user\": \"{{secret.pushover_api_user}}\",\n  \"title\": \"You have been paged for {{case.case_number}} {{case.title}}\",\n  \"message\": \"You have been paged by {{event.actor_username}} on case {{case.case_number}}:\\n\\n {{event.event_type|mapped}}: {{event.title}}, {{event.description}}.\\n\\nYou can access the incident here: {{meta.case_url}}\"\n}",
+            "value_mappings": {
+                "event_type": {
+                    "MANUAL": "Manual timeline event"
+                }
+            },
+            "max_retries": 3,
+            "timeout_seconds": 30
+        },
+        {
+            "name": "Timer breach at 50%",
+            "description": "Send a Pushover notification to oncall on new cases",
+            "endpoint_url": "https://api.pushover.net/1/messages.json",
+            "is_enabled": false,
+            "event_types": [
+                "timer_warning_50"
+            ],
+            "content_filter": "@page",
+            "auth_type": "none",
+            "auth_username": "",
+            "payload_template": "{\n  \"token\": \"{{secret.pushover_api_token}}\",\n  \"user\": \"{{secret.pushover_api_user}}\",\n  \"title\": \"Timer {{timer.name}} at 50%\",\n  \"message\": \"The timer {{timer.name}} is at 50%. There's {{timer.time_remaining_seconds}} seconds left until breach. \",\n  \"data\": {\n    \"priority\": \"{{case.severity|mapped}}\"\n  }\n}",
+            "value_mappings": {
+                "severity": {
+                    "low": -1,
+                    "high": 1,
+                    "info": -2,
+                    "medium": 0,
+                    "critical": 2
+                }
+            },
+            "max_retries": 3,
+            "timeout_seconds": 30
+        }
+    ],
+    "tenant": {
+        "organization": "Default Organization Name",
+        "contact_email": "defaultvalue@example.com",
+        "report_disclaimer": "The contents of this report are confidential and intended only for authorized personnel.",
+        "report_logo": "",
+        "report_logo_mime_type": ""
+    }
+}

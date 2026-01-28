@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Types - DFIRe Documentation</title>
+    <meta name="description" content="Configure custom case types with specific fields and workflows for different investigation scenarios.">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="docs.css">
+    <link rel="icon" type="image/png" href="../assets/logo.png">
+</head>
+<body>
+    <nav class="nav scrolled">
+        <div class="nav-container">
+            <a href="../" class="nav-logo">
+                <img src="../assets/logo.png" alt="DFIRe" class="logo-img">
+                <span class="logo-text">Documentation</span>
+            </a>
+            <div class="nav-links">
+                <a href="../#features">Features</a>
+                <a href="../#pricing">Pricing</a>
+                <a href="../#installation">Installation</a>
+                <a href="./" class="active">Docs</a>
+                <a href="../#contact">Contact</a>
+            </div>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="docs-layout">
+        <aside class="docs-sidebar">
+            <div class="sidebar-section">
+                <h3>Getting Started</h3>
+                <ul>
+                    <li><a href="getting-started.html">Quick Start Guide</a></li>
+                    <li><a href="deployment.html">Deployment</a></li>
+                    <li><a href="configuration.html">Configuration</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>User Guide</h3>
+                <ul>
+                    <li><a href="cases.html">Case Management</a></li>
+                    <li><a href="evidence.html">Evidence Tracking</a></li>
+                    <li><a href="incidents.html">Incident Response</a></li>
+                    <li><a href="reports.html">Reports</a></li>
+                    <li><a href="timeline.html">Timeline</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>Administration</h3>
+                <ul>
+                    <li><a href="users.html">User Management</a></li>
+                    <li><a href="sso.html">Single Sign-On</a></li>
+                    <li><a href="webhooks.html">Webhooks</a></li>
+                    <li><a href="storage.html">Storage Backends</a></li>
+                    <li><a href="backup.html">Backup & Recovery</a></li>
+                    <li><a href="security.html">Application Security</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>Reference</h3>
+                <ul>
+                    <li><a href="workflow.html">Workflow Configuration</a></li>
+                    <li><a href="case-types.html" class="active">Case Types</a></li>
+                    <li><a href="evidence-types.html">Evidence Types</a></li>
+                    <li><a href="compliance.html">Compliance Timers</a></li>
+                    <li><a href="licenses.html">Third-Party Licenses</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <main class="docs-content">
+            <div class="docs-header">
+                <h1>Case Types</h1>
+                <p class="docs-intro">Define custom case types with specific fields, workflows, and report templates for different investigation scenarios.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>Default Case Types</h2>
+                <p>DFIRe includes several pre-configured case types:</p>
+
+                <ul>
+                    <li><strong>General Forensic Investigation</strong> - Standard investigation template</li>
+                    <li><strong>Security Incident</strong> - Active incident response</li>
+                    <li><strong>Data Breach</strong> - With compliance timers</li>
+                    <li><strong>Malware Analysis</strong> - Technical analysis focus</li>
+                    <li><strong>Financial Fraud</strong> - Financial investigation fields</li>
+                    <li><strong>HR Investigation</strong> - Employee-related matters</li>
+                </ul>
+
+                <img src="../screenshots/case-types.jpg" alt="Case Types Configuration" class="screenshot">
+            </div>
+
+            <div class="docs-section">
+                <h2>Creating a Case Type</h2>
+
+                <ol class="steps">
+                    <li>
+                        <strong>Go to Settings → Case Types</strong>
+                    </li>
+                    <li>
+                        <strong>Click "New Case Type"</strong>
+                    </li>
+                    <li>
+                        <strong>Configure Basic Settings</strong>
+                        <ul>
+                            <li><strong>Name:</strong> Display name for the case type</li>
+                            <li><strong>Description:</strong> When to use this type</li>
+                            <li><strong>Mode:</strong> Investigation or Incident</li>
+                            <li><strong>Icon:</strong> Visual identifier</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>Add Custom Fields</strong>
+                        <p>Define additional fields specific to this case type.</p>
+                    </li>
+                    <li>
+                        <strong>Associate Templates</strong>
+                        <p>Link report templates and action templates.</p>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="docs-section">
+                <h2>Custom Fields</h2>
+                <p>Add fields to capture case-type-specific information:</p>
+
+                <table class="requirements-table">
+                    <thead>
+                        <tr>
+                            <th>Field Type</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Text</strong></td>
+                            <td>Single-line text input</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Text Area</strong></td>
+                            <td>Multi-line text</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Number</strong></td>
+                            <td>Numeric values</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Date</strong></td>
+                            <td>Date picker</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Select</strong></td>
+                            <td>Dropdown with predefined options</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Multi-Select</strong></td>
+                            <td>Multiple choice selection</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Checkbox</strong></td>
+                            <td>Boolean true/false</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Field Properties</h3>
+                <ul>
+                    <li><strong>Label:</strong> Display name</li>
+                    <li><strong>Required:</strong> Must be filled when creating a case</li>
+                    <li><strong>Default Value:</strong> Pre-populated value</li>
+                    <li><strong>Help Text:</strong> Guidance for users</li>
+                </ul>
+            </div>
+
+            <div class="docs-section">
+                <h2>Best Practices</h2>
+                <ul>
+                    <li>Start with default types and customize as needed</li>
+                    <li>Don't create too many types - use custom fields instead</li>
+                    <li>Keep field names consistent across types</li>
+                    <li>Document when each type should be used</li>
+                </ul>
+            </div>
+
+            <nav class="docs-nav">
+                <a href="workflow.html" class="docs-nav-link prev">
+                    <span class="docs-nav-label">Previous</span>
+                    <span class="docs-nav-title">Workflow Configuration</span>
+                </a>
+                <a href="evidence-types.html" class="docs-nav-link next">
+                    <span class="docs-nav-label">Next</span>
+                    <span class="docs-nav-title">Evidence Types</span>
+                </a>
+            </nav>
+        </main>
+    </div>
+
+    <footer class="docs-footer">
+        <div class="container">
+            <p>&copy; 2026 Tmi Antti Kurittu. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const navToggle = document.querySelector('.nav-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        navToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            navToggle.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

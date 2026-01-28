@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deployment - DFIRe Documentation</title>
+    <meta name="description" content="Deploy DFIRe manually with Docker Compose. Configuration reference for production and air-gapped environments.">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="docs.css">
+    <link rel="icon" type="image/png" href="../assets/logo.png">
+</head>
+<body>
+    <nav class="nav scrolled">
+        <div class="nav-container">
+            <a href="../" class="nav-logo">
+                <img src="../assets/logo.png" alt="DFIRe" class="logo-img">
+                <span class="logo-text">Documentation</span>
+            </a>
+            <div class="nav-links">
+                <a href="../#features">Features</a>
+                <a href="../#pricing">Pricing</a>
+                <a href="../#installation">Installation</a>
+                <a href="./" class="active">Docs</a>
+                <a href="../#contact">Contact</a>
+            </div>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="docs-layout">
+        <aside class="docs-sidebar">
+            <div class="sidebar-section">
+                <h3>Getting Started</h3>
+                <ul>
+                    <li><a href="getting-started.html">Quick Start Guide</a></li>
+                    <li><a href="deployment.html" class="active">Deployment</a></li>
+                    <li><a href="configuration.html">Configuration</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>User Guide</h3>
+                <ul>
+                    <li><a href="cases.html">Case Management</a></li>
+                    <li><a href="evidence.html">Evidence Tracking</a></li>
+                    <li><a href="incidents.html">Incident Response</a></li>
+                    <li><a href="reports.html">Reports</a></li>
+                    <li><a href="timeline.html">Timeline</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>Administration</h3>
+                <ul>
+                    <li><a href="users.html">User Management</a></li>
+                    <li><a href="sso.html">Single Sign-On</a></li>
+                    <li><a href="webhooks.html">Webhooks</a></li>
+                    <li><a href="storage.html">Storage Backends</a></li>
+                    <li><a href="backup.html">Backup & Recovery</a></li>
+                    <li><a href="security.html">Application Security</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>Reference</h3>
+                <ul>
+                    <li><a href="workflow.html">Workflow Configuration</a></li>
+                    <li><a href="case-types.html">Case Types</a></li>
+                    <li><a href="evidence-types.html">Evidence Types</a></li>
+                    <li><a href="compliance.html">Compliance Timers</a></li>
+                    <li><a href="licenses.html">Third-Party Licenses</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <main class="docs-content">
+            <div class="docs-header">
+                <h1>Manual Deployment Guide</h1>
+                <p class="docs-intro">This guide covers manual Docker deployment for users who prefer not to use the installation wizard, or need custom configurations for air-gapped or specialized environments.</p>
+            </div>
+
+            <div class="callout callout-info">
+                <p><strong>Recommended:</strong> For most deployments, use the <a href="getting-started.html">installation wizard</a> which automates these steps. This manual guide is for advanced configurations or when the wizard isn't suitable.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>Technology Stack</h2>
+                <p>DFIRe is built on proven, enterprise-grade technologies:</p>
+
+                <table class="requirements-table">
+                    <thead>
+                        <tr>
+                            <th>Component</th>
+                            <th>Technology</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Backend</strong></td>
+                            <td>Python / Django REST Framework</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Frontend</strong></td>
+                            <td>React with TypeScript</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Database</strong></td>
+                            <td>PostgreSQL 16+</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cache / Message Broker</strong></td>
+                            <td>Redis 7</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Web Server</strong></td>
+                            <td>Daphne (ASGI) with nginx reverse proxy</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Background Tasks</strong></td>
+                            <td>Django-Q2</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Real-time</strong></td>
+                            <td>WebSockets via Django Channels</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="docs-section">
+                <h2>Architecture Overview</h2>
+                <p>DFIRe runs as a set of Docker containers:</p>
+
+                <table class="requirements-table">
+                    <thead>
+                        <tr>
+                            <th>Container</th>
+                            <th>Image</th>
+                            <th>Purpose</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>backend</strong></td>
+                            <td>dfireadmin/dfire-backend</td>
+                            <td>Django REST API with Daphne ASGI server</td>
+                        </tr>
+                        <tr>
+                            <td><strong>qcluster</strong></td>
+                            <td>dfireadmin/dfire-backend</td>
+                            <td>Django-Q2 background task worker</td>
+                        </tr>
+                        <tr>
+                            <td><strong>frontend</strong></td>
+                            <td>dfireadmin/dfire-frontend</td>
+                            <td>React application with nginx reverse proxy</td>
+                        </tr>
+                        <tr>
+                            <td><strong>redis</strong></td>
+                            <td>redis:7-alpine</td>
+                            <td>Cache and message broker</td>
+                        </tr>
+                        <tr>
+                            <td><strong>db</strong> (optional)</td>
+                            <td>postgres:16-alpine</td>
+                            <td>Internal PostgreSQL (testing only)</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="callout callout-warning">
+                    <p><strong>External database recommended:</strong> For production, use an external PostgreSQL database (self-hosted or managed DBaaS). The internal containerized database is intended for testing only and is more difficult to maintain and back up.</p>
+                </div>
+            </div>
+
+            <div class="docs-section">
+                <h2>Prerequisites</h2>
+                <ul>
+                    <li><strong>Docker Engine</strong> 24.0+ with Compose plugin</li>
+                    <li><strong>openssl</strong> for generating security keys</li>
+                    <li><strong>PostgreSQL 16+</strong> database (external, recommended)</li>
+                    <li>4 GB RAM minimum (8 GB recommended)</li>
+                    <li>20 GB disk space for application</li>
+                </ul>
+            </div>
+
+            <div class="docs-section">
+                <h2>Manual Deployment Steps</h2>
+
+                <ol class="steps">
+                    <li>
+                        <strong>Create the installation directory</strong>
+                        <pre><code>sudo mkdir -p /opt/dfire
+cd /opt/dfire</code></pre>
+                    </li>
+                    <li>
+                        <strong>Create the Docker Compose file</strong>
+                        <p>Create <code>docker-compose.yml</code> with the following content:</p>
+                        <pre><code>services:
+  redis:
+    image: redis:7-alpine
+    container_name: dfire_redis
+    command: redis-server --appendonly yes ${REDIS_PASSWORD:+--requirepass ${REDIS_PASSWORD}}
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    networks:
+      - dfire_internal
+
+  backend:
+    image: ${DFIRE_BACKEND_IMAGE:-dfireadmin/dfire-backend:latest}
+    container_name: dfire_backend
+    volumes:
+      - media_data:/app/media
+      - static_data:/app/staticfiles
+    environment:
+      - DEBUG=false
+      - SECRET_KEY=${SECRET_KEY}
+      - DATABASE_URL=${DATABASE_URL}
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=${REDIS_PASSWORD:-}
+      - ALLOWED_HOSTS=${ALLOWED_HOSTS}
+      - CORS_ALLOWED_ORIGINS=${CORS_ALLOWED_ORIGINS}
+      - CSRF_TRUSTED_ORIGINS=${CSRF_TRUSTED_ORIGINS:-}
+      - TRUST_PROXY_HEADERS=${TRUST_PROXY_HEADERS:-false}
+      - DFIRE_ENVIRONMENT=production
+      - CREDENTIAL_ENCRYPTION_KEY=${CREDENTIAL_ENCRYPTION_KEY}
+      - AUTH_COOKIE_SECURE=${AUTH_COOKIE_SECURE:-True}
+      - DJANGO_SUPERUSER_EMAIL=${DJANGO_SUPERUSER_EMAIL:-}
+      - DJANGO_SUPERUSER_PASSWORD=${DJANGO_SUPERUSER_PASSWORD:-}
+      - DJANGO_SUPERUSER_USERNAME=${DJANGO_SUPERUSER_USERNAME:-}
+    depends_on:
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/health/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    restart: unless-stopped
+    networks:
+      - dfire_internal
+      - dfire_external
+
+  qcluster:
+    image: ${DFIRE_BACKEND_IMAGE:-dfireadmin/dfire-backend:latest}
+    container_name: dfire_qcluster
+    command: python manage.py qcluster
+    volumes:
+      - media_data:/app/media
+    environment:
+      - DEBUG=false
+      - SECRET_KEY=${SECRET_KEY}
+      - DATABASE_URL=${DATABASE_URL}
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=${REDIS_PASSWORD:-}
+      - DFIRE_ENVIRONMENT=production
+      - CREDENTIAL_ENCRYPTION_KEY=${CREDENTIAL_ENCRYPTION_KEY}
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - dfire_internal
+      - dfire_external
+
+  frontend:
+    image: ${DFIRE_FRONTEND_IMAGE:-dfireadmin/dfire-frontend:latest}
+    container_name: dfire_frontend
+    ports:
+      - "${FRONTEND_BIND:-0.0.0.0:8080}:80"
+    volumes:
+      - static_data:/app/staticfiles:ro
+    depends_on:
+      - backend
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost/health"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+    restart: unless-stopped
+    networks:
+      - dfire_internal
+      - dfire_external
+
+volumes:
+  redis_data:
+  media_data:
+  static_data:
+
+networks:
+  dfire_internal:
+    driver: bridge
+    internal: true
+  dfire_external:
+    driver: bridge</code></pre>
+                    </li>
+                    <li>
+                        <strong>Generate security keys</strong>
+                        <p>Generate the required cryptographic keys:</p>
+                        <pre><code># Generate Django SECRET_KEY (50 characters)
+openssl rand -base64 50 | tr -d '\n/+=' | head -c 50
+
+# Generate CREDENTIAL_ENCRYPTION_KEY (Fernet key)
+openssl rand 32 | base64 | tr '+/' '-_'
+
+# Generate REDIS_PASSWORD
+openssl rand -base64 32 | tr -d '/+=' | head -c 32</code></pre>
+                    </li>
+                    <li>
+                        <strong>Create the environment file</strong>
+                        <p>Create <code>.env</code> with your configuration:</p>
+                        <pre><code># Database (external PostgreSQL - recommended)
+DATABASE_URL=postgres://username:password@hostname:5432/dfire
+
+# Redis
+REDIS_PASSWORD=your-generated-redis-password
+
+# Security Keys (DO NOT CHANGE AFTER DEPLOYMENT)
+SECRET_KEY=your-generated-secret-key
+CREDENTIAL_ENCRYPTION_KEY=your-generated-fernet-key
+
+# Domain Configuration
+ALLOWED_HOSTS=dfire.example.com,localhost
+CORS_ALLOWED_ORIGINS=https://dfire.example.com
+CSRF_TRUSTED_ORIGINS=https://dfire.example.com
+
+# Security Settings
+AUTH_COOKIE_SECURE=True
+TRUST_PROXY_HEADERS=false
+
+# Docker Images
+DFIRE_BACKEND_IMAGE=dfireadmin/dfire-backend:latest
+DFIRE_FRONTEND_IMAGE=dfireadmin/dfire-frontend:latest
+
+# Initial Admin User (created on first startup)
+DJANGO_SUPERUSER_EMAIL=admin@example.com
+DJANGO_SUPERUSER_USERNAME=admin
+DJANGO_SUPERUSER_PASSWORD=your-secure-password</code></pre>
+                        <p>Set secure file permissions:</p>
+                        <pre><code>chmod 600 .env</code></pre>
+                    </li>
+                    <li>
+                        <strong>Pull and start the containers</strong>
+                        <pre><code>docker compose pull
+docker compose up -d</code></pre>
+                    </li>
+                    <li>
+                        <strong>Verify the deployment</strong>
+                        <pre><code># Check container status
+docker compose ps
+
+# View logs
+docker compose logs -f
+
+# Test the health endpoint
+curl http://localhost:8080/api/health/</code></pre>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="docs-section">
+                <h2>Environment Variables Reference</h2>
+
+                <h3>Required Variables</h3>
+                <table class="requirements-table">
+                    <thead>
+                        <tr>
+                            <th>Variable</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>DATABASE_URL</code></td>
+                            <td>PostgreSQL connection string: <code>postgres://user:pass@host:5432/dbname</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>SECRET_KEY</code></td>
+                            <td>Django secret key for session signing and CSRF tokens (50+ characters)</td>
+                        </tr>
+                        <tr>
+                            <td><code>CREDENTIAL_ENCRYPTION_KEY</code></td>
+                            <td>Fernet key for encrypting stored credentials (webhook secrets, license key, etc.). <strong>Cannot be changed after deployment.</strong></td>
+                        </tr>
+                        <tr>
+                            <td><code>ALLOWED_HOSTS</code></td>
+                            <td>Comma-separated list of valid hostnames (e.g., <code>dfire.example.com,localhost</code>)</td>
+                        </tr>
+                        <tr>
+                            <td><code>CORS_ALLOWED_ORIGINS</code></td>
+                            <td>Full URL for CORS (e.g., <code>https://dfire.example.com</code>)</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Security Variables</h3>
+                <table class="requirements-table">
+                    <thead>
+                        <tr>
+                            <th>Variable</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>AUTH_COOKIE_SECURE</code></td>
+                            <td>True</td>
+                            <td>Set to <code>False</code> only for local HTTP testing. Requires HTTPS when True.</td>
+                        </tr>
+                        <tr>
+                            <td><code>TRUST_PROXY_HEADERS</code></td>
+                            <td>false</td>
+                            <td>Set to <code>true</code> when behind a reverse proxy that sets <code>X-Forwarded-Proto</code>.</td>
+                        </tr>
+                        <tr>
+                            <td><code>REDIS_PASSWORD</code></td>
+                            <td>(none)</td>
+                            <td>Password for Redis authentication.</td>
+                        </tr>
+                        <tr>
+                            <td><code>CSRF_TRUSTED_ORIGINS</code></td>
+                            <td>(none)</td>
+                            <td>Full URL for CSRF trusted origins (usually same as CORS_ALLOWED_ORIGINS).</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Optional Variables</h3>
+                <table class="requirements-table">
+                    <thead>
+                        <tr>
+                            <th>Variable</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>DJANGO_SUPERUSER_EMAIL</code></td>
+                            <td>Admin user email (created on first startup)</td>
+                        </tr>
+                        <tr>
+                            <td><code>DJANGO_SUPERUSER_USERNAME</code></td>
+                            <td>Admin username</td>
+                        </tr>
+                        <tr>
+                            <td><code>DJANGO_SUPERUSER_PASSWORD</code></td>
+                            <td>Admin password (minimum 12 characters)</td>
+                        </tr>
+                        <tr>
+                            <td><code>FRONTEND_BIND</code></td>
+                            <td>Port binding for frontend (default: <code>0.0.0.0:8080</code>). Use <code>127.0.0.1:8080</code> when using a local reverse proxy.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="callout callout-danger">
+                    <p><strong>Critical:</strong> The <code>CREDENTIAL_ENCRYPTION_KEY</code> encrypts stored credentials such as webhook secrets and license keys. Back up this key immediately after deployment. If lost, these credentials cannot be recovered and will need to be reconfigured.</p>
+                </div>
+            </div>
+
+            <div class="docs-section">
+                <h2>HTTPS Configuration</h2>
+                <p>For production deployments, HTTPS is required. You can either:</p>
+
+                <h3>Option 1: External Reverse Proxy</h3>
+                <p>Use your existing reverse proxy (nginx, Traefik, Caddy, HAProxy, or cloud load balancer) to handle HTTPS termination:</p>
+                <pre><code># In .env
+AUTH_COOKIE_SECURE=True
+TRUST_PROXY_HEADERS=true
+FRONTEND_BIND=0.0.0.0:8080</code></pre>
+                <p>Your reverse proxy must:</p>
+                <ul>
+                    <li>Forward requests to <code>http://dfire-host:8080</code></li>
+                    <li>Set the <code>X-Forwarded-Proto: https</code> header</li>
+                    <li>Set the <code>X-Forwarded-For</code> header with the client IP</li>
+                </ul>
+
+                <h3>Option 2: nginx with Let's Encrypt</h3>
+                <p>Install nginx and certbot on the host, then configure as a reverse proxy:</p>
+                <pre><code># Install packages
+sudo apt install nginx certbot python3-certbot-nginx
+
+# Obtain certificate
+sudo certbot certonly --standalone -d dfire.example.com
+
+# Configure nginx (see example below)
+sudo nano /etc/nginx/sites-available/dfire</code></pre>
+
+                <p>Example nginx configuration:</p>
+                <pre><code>server {
+    listen 80;
+    server_name dfire.example.com;
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl;
+    http2 on;
+    server_name dfire.example.com;
+
+    ssl_certificate /etc/letsencrypt/live/dfire.example.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/dfire.example.com/privkey.pem;
+    ssl_protocols TLSv1.2 TLSv1.3;
+
+    client_max_body_size 100M;
+
+    location / {
+        proxy_pass http://127.0.0.1:8080;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto https;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+    }
+}</code></pre>
+                <p>When using a local reverse proxy, bind the frontend to localhost only:</p>
+                <pre><code># In .env
+FRONTEND_BIND=127.0.0.1:8080
+TRUST_PROXY_HEADERS=true</code></pre>
+            </div>
+
+            <div class="docs-section">
+                <h2>Licensing</h2>
+                <p>DFIRe requires a license for continued operation after the 30-day trial period.</p>
+
+                <h3>Verifying License Server Connectivity</h3>
+                <p>Before deployment, verify that the server can reach the license server:</p>
+                <pre><code>curl https://license.dfire.fi/api/v1/</code></pre>
+                <p>Expected response:</p>
+                <pre><code>{"detail":"Authentication credentials were not provided."}</code></pre>
+                <p>This confirms the licensing server is reachable. The actual license validation happens automatically when DFIRe starts.</p>
+
+                <h3>Offline Licensing</h3>
+                <p>For air-gapped environments without internet access, offline licenses are available:</p>
+                <ol>
+                    <li>Purchase a license from the <a href="../#pricing">pricing page</a></li>
+                    <li>Contact <a href="mailto:contact@dfire.fi">contact@dfire.fi</a> to convert it to an offline license</li>
+                    <li>Offline license conversion has no additional cost</li>
+                </ol>
+            </div>
+
+            <div class="docs-section">
+                <h2>Air-Gapped Deployment</h2>
+                <p>DFIRe can operate in isolated networks without internet connectivity. The system is safe to disconnect from the internet after installation.</p>
+
+                <ol class="steps">
+                    <li>
+                        <strong>Pull images on a connected system</strong>
+                        <pre><code># Pull all DFIRe images
+docker pull dfireadmin/dfire-backend:latest
+docker pull dfireadmin/dfire-frontend:latest
+docker pull redis:7-alpine
+docker pull postgres:16-alpine  # Only if using internal database
+
+# Save images to tar files
+docker save dfireadmin/dfire-backend:latest -o dfire-backend.tar
+docker save dfireadmin/dfire-frontend:latest -o dfire-frontend.tar
+docker save redis:7-alpine -o redis.tar
+docker save postgres:16-alpine -o postgres.tar</code></pre>
+                    </li>
+                    <li>
+                        <strong>Transfer files to the air-gapped system</strong>
+                        <p>Copy the tar files, docker-compose.yml, and .env to the isolated system via approved media.</p>
+                    </li>
+                    <li>
+                        <strong>Load images on the air-gapped system</strong>
+                        <pre><code>docker load -i dfire-backend.tar
+docker load -i dfire-frontend.tar
+docker load -i redis.tar
+docker load -i postgres.tar  # Only if using internal database</code></pre>
+                    </li>
+                    <li>
+                        <strong>Obtain an offline license</strong>
+                        <p>Before disconnecting, contact <a href="mailto:contact@dfire.fi">contact@dfire.fi</a> to convert your license to an offline license. There is no additional cost for offline licensing.</p>
+                    </li>
+                    <li>
+                        <strong>Start services</strong>
+                        <pre><code>docker compose up -d</code></pre>
+                    </li>
+                </ol>
+
+                <div class="callout callout-info">
+                    <p><strong>Updates:</strong> For air-gapped systems, updates must be applied by repeating the image transfer process. Plan for periodic update cycles as part of your maintenance schedule.</p>
+                </div>
+            </div>
+
+            <div class="docs-section">
+                <h2>Using an Internal Database (Testing Only)</h2>
+                <p>For testing or evaluation, you can run PostgreSQL inside Docker. Add this service to your docker-compose.yml:</p>
+
+                <pre><code>services:
+  db:
+    image: postgres:16-alpine
+    container_name: dfire_db
+    environment:
+      POSTGRES_DB: dfire
+      POSTGRES_USER: dfire
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dfire -d dfire"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    networks:
+      - dfire_internal
+
+volumes:
+  postgres_data:</code></pre>
+
+                <p>Update the backend and qcluster services to depend on the database:</p>
+                <pre><code>backend:
+  depends_on:
+    db:
+      condition: service_healthy
+    redis:
+      condition: service_healthy
+  environment:
+    - DATABASE_URL=postgres://dfire:${POSTGRES_PASSWORD}@db:5432/dfire</code></pre>
+
+                <p>Add <code>POSTGRES_PASSWORD</code> to your .env file:</p>
+                <pre><code># Generate a password
+openssl rand -base64 32 | tr -d '/+=' | head -c 32</code></pre>
+
+                <div class="callout callout-danger">
+                    <p><strong>Warning:</strong> The internal database is for testing only. Data is stored in Docker volumes and can be lost if volumes are removed. For production, always use an external database.</p>
+                </div>
+            </div>
+
+            <div class="docs-section">
+                <h2>Updating DFIRe</h2>
+
+                <ol class="steps">
+                    <li>
+                        <strong>Back up your data</strong>
+                        <p>Back up your database and the <code>.env</code> file before updating. See <a href="backup.html">Backup & Recovery</a>.</p>
+                    </li>
+                    <li>
+                        <strong>Pull new images</strong>
+                        <pre><code>docker compose pull</code></pre>
+                    </li>
+                    <li>
+                        <strong>Restart services</strong>
+                        <p>Database migrations run automatically on startup:</p>
+                        <pre><code>docker compose up -d</code></pre>
+                    </li>
+                    <li>
+                        <strong>Verify the update</strong>
+                        <pre><code>docker compose logs -f backend</code></pre>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="docs-section">
+                <h2>Useful Commands</h2>
+
+                <h3>Container Management</h3>
+                <pre><code># View status
+docker compose ps
+
+# View logs (all containers)
+docker compose logs -f
+
+# View logs (specific container)
+docker compose logs -f backend
+
+# Restart all services
+docker compose restart
+
+# Stop all services
+docker compose down
+
+# Stop and remove volumes (DELETES DATA)
+docker compose down -v</code></pre>
+
+                <h3>Admin Tasks</h3>
+                <pre><code># Create admin user manually (if not using env vars)
+docker compose exec backend python manage.py createsuperuser
+
+# Open Django shell
+docker compose exec backend python manage.py shell
+
+# Run database migrations manually
+docker compose exec backend python manage.py migrate</code></pre>
+            </div>
+
+            <nav class="docs-nav">
+                <a href="getting-started.html" class="docs-nav-link prev">
+                    <span class="docs-nav-label">Previous</span>
+                    <span class="docs-nav-title">Quick Start Guide</span>
+                </a>
+                <a href="configuration.html" class="docs-nav-link next">
+                    <span class="docs-nav-label">Next</span>
+                    <span class="docs-nav-title">Configuration</span>
+                </a>
+            </nav>
+        </main>
+    </div>
+
+    <footer class="docs-footer">
+        <div class="container">
+            <p>&copy; 2026 Tmi Antti Kurittu. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const navToggle = document.querySelector('.nav-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        navToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            navToggle.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

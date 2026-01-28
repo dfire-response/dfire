@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Single Sign-On (SSO) - DFIRe Documentation</title>
+    <meta name="description" content="Configure OIDC Single Sign-On with Google, Microsoft, Auth0, or other OIDC providers in DFIRe.">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="docs.css">
+    <link rel="icon" type="image/png" href="../assets/logo.png">
+</head>
+<body>
+    <nav class="nav scrolled">
+        <div class="nav-container">
+            <a href="../" class="nav-logo">
+                <img src="../assets/logo.png" alt="DFIRe" class="logo-img">
+                <span class="logo-text">Documentation</span>
+            </a>
+            <div class="nav-links">
+                <a href="../#features">Features</a>
+                <a href="../#pricing">Pricing</a>
+                <a href="../#installation">Installation</a>
+                <a href="./" class="active">Docs</a>
+                <a href="../#contact">Contact</a>
+            </div>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="docs-layout">
+        <aside class="docs-sidebar">
+            <div class="sidebar-section">
+                <h3>Getting Started</h3>
+                <ul>
+                    <li><a href="getting-started.html">Quick Start Guide</a></li>
+                    <li><a href="deployment.html">Deployment</a></li>
+                    <li><a href="configuration.html">Configuration</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>User Guide</h3>
+                <ul>
+                    <li><a href="cases.html">Case Management</a></li>
+                    <li><a href="evidence.html">Evidence Tracking</a></li>
+                    <li><a href="incidents.html">Incident Response</a></li>
+                    <li><a href="reports.html">Reports</a></li>
+                    <li><a href="timeline.html">Timeline</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>Administration</h3>
+                <ul>
+                    <li><a href="users.html">User Management</a></li>
+                    <li><a href="sso.html" class="active">Single Sign-On</a></li>
+                    <li><a href="webhooks.html">Webhooks</a></li>
+                    <li><a href="storage.html">Storage Backends</a></li>
+                    <li><a href="backup.html">Backup & Recovery</a></li>
+                    <li><a href="security.html">Application Security</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>Reference</h3>
+                <ul>
+                    <li><a href="workflow.html">Workflow Configuration</a></li>
+                    <li><a href="case-types.html">Case Types</a></li>
+                    <li><a href="evidence-types.html">Evidence Types</a></li>
+                    <li><a href="compliance.html">Compliance Timers</a></li>
+                    <li><a href="licenses.html">Third-Party Licenses</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <main class="docs-content">
+            <div class="docs-header">
+                <h1>Single Sign-On (SSO)</h1>
+                <p class="docs-intro">Configure OIDC-based Single Sign-On to allow users to authenticate with your organization's identity provider.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>Overview</h2>
+                <p>DFIRe supports OpenID Connect (OIDC) for Single Sign-On. The following providers have been tested:</p>
+                <ul>
+                    <li><strong>Google Workspace</strong></li>
+                    <li><strong>Microsoft Entra ID</strong> (formerly Azure AD)</li>
+                    <li><strong>Auth0</strong></li>
+                </ul>
+                <p>Any OIDC-compliant identity provider should work, though compatibility cannot be guaranteed for untested providers.</p>
+
+                <h3>How It Works</h3>
+                <ol>
+                    <li>User clicks the SSO provider button on the login page</li>
+                    <li>User is redirected to the identity provider</li>
+                    <li>After authentication, user is redirected back to DFIRe</li>
+                    <li>DFIRe creates or updates the user account based on OIDC claims</li>
+                    <li>User is logged in with appropriate permissions</li>
+                </ol>
+            </div>
+
+            <div class="docs-section">
+                <h2>Adding an SSO Provider</h2>
+
+                <img src="../screenshots/SSO.png" alt="SSO Configuration" class="screenshot">
+
+                <ol class="steps">
+                    <li>
+                        <strong>Navigate to Settings &gt; Single Sign-On</strong>
+                        <p>You need administrator permissions to configure SSO.</p>
+                    </li>
+                    <li>
+                        <strong>Set the Application Base URL</strong>
+                        <p>Enter your DFIRe instance's public URL (e.g., <code>https://dfire.example.com</code>). This is used for generating callback URLs. Leave empty to auto-detect from request headers.</p>
+                    </li>
+                    <li>
+                        <strong>Click "Add Provider"</strong>
+                        <p>Choose a provider template (Google Workspace, Microsoft Entra ID) or select "Custom OIDC Provider" for other identity providers.</p>
+                    </li>
+                    <li>
+                        <strong>Configure the Provider</strong>
+                        <ul>
+                            <li><strong>Provider Name:</strong> Display name shown on the login button</li>
+                            <li><strong>Discovery URL:</strong> The OIDC discovery endpoint (<code>.well-known/openid-configuration</code>)</li>
+                            <li><strong>Client ID:</strong> From your identity provider's app registration</li>
+                            <li><strong>Client Secret:</strong> From your identity provider's app registration</li>
+                            <li><strong>Icon and Color:</strong> Customize the appearance of the login button</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>Validate the Discovery URL</strong>
+                        <p>Click "Validate" to verify the discovery URL is accessible and returns valid OIDC metadata.</p>
+                    </li>
+                    <li>
+                        <strong>Click "Add Provider" to Add Configuration</strong>
+                    </li>
+                    <li>
+                        <strong>Select a Default Role and Save</strong>
+                        <p>After adding the provider, select a default role for new SSO users and click "Save Configuration".</p>
+                    </li>
+                </ol>
+
+                <div class="callout callout-danger">
+                    <p><strong>Important:</strong> Adding a provider does NOT automatically save the configuration. You must select a default role and click "Save Configuration" to persist your changes. The default role determines what permissions new SSO users receive on first login.</p>
+                </div>
+            </div>
+
+            <div class="docs-section">
+                <h2>Provider Setup Examples</h2>
+
+                <h3>Google Workspace</h3>
+                <ol>
+                    <li>Go to <a href="https://console.cloud.google.com" target="_blank" rel="noopener">Google Cloud Console</a></li>
+                    <li>Create or select a project</li>
+                    <li>Go to "APIs & Services" &gt; "Credentials"</li>
+                    <li>Click "Create Credentials" &gt; "OAuth client ID"</li>
+                    <li>Select "Web application"</li>
+                    <li>Add the authorized redirect URI shown in DFIRe's provider configuration</li>
+                    <li>Note the Client ID and Client Secret</li>
+                    <li>In DFIRe, use:
+                        <ul>
+                            <li><strong>Discovery URL:</strong> <code>https://accounts.google.com/.well-known/openid-configuration</code></li>
+                        </ul>
+                    </li>
+                </ol>
+
+                <div class="callout callout-info">
+                    <p><strong>Google Workspace:</strong> To restrict access to your organization's domain, configure user assignment in Google Cloud Console or use Google Workspace's app access controls.</p>
+                </div>
+
+                <h3>Microsoft Entra ID</h3>
+                <ol>
+                    <li>Go to <a href="https://portal.azure.com" target="_blank" rel="noopener">Azure Portal</a> &gt; Microsoft Entra ID &gt; App registrations</li>
+                    <li>Click "New registration"</li>
+                    <li>Enter a name (e.g., "DFIRe")</li>
+                    <li>Set "Supported account types" based on your needs</li>
+                    <li>Add the redirect URI shown in DFIRe's provider configuration</li>
+                    <li>After creation, note the <strong>Application (client) ID</strong></li>
+                    <li>Go to "Certificates & secrets" and create a new client secret</li>
+                    <li>In DFIRe, use:
+                        <ul>
+                            <li><strong>Client ID:</strong> The Application (client) ID</li>
+                            <li><strong>Client Secret:</strong> The secret value you created</li>
+                            <li><strong>Discovery URL:</strong> <code>https://login.microsoftonline.com/{tenant-id}/v2.0/.well-known/openid-configuration</code></li>
+                        </ul>
+                    </li>
+                </ol>
+
+                <h3>Auth0</h3>
+                <ol>
+                    <li>Go to Auth0 Dashboard &gt; Applications &gt; Applications</li>
+                    <li>Click "Create Application"</li>
+                    <li>Select "Regular Web Applications"</li>
+                    <li>In Settings, add the redirect URI shown in DFIRe's provider configuration to "Allowed Callback URLs"</li>
+                    <li>Note the Client ID and Client Secret</li>
+                    <li>In DFIRe, use:
+                        <ul>
+                            <li><strong>Discovery URL:</strong> <code>https://your-tenant.auth0.com/.well-known/openid-configuration</code></li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="docs-section">
+                <h2>Redirect URI Configuration</h2>
+                <p>Each SSO provider in DFIRe displays the exact redirect URI that must be configured in your identity provider. The format is:</p>
+                <pre><code>https://your-dfire-domain.com/oidc/callback/{provider-id}/</code></pre>
+                <p>Copy the redirect URI shown in DFIRe's provider card and add it to your identity provider's authorized redirect URIs.</p>
+
+                <div class="callout callout-warning">
+                    <p><strong>Note:</strong> The redirect URI must match exactly, including the trailing slash. Mismatched URIs are a common cause of SSO authentication failures.</p>
+                </div>
+            </div>
+
+            <div class="docs-section">
+                <h2>User Provisioning</h2>
+                <p>When a user authenticates via SSO for the first time, DFIRe automatically creates an account using information from the OIDC claims:</p>
+
+                <table class="requirements-table">
+                    <thead>
+                        <tr>
+                            <th>DFIRe Field</th>
+                            <th>OIDC Claim</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Username</td>
+                            <td><code>preferred_username</code> or <code>email</code></td>
+                        </tr>
+                        <tr>
+                            <td>Email</td>
+                            <td><code>email</code></td>
+                        </tr>
+                        <tr>
+                            <td>First Name</td>
+                            <td><code>given_name</code></td>
+                        </tr>
+                        <tr>
+                            <td>Last Name</td>
+                            <td><code>family_name</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Default Role</h3>
+                <p>New users created via SSO are assigned the default role configured for that provider. Administrators can later adjust user roles as needed.</p>
+
+                <div class="callout callout-warning">
+                    <p><strong>Note:</strong> If no default role is selected, SSO users will be created without any role assignment and will have limited access until an administrator assigns them a role.</p>
+                </div>
+            </div>
+
+            <div class="docs-section">
+                <h2>Security Considerations</h2>
+
+                <h3>HTTPS Required</h3>
+                <p>SSO requires HTTPS in production. The redirect URI must use <code>https://</code>.</p>
+
+                <h3>Client Secret Storage</h3>
+                <p>Client secrets are stored encrypted in the database using the <code>CREDENTIAL_ENCRYPTION_KEY</code>. Keep this key secure and backed up.</p>
+
+                <h3>Access Control</h3>
+                <p>DFIRe does not control which users can authenticate via SSO. Configure access control (who can sign in) in your identity provider:</p>
+                <ul>
+                    <li><strong>Google:</strong> Use app access settings in Google Workspace admin</li>
+                    <li><strong>Microsoft:</strong> Configure user assignment in the Enterprise Application settings</li>
+                    <li><strong>Auth0:</strong> Use Auth0 rules or application settings</li>
+                </ul>
+
+                <h3>Session Management</h3>
+                <p>SSO users get the same session management as local users:</p>
+                <ul>
+                    <li>Sessions can be revoked by administrators</li>
+                    <li>All sessions are logged with IP and user agent</li>
+                    <li>Session timeout is configurable</li>
+                </ul>
+            </div>
+
+            <div class="docs-section">
+                <h2>Troubleshooting</h2>
+
+                <h3>Common Issues</h3>
+
+                <h4>Redirect URI Mismatch</h4>
+                <p>Error: "The redirect URI in the request does not match"</p>
+                <p><strong>Solution:</strong> Ensure the redirect URI in your identity provider exactly matches the one shown in DFIRe's provider configuration, including the trailing slash.</p>
+
+                <h4>Invalid Client Secret</h4>
+                <p>Error: "Client authentication failed"</p>
+                <p><strong>Solution:</strong> Regenerate the client secret in your identity provider and update it in DFIRe. Remember to click "Save Configuration" after updating.</p>
+
+                <h4>User Not Assigned to Application</h4>
+                <p>Error: "User is not assigned to this application" (common with Microsoft Entra ID)</p>
+                <p><strong>Solution:</strong> In Microsoft Entra ID, go to the app's "Users and groups" and assign users or groups, or disable user assignment requirement in app properties.</p>
+
+                <h4>Missing Email Claim</h4>
+                <p>Error: "Email claim not found"</p>
+                <p><strong>Solution:</strong> Ensure your identity provider is configured to include the <code>email</code> scope and claim. The email claim is required for user provisioning.</p>
+
+                <h4>Discovery URL Validation Fails</h4>
+                <p><strong>Solution:</strong> Verify the discovery URL is accessible from your DFIRe server. For Microsoft, ensure you've replaced <code>{tenant-id}</code> with your actual tenant ID.</p>
+            </div>
+
+            <nav class="docs-nav">
+                <a href="users.html" class="docs-nav-link prev">
+                    <span class="docs-nav-label">Previous</span>
+                    <span class="docs-nav-title">User Management</span>
+                </a>
+                <a href="webhooks.html" class="docs-nav-link next">
+                    <span class="docs-nav-label">Next</span>
+                    <span class="docs-nav-title">Webhooks</span>
+                </a>
+            </nav>
+        </main>
+    </div>
+
+    <footer class="docs-footer">
+        <div class="container">
+            <p>&copy; 2026 Tmi Antti Kurittu. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const navToggle = document.querySelector('.nav-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        navToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            navToggle.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports - DFIRe Documentation</title>
+    <meta name="description" content="Generate professional investigation reports with DFIRe's rich text editor, configurable sections, and QA workflow.">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="docs.css">
+    <link rel="icon" type="image/png" href="../assets/logo.png">
+</head>
+<body>
+    <nav class="nav scrolled">
+        <div class="nav-container">
+            <a href="../" class="nav-logo">
+                <img src="../assets/logo.png" alt="DFIRe" class="logo-img">
+                <span class="logo-text">Documentation</span>
+            </a>
+            <div class="nav-links">
+                <a href="../#features">Features</a>
+                <a href="../#pricing">Pricing</a>
+                <a href="../#installation">Installation</a>
+                <a href="./" class="active">Docs</a>
+                <a href="../#contact">Contact</a>
+            </div>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="docs-layout">
+        <aside class="docs-sidebar">
+            <div class="sidebar-section">
+                <h3>Getting Started</h3>
+                <ul>
+                    <li><a href="getting-started.html">Quick Start Guide</a></li>
+                    <li><a href="deployment.html">Deployment</a></li>
+                    <li><a href="configuration.html">Configuration</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>User Guide</h3>
+                <ul>
+                    <li><a href="cases.html">Case Management</a></li>
+                    <li><a href="evidence.html">Evidence Tracking</a></li>
+                    <li><a href="incidents.html">Incident Response</a></li>
+                    <li><a href="reports.html" class="active">Reports</a></li>
+                    <li><a href="timeline.html">Timeline</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>Administration</h3>
+                <ul>
+                    <li><a href="users.html">User Management</a></li>
+                    <li><a href="sso.html">Single Sign-On</a></li>
+                    <li><a href="webhooks.html">Webhooks</a></li>
+                    <li><a href="storage.html">Storage Backends</a></li>
+                    <li><a href="backup.html">Backup & Recovery</a></li>
+                    <li><a href="security.html">Application Security</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>Reference</h3>
+                <ul>
+                    <li><a href="workflow.html">Workflow Configuration</a></li>
+                    <li><a href="case-types.html">Case Types</a></li>
+                    <li><a href="evidence-types.html">Evidence Types</a></li>
+                    <li><a href="compliance.html">Compliance Timers</a></li>
+                    <li><a href="licenses.html">Third-Party Licenses</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <main class="docs-content">
+            <div class="docs-header">
+                <h1>Reports</h1>
+                <p class="docs-intro">Create professional investigation reports with DFIRe's rich text editor, configurable section structure, and quality assurance workflow.</p>
+            </div>
+
+            <div class="docs-section">
+                <h2>Report Types</h2>
+                <p>DFIRe supports two types of reports to serve different documentation needs:</p>
+
+                <h3>CAN Report (Conditions, Actions, Needs)</h3>
+                <p>A situational awareness report designed for quick status updates and shift handovers. The CAN format provides a structured way to communicate:</p>
+                <ul>
+                    <li><strong>Conditions:</strong> Current situation and context of the investigation</li>
+                    <li><strong>Actions:</strong> Ongoing response activities and work in progress</li>
+                    <li><strong>Needs:</strong> Outstanding requirements, blockers, and resource needs</li>
+                </ul>
+                <p>CAN reports are versioned - each update creates a new version while preserving the complete history. This allows teams to track how the situation evolved over time and provides an audit trail of communications.</p>
+
+                <h3>Investigation Report</h3>
+                <p>A comprehensive, section-based report for detailed investigation documentation. This is the primary deliverable for completed investigations. Features include:</p>
+                <ul>
+                    <li>Configurable section structure</li>
+                    <li>Rich text editing with Markdown support</li>
+                    <li>Dynamic content with evidence and image references</li>
+                    <li>Auto-generated sections (timeline, evidence inventory)</li>
+                    <li>QA review workflow</li>
+                    <li>Print-optimized output</li>
+                </ul>
+
+                <img src="../screenshots/report-editor.jpg" alt="Report Editor" class="screenshot">
+            </div>
+
+            <div class="docs-section">
+                <h2>Report Sections</h2>
+                <p>Investigation reports use a configurable section structure. Administrators can customize which sections appear in reports via System Settings.</p>
+
+                <h3>Section Types</h3>
+                <p>Sections fall into two categories:</p>
+                <ul>
+                    <li><strong>Editable sections:</strong> User-written content with Markdown support</li>
+                    <li><strong>Generated sections:</strong> Auto-populated content from case data</li>
+                </ul>
+
+                <h3>Generated Sections</h3>
+                <p>These sections are automatically populated based on case data:</p>
+                <ul>
+                    <li><strong>Title Page:</strong> Case details, dates, and team members</li>
+                    <li><strong>Table of Contents:</strong> Auto-generated navigation</li>
+                    <li><strong>Timeline:</strong> All timeline entries from the case</li>
+                    <li><strong>Evidence Inventory:</strong> Complete list of evidence items</li>
+                    <li><strong>Detailed Item Reports:</strong> Expanded evidence item details</li>
+                </ul>
+
+                <h3>Section Visibility</h3>
+                <p>Sections can be configured to appear in:</p>
+                <ul>
+                    <li>Incident cases only</li>
+                    <li>Investigation cases only</li>
+                    <li>Both incident and investigation cases</li>
+                </ul>
+                <p>Individual sections can also be excluded from the final report on a per-case basis without deleting their content.</p>
+
+                <div class="callout callout-info">
+                    <p><strong>Note:</strong> When a case is escalated from investigation to incident mode, any incident-specific sections are automatically added to the report.</p>
+                </div>
+            </div>
+
+            <div class="docs-section">
+                <h2>Writing Reports</h2>
+
+                <h3>Rich Text Editor</h3>
+                <p>The report editor supports Markdown formatting:</p>
+                <ul>
+                    <li><strong>Bold</strong>, <em>Italic</em>, and other text formatting</li>
+                    <li>Headings (H1-H4)</li>
+                    <li>Bullet and numbered lists</li>
+                    <li>Block quotes</li>
+                    <li>Code blocks</li>
+                    <li>Tables</li>
+                    <li>Links</li>
+                </ul>
+
+                <h3>Auto-Save</h3>
+                <p>Changes are automatically saved as you type. After you stop typing, your changes are saved within one second. A save indicator shows when changes are being saved and when the save is complete.</p>
+
+                <h3>Concurrent Editing Protection</h3>
+                <p>DFIRe prevents conflicting edits when multiple users work on the same report:</p>
+                <ul>
+                    <li>When you open a section for editing, it's locked to other users</li>
+                    <li>Other users see who is currently editing</li>
+                    <li>Locks are released automatically when you stop typing</li>
+                    <li>A 15-minute failsafe ensures locks are released if an error occurs</li>
+                </ul>
+            </div>
+
+            <div class="docs-section">
+                <h2>Dynamic Content</h2>
+                <p>Insert references to evidence items and images that automatically expand when the report is viewed or exported.</p>
+
+                <h3>Evidence References</h3>
+                <p>Reference evidence items using the syntax:</p>
+                <pre><code>{{evidence.&lt;uuid&gt;}}</code></pre>
+                <p>When rendered, this displays the evidence item's identifier and description. Use the reference picker in the editor toolbar to insert references without memorizing UUIDs.</p>
+
+                <h3>Image References</h3>
+                <p>Embed images from evidence attachments:</p>
+                <pre><code>{{image.&lt;size&gt;.&lt;id&gt;}}</code></pre>
+                <p>Available sizes:</p>
+                <ul>
+                    <li><code>small</code> - Thumbnail size</li>
+                    <li><code>medium</code> - Half-width image</li>
+                    <li><code>large</code> - Full-width image</li>
+                </ul>
+
+                <h3>Attachment References</h3>
+                <p>Link to file attachments:</p>
+                <pre><code>{{attachment.&lt;id&gt;}}</code></pre>
+
+                <div class="callout callout-info">
+                    <p><strong>Tip:</strong> Use the image picker and reference picker buttons in the editor toolbar to browse and insert references without typing the syntax manually.</p>
+                </div>
+            </div>
+
+            <div class="docs-section">
+                <h2>QA Workflow</h2>
+                <p>DFIRe includes a quality assurance workflow to ensure report accuracy before delivery.</p>
+
+                <h3>Section States</h3>
+                <table class="requirements-table">
+                    <thead>
+                        <tr>
+                            <th>State</th>
+                            <th>Description</th>
+                            <th>Actions Available</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Draft</strong></td>
+                            <td>Section is being written or revised</td>
+                            <td>Edit content, submit for QA</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ready for QA</strong></td>
+                            <td>Author has submitted for review</td>
+                            <td>Review, approve, or return to draft</td>
+                        </tr>
+                        <tr>
+                            <td><strong>QA Completed</strong></td>
+                            <td>Section has been reviewed and approved</td>
+                            <td>Return to draft for revisions</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Report Versioning</h3>
+                <p>Reports use a version number to track progress:</p>
+                <ul>
+                    <li><strong>0.x (Draft):</strong> Report is work in progress. Minor version increments when sections are submitted for QA.</li>
+                    <li><strong>1.x (Finalized):</strong> Report has been finalized and is ready for delivery. Subsequent revisions increment the minor version.</li>
+                </ul>
+
+                <h3>Workflow Process</h3>
+                <ol>
+                    <li>Author writes section content</li>
+                    <li>Author clicks "Ready for QA" to submit for review</li>
+                    <li>Reviewer examines the section content</li>
+                    <li>Reviewer either approves (QA Complete) or returns to draft with feedback</li>
+                    <li>Once all sections are approved, the report can be finalized</li>
+                </ol>
+
+                <div class="callout callout-warning">
+                    <p><strong>Note:</strong> Finalizing a report sets the major version to 1.0, indicating it's ready for stakeholder delivery. This action should only be taken when the report is complete.</p>
+                </div>
+            </div>
+
+            <div class="docs-section">
+                <h2>Configuring Report Sections</h2>
+                <p>Administrators can customize the report structure in System Settings:</p>
+
+                <ol class="steps">
+                    <li>
+                        <strong>Navigate to System Settings</strong>
+                        <p>Go to Settings and select the Report Sections tab.</p>
+                    </li>
+                    <li>
+                        <strong>Add or Edit Sections</strong>
+                        <p>Create new sections or modify existing ones:</p>
+                        <ul>
+                            <li><strong>Title:</strong> Section heading displayed in the report</li>
+                            <li><strong>Order:</strong> Position in the report structure</li>
+                            <li><strong>Type:</strong> Editable (user-written) or Generated (auto-populated)</li>
+                            <li><strong>Visibility:</strong> Include in incidents, investigations, or both</li>
+                            <li><strong>Page break:</strong> Whether to start a new page before this section</li>
+                            <li><strong>Default excluded:</strong> Whether to hide this section by default</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>Add Writing Guidance</strong>
+                        <p>Provide instructions for authors on what to include in each section. This guidance appears in the editor to help maintain consistency.</p>
+                    </li>
+                    <li>
+                        <strong>Set Template Content</strong>
+                        <p>Pre-populate sections with boilerplate text that authors can customize.</p>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="docs-section">
+                <h2>Printing Reports</h2>
+                <p>Reports are optimized for printing and can be saved as PDF using your browser's print function.</p>
+
+                <h3>Print-Optimized Layout</h3>
+                <ul>
+                    <li>Professional formatting optimized for print</li>
+                    <li>Table of contents for navigation</li>
+                    <li>All images and tables included</li>
+                    <li>Evidence references expanded inline</li>
+                    <li>Page breaks between sections as configured</li>
+                    <li>Excluded sections hidden automatically</li>
+                </ul>
+
+                <h3>Saving as PDF</h3>
+                <p>To create a PDF:</p>
+                <ol>
+                    <li>Open the report in print preview mode</li>
+                    <li>Use your browser's print function (Ctrl+P / Cmd+P)</li>
+                    <li>Select "Save as PDF" as the destination</li>
+                    <li>Adjust page settings if needed and save</li>
+                </ol>
+            </div>
+
+            <div class="docs-section">
+                <h2>Best Practices</h2>
+
+                <h3>Writing Effective Reports</h3>
+                <ul>
+                    <li><strong>Be factual:</strong> Stick to observed facts and evidence</li>
+                    <li><strong>Be clear:</strong> Write for your audience (technical vs. executive)</li>
+                    <li><strong>Be complete:</strong> Document all findings, including negative results</li>
+                    <li><strong>Use references:</strong> Link to evidence items rather than copying data</li>
+                </ul>
+
+                <h3>Evidence References</h3>
+                <p>When referencing evidence in your report:</p>
+                <ul>
+                    <li>Use the reference picker to insert evidence links</li>
+                    <li>Include relevant images at appropriate sizes</li>
+                    <li>Let generated sections handle inventory lists automatically</li>
+                </ul>
+
+                <h3>CAN Reports for Handovers</h3>
+                <ul>
+                    <li>Update CAN reports at shift changes or significant milestones</li>
+                    <li>Keep conditions focused on current state, not history</li>
+                    <li>Be specific about blockers in the needs section</li>
+                    <li>Review previous versions to understand investigation progression</li>
+                </ul>
+            </div>
+
+            <nav class="docs-nav">
+                <a href="incidents.html" class="docs-nav-link prev">
+                    <span class="docs-nav-label">Previous</span>
+                    <span class="docs-nav-title">Incident Response</span>
+                </a>
+                <a href="timeline.html" class="docs-nav-link next">
+                    <span class="docs-nav-label">Next</span>
+                    <span class="docs-nav-title">Timeline</span>
+                </a>
+            </nav>
+        </main>
+    </div>
+
+    <footer class="docs-footer">
+        <div class="container">
+            <p>&copy; 2026 Tmi Antti Kurittu. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const navToggle = document.querySelector('.nav-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        navToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            navToggle.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
