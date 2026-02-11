@@ -1,0 +1,6 @@
+# robots.txt for dfire.fi
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://dfire.fi/sitemap.xml

@@ -1,13 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="theme-color" content="#3b82f6">
     <title>DFIRe - Digital Forensics and Incident Response Platform</title>
-    <meta name="description" content="DFIRe is a comprehensive case management platform for digital forensics investigations and incident response. Self-hosted, secure, and built for DFIR professionals.">
+    <meta name="description"
+        content="DFIRe is a comprehensive case management platform for digital forensics investigations and incident response. Self-hosted, secure, and built for DFIR professionals.">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://dfire.fi/">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://dfire.fi/">
+    <meta property="og:title" content="DFIRe - Digital Forensics and Incident Response Platform">
+    <meta property="og:description" content="Comprehensive case management for DFIR professionals. Track investigations, manage evidence, coordinate incident response, and generate reports. Self-hosted and secure.">
+    <meta property="og:image" content="https://dfire.fi/assets/og-image.png">
+    <meta property="og:site_name" content="DFIRe">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://dfire.fi/">
+    <meta name="twitter:title" content="DFIRe - Digital Forensics and Incident Response Platform">
+    <meta name="twitter:description" content="Comprehensive case management for DFIR professionals. Track investigations, manage evidence, coordinate incident response, and generate reports. Self-hosted and secure.">
+    <meta name="twitter:image" content="https://dfire.fi/assets/og-image.png">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "DFIRe",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Linux, Windows, macOS",
+        "description": "Comprehensive case management platform for digital forensics investigations and incident response. Self-hosted, secure, and built for DFIR professionals.",
+        "url": "https://dfire.fi",
+        "image": "https://dfire.fi/assets/og-image.png",
+        "screenshot": "https://dfire.fi/screenshots/dashboard.png",
+        "softwareVersion": "1.0",
+        "offers": {
+            "@type": "Offer",
+            "price": "2499",
+            "priceCurrency": "EUR",
+            "priceValidUntil": "2026-12-31",
+            "availability": "https://schema.org/InStock"
+        },
+        "featureList": [
+            "Case Management",
+            "Evidence Tracking",
+            "Incident Timeline",
+            "Compliance Timers",
+            "End-to-End Encryption",
+            "Team Collaboration",
+            "Report Generation",
+            "Webhooks & Integrations",
+            "SSO & Enterprise Auth"
+        ]
+    }
+    </script>
+
     <link rel="stylesheet" href="styles.css">
-    <link rel="icon" type="image/png" href="assets/logo.png">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 </head>
+
 <body>
     <!-- Navigation -->
     <nav class="nav">
@@ -50,8 +112,9 @@
             </div>
             <div class="hero-image">
                 <div class="hero-screenshot-carousel">
-                    <img src="screenshots/evidence-list.jpg" alt="DFIRe Evidence Management" class="screenshot-main active">
-                    <img src="screenshots/dashboard.jpg" alt="DFIRe Dashboard" class="screenshot-main">
+                    <img src="screenshots/evidence-list.jpg" alt="DFIRe Evidence Management"
+                        class="screenshot-main active">
+                    <img src="screenshots/dashboard.png" alt="DFIRe Dashboard" class="screenshot-main">
                     <img src="screenshots/timeline.jpg" alt="DFIRe Timeline" class="screenshot-main">
                     <img src="screenshots/incident-actions.jpg" alt="DFIRe Incident Actions" class="screenshot-main">
                 </div>
@@ -65,27 +128,59 @@
             <div class="sovereignty-grid">
                 <div class="sovereignty-content">
                     <h2>Your Data. Your Infrastructure. Your Control.</h2>
-                    <p>DFIRe is a fully self-hosted solution. Deploy it on your own servers, behind your firewall, with your security policies. No incident data ever leaves your infrastructure.</p>
+                    <p>DFIRe is a fully self-hosted solution. Deploy it on your own servers, behind your firewall, with
+                        your security policies. No incident data ever leaves your infrastructure.</p>
                     <ul class="sovereignty-benefits">
                         <li>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                            <span><strong>Complete Data Sovereignty</strong> &mdash; Sensitive investigation data stays within your organization. No third-party cloud services handle your case files.</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                            </svg>
+                            <span><strong>Complete Data Sovereignty</strong> &mdash; Sensitive investigation data stays
+                                within your organization. No third-party cloud services handle your case files.</span>
                         </li>
                         <li>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-                            <span><strong>Air-Gapped Compatible</strong> &mdash; Works in isolated networks and high-security environments where internet connectivity is restricted or prohibited.</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                            </svg>
+                            <span><strong>Air-Gapped Compatible</strong> &mdash; Works in isolated networks and
+                                high-security environments where internet connectivity is restricted or
+                                prohibited.</span>
                         </li>
                         <li>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
-                            <span><strong>Your Database, Your Storage</strong> &mdash; Bring your own PostgreSQL database (self-hosted or managed DBaaS like Aiven, DigitalOcean, AWS RDS) and choose local filesystem, S3-compatible, or SMB/CIFS storage for evidence files.</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2">
+                                <ellipse cx="12" cy="5" rx="9" ry="3" />
+                                <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
+                                <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+                            </svg>
+                            <span><strong>Your Database, Your Storage</strong> &mdash; Bring your own PostgreSQL
+                                database (self-hosted or managed DBaaS like Aiven, DigitalOcean, AWS RDS) and choose
+                                local filesystem, S3-compatible, or SMB/CIFS storage for evidence files.</span>
                         </li>
                         <li>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-                            <span><strong>Regulatory Compliance</strong> &mdash; Meet data residency requirements and industry regulations by keeping evidence within your jurisdiction.</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                <polyline points="14 2 14 8 20 8" />
+                                <line x1="16" y1="13" x2="8" y2="13" />
+                                <line x1="16" y1="17" x2="8" y2="17" />
+                            </svg>
+                            <span><strong>Regulatory Compliance</strong> &mdash; Meet data residency requirements and
+                                industry regulations by keeping evidence within your jurisdiction.</span>
                         </li>
                         <li>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
-                            <span><strong>No AI, No Black Boxes</strong> &mdash; Incidents are handled by humans, not computers. Your investigation decisions remain fully transparent and explainable.</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10" />
+                                <path d="M8 14s1.5 2 4 2 4-2 4-2" />
+                                <line x1="9" y1="9" x2="9.01" y2="9" />
+                                <line x1="15" y1="9" x2="15.01" y2="9" />
+                            </svg>
+                            <span><strong>No AI, No Black Boxes</strong> &mdash; Incidents are handled by humans, not
+                                computers. Your investigation decisions remain fully transparent and explainable.</span>
                         </li>
                     </ul>
                 </div>
@@ -95,15 +190,29 @@
                             <span class="diagram-label">Your Infrastructure</span>
                             <div class="diagram-inner-grid">
                                 <div class="diagram-item-box">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+                                        <line x1="8" y1="21" x2="16" y2="21" />
+                                        <line x1="12" y1="17" x2="12" y2="21" />
+                                    </svg>
                                     <span>DFIRe Application</span>
                                 </div>
                                 <div class="diagram-item-box">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2">
+                                        <ellipse cx="12" cy="5" rx="9" ry="3" />
+                                        <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
+                                        <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+                                    </svg>
                                     <span>PostgreSQL Database</span>
                                 </div>
                                 <div class="diagram-item-box">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2">
+                                        <path
+                                            d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
+                                    </svg>
                                     <span>File Storage</span>
                                 </div>
                             </div>
@@ -129,79 +238,138 @@
     <section id="features" class="features">
         <div class="container">
             <h2 class="section-title">Built for DFIR Professionals</h2>
-            <p class="section-subtitle">Everything your team needs to manage forensic investigations and incident response workflows.</p>
+            <p class="section-subtitle">Everything your team needs to manage forensic investigations and incident
+                response workflows.</p>
 
             <div class="features-grid">
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
+                            <polyline points="14 2 14 8 20 8" />
+                            <line x1="16" y1="13" x2="8" y2="13" />
+                            <line x1="16" y1="17" x2="8" y2="17" />
+                            <line x1="10" y1="9" x2="8" y2="9" />
+                        </svg>
                     </div>
                     <h3>Case Management</h3>
-                    <p>Organize investigations with customizable case types, severity levels, and team assignments. Support for both traditional investigations and incident response workflows.</p>
+                    <p>Organize investigations with customizable case types, severity levels, and team assignments.
+                        Support for both traditional investigations and incident response workflows.</p>
                 </div>
 
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+                            <line x1="8" y1="21" x2="16" y2="21" />
+                            <line x1="12" y1="17" x2="12" y2="21" />
+                        </svg>
                     </div>
                     <h3>Evidence Tracking</h3>
-                    <p>Track digital and physical evidence with detailed metadata, chain of custody, legal ownership, and hierarchical organization. Customize your evidence types with configurable attributes.</p>
+                    <p>Track digital and physical evidence with detailed metadata, chain of custody, legal ownership,
+                        and hierarchical organization. Customize your evidence types with configurable attributes.</p>
                 </div>
 
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                        </svg>
                     </div>
                     <h3>Incident Timeline</h3>
-                    <p>Visual timeline for tracking incident phases, from detection through recovery. Guided response actions with phase-based checklists and automatic progress tracking.</p>
+                    <p>Visual timeline for tracking incident phases, from detection through recovery. Guided response
+                        actions with phase-based checklists and automatic progress tracking.</p>
                 </div>
 
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10" />
+                            <polyline points="12 6 12 12 16 14" />
+                        </svg>
                     </div>
                     <h3>Compliance Timers</h3>
-                    <p>Built-in SLA tracking for regulatory requirements like GDPR breach notifications. Automatic reminders and deadline tracking to ensure compliance.</p>
+                    <p>Built-in SLA tracking for regulatory requirements like GDPR breach notifications. Automatic
+                        reminders and deadline tracking to ensure compliance.</p>
                 </div>
 
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                        </svg>
                     </div>
                     <h3>End-to-End Encryption</h3>
-                    <p>AES-256 encryption for all file and image attachments with a three-layer key hierarchy. Per-case and per-item encryption keys ensure data isolation and secure deletion. Your data is unreadable even if the storage backend gets compromised.</p>
+                    <p>AES-256 encryption for all file and image attachments with a three-layer key hierarchy. Per-case
+                        and per-item encryption keys ensure data isolation and secure deletion. Your data is unreadable
+                        even if the storage backend gets compromised.</p>
                 </div>
 
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                            <circle cx="9" cy="7" r="4" />
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                        </svg>
                     </div>
                     <h3>Team Collaboration</h3>
-                    <p>Atomic role-based access control with customizable permission groups. Define granular rights for your team with lead investigators, case members, and viewers. Slack integration for collaboration, workflow management and notifications.</p>
+                    <p>Atomic role-based access control with customizable permission groups. Define granular rights for
+                        your team with lead investigators, case members, and viewers. Slack integration for
+                        collaboration, workflow management and notifications.</p>
                 </div>
 
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                            <polyline points="14 2 14 8 20 8" />
+                            <line x1="12" y1="18" x2="12" y2="12" />
+                            <line x1="9" y1="15" x2="15" y2="15" />
+                        </svg>
                     </div>
                     <h3>Report Generation</h3>
-                    <p>Structured investigation reports with customizable sections, QA workflow, and markdown support. Auto-generated evidence inventories and timelines.</p>
+                    <p>Structured investigation reports with customizable sections, QA workflow, and markdown support.
+                        Auto-generated evidence inventories and timelines.</p>
+                    <p style="margin-top: var(--spacing-sm);"><a href="example_report.pdf" target="_blank"
+                            style="color: var(--color-accent-hover); font-weight: 500; font-size: 0.875rem;">View
+                            Example Report →</a></p>
                 </div>
 
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="3" />
+                            <path
+                                d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
+                        </svg>
                     </div>
                     <h3>Webhooks &amp; Integrations</h3>
-                    <p>Outgoing webhooks for SIEM integration and notifications. Incoming webhooks allow SOAR platforms to create cases automatically.</p>
+                    <p>Outgoing webhooks for SIEM integration and notifications. Incoming webhooks allow SOAR platforms
+                        to create cases automatically.</p>
                 </div>
 
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                        </svg>
                     </div>
                     <h3>SSO &amp; Enterprise Auth</h3>
-                    <p>SSO integration via the OIDC standard, compatible with any OIDC provider including Google Workspace, Microsoft Entra ID, and Auth0. Session management with instant revocation and IP tracking.</p>
+                    <p>SSO integration via the OIDC standard, compatible with any OIDC provider including Google
+                        Workspace, Microsoft Entra ID, and Auth0. Session management with instant revocation and IP
+                        tracking.</p>
                 </div>
             </div>
         </div>
@@ -215,7 +383,7 @@
 
             <div class="screenshot-gallery">
                 <div class="screenshot-item" data-title="Dashboard">
-                    <img src="screenshots/dashboard.jpg" alt="Dashboard view showing active cases" loading="lazy">
+                    <img src="screenshots/dashboard.png" alt="Dashboard view showing active cases" loading="lazy">
                     <span class="screenshot-label">Dashboard</span>
                 </div>
                 <div class="screenshot-item" data-title="Incident Timeline">
@@ -257,29 +425,7 @@
             <p class="section-subtitle">All features included. No per-user fees. No feature tiers.</p>
 
             <div class="pricing-cards">
-                <div class="pricing-card">
-                    <div class="pricing-header">
-                        <h3>Free Trial</h3>
-                        <div class="pricing-amount">
-                            <div class="price-row">
-                                <span class="price">Free</span>
-                            </div>
-                            <span class="period">for 30 days</span>
-                        </div>
-                    </div>
-                    <ul class="pricing-features">
-                        <li>All features included</li>
-                        <li>Unlimited users</li>
-                        <li>Unlimited cases</li>
-                        <li>No credit card required</li>
-                        <li>Deploy and test in minutes</li>
-                    </ul>
-                    <a href="#installation" class="btn btn-primary">Start Free Trial</a>
-                    <p class="pricing-note">Need more time? Contact <a href="mailto:contact@dfire.fi">contact@dfire.fi</a> for an extended trial.</p>
-                </div>
-
                 <div class="pricing-card featured">
-                    <div class="pricing-badge">Most Popular</div>
                     <div class="pricing-header">
                         <h3>Annual License</h3>
                         <div class="pricing-amount">
@@ -291,35 +437,36 @@
                         </div>
                     </div>
                     <ul class="pricing-features">
+                        <li>30-day free trial included</li>
                         <li>All features included</li>
                         <li>Unlimited users</li>
                         <li>Unlimited cases</li>
                         <li>Single deployment</li>
-                        <li>1 Year license from activation</li>
                         <li>Can be converted to offline license</li>
                     </ul>
-                    <a href="#" class="btn btn-primary" id="buy-license">Purchase License</a>
+                    <a href="https://shop.dfire.fi/" class="btn btn-primary" id="buy-license">Purchase License</a>
+                    <p class="pricing-note">Start with a 30-day free trial. No credit card required.</p>
                 </div>
 
                 <div class="pricing-card">
                     <div class="pricing-header">
-                        <h3>Multi-Year</h3>
+                        <h3>Non-Commercial</h3>
                         <div class="pricing-amount">
                             <div class="price-row">
-                                <span class="price">Save 15-25%</span>
+                                <span class="price">Free</span>
                             </div>
-                            <span class="period">with longer terms</span>
+                            <span class="period">for eligible organizations on request</span>
                         </div>
                     </div>
                     <ul class="pricing-features">
-                        <li>2-year: 15% discount</li>
-                        <li>3-year: 25% discount</li>
+                        <li>Non-profit organizations</li>
+                        <li>Non-commercial use</li>
                         <li>All features included</li>
-                        <li>Single deployment</li>
-                        <li>2-3 Year license from activation</li>
+                        <li>Unlimited users</li>
+                        <li>Unlimited cases</li>
                         <li>Can be converted to offline license</li>
                     </ul>
-                    <a href="mailto:contact@dfire.fi" class="btn btn-secondary">Contact Sales</a>
+                    <a href="mailto:contact@dfire.fi" class="btn btn-secondary">Request Free License</a>
                 </div>
             </div>
         </div>
@@ -362,7 +509,8 @@
     <section id="installation" class="installation">
         <div class="container">
             <h2 class="section-title">Get Started in Minutes</h2>
-            <p class="section-subtitle">Deploy DFIRe with Docker Compose. Self-hosted means your data stays on your infrastructure.</p>
+            <p class="section-subtitle">Deploy DFIRe with Docker Compose. Self-hosted means your data stays on your
+                infrastructure. The install script installs or upgrades DFIRe to the latest version automatically.</p>
 
             <div class="install-steps">
                 <div class="install-step">
@@ -371,7 +519,8 @@
                         <h3>Download the installer</h3>
                         <div class="code-block">
                             <code>curl -fsSL https://dfire.fi/install.sh -o install.sh</code>
-                            <button class="copy-btn" data-copy="curl -fsSL https://dfire.fi/install.sh -o install.sh">Copy</button>
+                            <button class="copy-btn"
+                                data-copy="curl -fsSL https://dfire.fi/install.sh -o install.sh">Copy</button>
                         </div>
                     </div>
                 </div>
@@ -415,7 +564,8 @@
             <div class="install-manual">
                 <h3>Manual Installation</h3>
                 <p>For advanced deployments, custom configurations, or air-gapped environments, see the
-                   <a href="docs/deployment.html">deployment documentation</a>.</p>
+                    <a href="docs/deployment.html">deployment documentation</a>.
+                </p>
             </div>
         </div>
     </section>
@@ -429,17 +579,14 @@
             <div class="contact-content">
                 <div class="contact-info">
                     <div class="contact-item">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                            <polyline points="22,6 12,13 2,6" />
+                        </svg>
                         <div>
                             <strong>Email</strong>
                             <a href="mailto:contact@dfire.fi">contact@dfire.fi</a>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-                        <div>
-                            <strong>GitHub</strong>
-                            <a href="https://github.com/dfire-response/dfire" target="_blank" rel="noopener">github.com/dfire-response/dfire</a>
                         </div>
                     </div>
                 </div>
@@ -464,7 +611,8 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 Tmi Antti Kurittu. All rights reserved. | <a href="terms.html">Terms & Conditions</a> | <a href="terms.html#privacy-policy">Privacy Policy</a></p>
+                <p>&copy; 2026 Tmi Antti Kurittu. All rights reserved. | <a href="terms.html">Terms & Conditions</a> |
+                    <a href="terms.html#privacy-policy">Privacy Policy</a></p>
             </div>
         </div>
     </footer>
@@ -570,4 +718,5 @@
         }
     </script>
 </body>
+
 </html>

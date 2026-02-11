@@ -23,6 +23,9 @@ ENV_FILE="${INSTALL_DIR}/.env"
 COMPOSE_FILE="${INSTALL_DIR}/docker-compose.prod.yml"
 EXTERNAL_DB_COMPOSE="${INSTALL_DIR}/docker-compose.external-db.yml"
 
+# Global flags (set by check_existing_installation)
+UPGRADE_ONLY=false
+
 # =============================================================================
 # Cross-Platform Helpers
 # =============================================================================
@@ -165,6 +168,32 @@ services:
       - dfire_external
 
   # ===========================================================================
+  # Slack Socket Mode (Real-time Slack Connection)
+  # ===========================================================================
+  slack-socket:
+    image: ${DFIRE_BACKEND_IMAGE:-dfireadmin/dfire-backend:latest}
+    container_name: dfire_slack_socket_prod
+    command: python manage.py run_slack_socket
+    volumes:
+      - media_data:/app/media
+    environment:
+      - DEBUG=false
+      - SECRET_KEY=${SECRET_KEY}
+      - DATABASE_URL=postgres://${POSTGRES_USER:-dfire}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB:-dfire}
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=${REDIS_PASSWORD:-}
+      - DFIRE_ENVIRONMENT=${DFIRE_ENVIRONMENT:-production}
+      - CREDENTIAL_ENCRYPTION_KEY=${CREDENTIAL_ENCRYPTION_KEY}
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - dfire_internal
+      - dfire_external
+
+  # ===========================================================================
   # Frontend + Nginx Reverse Proxy (Production)
   # ===========================================================================
   frontend:
@@ -246,6 +275,24 @@ services:
 
   # Override qcluster for external DATABASE_URL
   qcluster:
+    networks:
+      - dfire_internal
+      - dfire_external
+    environment:
+      - DEBUG=false
+      - SECRET_KEY=${SECRET_KEY}
+      - DATABASE_URL=${DATABASE_URL}
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=${REDIS_PASSWORD:-}
+      - DFIRE_ENVIRONMENT=${DFIRE_ENVIRONMENT:-production}
+      - CREDENTIAL_ENCRYPTION_KEY=${CREDENTIAL_ENCRYPTION_KEY}
+    depends_on:
+      backend:
+        condition: service_healthy
+
+  # Override slack-socket for external DATABASE_URL
+  slack-socket:
     networks:
       - dfire_internal
       - dfire_external
@@ -364,7 +411,7 @@ urlencode() {
 # Checks if a TCP port is available (not already bound by another process).
 check_port_available() {
     local port="$1"
-    
+
     # 1. Try ss (Modern Linux)
     if command -v ss &>/dev/null; then
         if ss -tuln 2>/dev/null | grep -q ":${port} "; then
@@ -419,16 +466,21 @@ check_existing_installation() {
         echo ""
         echo "How would you like to proceed?"
         echo ""
-        echo "  1. UPGRADE/RECONFIGURE"
-        echo "     - Keep existing data volumes (database, media)"
-        echo "     - Recreate configuration and containers"
-        echo "     - Recommended for upgrading or fixing a broken install"
+        echo "  1. UPGRADE (recommended)"
+        echo "     - Keep existing .env configuration and secrets"
+        echo "     - Regenerate Docker Compose files (picks up new services)"
+        echo "     - Pull latest container images and restart"
         echo ""
-        echo "  2. FRESH INSTALL (removes all data)"
+        echo "  2. RECONFIGURE (re-run full setup wizard)"
+        echo "     - Re-enter all configuration from scratch"
+        echo "     - Generates new secrets"
+        echo "     - WARNING: New encryption keys will make existing encrypted data unreadable!"
+        echo ""
+        echo "  3. FRESH INSTALL (removes all data)"
         echo "     - Remove ALL existing containers and volumes"
         echo "     - WARNING: This will DELETE all DFIRe data!"
         echo ""
-        echo "  3. ABORT"
+        echo "  4. ABORT"
         echo "     - Exit without making changes"
         echo ""
 
@@ -438,7 +490,13 @@ check_existing_installation() {
 
             case "$reinstall_choice" in
                 1)
-                    info "Keeping existing data, will recreate configuration"
+                    if [[ "$has_env" != "true" ]]; then
+                        error "No .env file found. Cannot upgrade without existing configuration."
+                        warn "Please select option 2 (RECONFIGURE) for a full setup."
+                        continue
+                    fi
+                    UPGRADE_ONLY=true
+                    info "Upgrade mode — keeping existing configuration"
                     # Stop existing containers but keep volumes
                     if [[ "$has_containers" == "true" ]]; then
                         info "Stopping existing containers..."
@@ -449,6 +507,17 @@ check_existing_installation() {
                     break
                     ;;
                 2)
+                    info "Reconfigure mode — will re-run full setup wizard"
+                    # Stop existing containers but keep volumes
+                    if [[ "$has_containers" == "true" ]]; then
+                        info "Stopping existing containers..."
+                        docker stop $(docker ps -a --format '{{.Names}}' | grep "^dfire_") 2>/dev/null || true
+                        docker rm $(docker ps -a --format '{{.Names}}' | grep "^dfire_") 2>/dev/null || true
+                        success "Existing containers removed"
+                    fi
+                    break
+                    ;;
+                3)
                     echo ""
                     warn "This will DELETE ALL DFIRe data including the database!"
                     read -p "Type 'DELETE ALL DATA' to confirm: " confirm_delete
@@ -469,12 +538,12 @@ check_existing_installation() {
                         warn "Confirmation not received. Please try again."
                     fi
                     ;;
-                3)
+                4)
                     info "Installation aborted."
                     exit 0
                     ;;
                 *)
-                    warn "Invalid option. Please enter 1, 2, or 3."
+                    warn "Invalid option. Please enter 1, 2, 3, or 4."
                     ;;
             esac
         done
@@ -557,15 +626,18 @@ check_prerequisites() {
     success "Docker daemon is running"
 
     # Check if port 8080 is available (DFIRe frontend)
-    if ! check_port_available 8080; then
-        error "Port 8080 is already in use."
-        echo ""
-        echo "DFIRe needs port 8080 for the web interface."
-        echo "Please stop any service using this port, or use a different machine."
-        echo ""
-        exit 1
+    # Skip this check during upgrade (port is in use by the running DFIRe instance)
+    if [[ "$UPGRADE_ONLY" != "true" ]]; then
+        if ! check_port_available 8080; then
+            error "Port 8080 is already in use."
+            echo ""
+            echo "DFIRe needs port 8080 for the web interface."
+            echo "Please stop any service using this port, or use a different machine."
+            echo ""
+            exit 1
+        fi
+        success "Port 8080 is available"
     fi
-    success "Port 8080 is available"
 }
 
 # =============================================================================
@@ -688,7 +760,7 @@ collect_external_db_details() {
         echo ""
         read -p "Continue anyway? (y/N): " continue_anyway
         continue_anyway=${continue_anyway:-N}
-        
+
         case "$continue_anyway" in
             [yY]|[yY][eE][sS])
                 warn "Continuing without verified database connection"
@@ -1017,7 +1089,12 @@ TRUST_PROXY_HEADERS=false
 AUTH_COOKIE_SECURE=${AUTH_COOKIE_SECURE}
 
 # -----------------------------------------------------------------------------
-# Database Mode Flag (used by backup script)
+# Container Configuration (used by upgrade)
+# -----------------------------------------------------------------------------
+FRONTEND_BIND=${FRONTEND_BIND}
+
+# -----------------------------------------------------------------------------
+# Database Mode Flag (used by backup script and upgrade)
 # -----------------------------------------------------------------------------
 USE_EXTERNAL_DB=${USE_EXTERNAL_DB}
 
@@ -1070,6 +1147,125 @@ EOF
     # Set secure permissions
     chmod 600 "$ENV_FILE"
     success ".env file created (chmod 600)"
+}
+
+# =============================================================================
+# Upgrade (preserve existing .env, regenerate compose files only)
+# =============================================================================
+run_upgrade() {
+    section "Upgrading DFIRe"
+
+    # Validate .env exists
+    if [[ ! -f "$ENV_FILE" ]]; then
+        error "No .env file found at $ENV_FILE"
+        error "Cannot upgrade without existing configuration. Please run a full install."
+        exit 1
+    fi
+
+    # Source existing .env to get configuration values
+    info "Loading existing configuration from .env..."
+    set -a
+    source "$ENV_FILE"
+    set +a
+    success "Configuration loaded"
+
+    # --- Determine FRONTEND_BIND ---
+    # New installs store this in .env, but older installs won't have it.
+    if [[ -z "${FRONTEND_BIND:-}" ]]; then
+        info "FRONTEND_BIND not found in .env, attempting to detect..."
+
+        # Try to extract from existing docker-compose.prod.yml
+        if [[ -f "$COMPOSE_FILE" ]]; then
+            # The ports line looks like: - "127.0.0.1:8080:80" or - "0.0.0.0:8080:80"
+            local extracted_bind
+            extracted_bind=$(grep -E '^\s+- "[0-9]' "$COMPOSE_FILE" | head -1 | sed 's/.*"\(.*\)".*/\1/' || true)
+            if [[ -n "$extracted_bind" && "$extracted_bind" == *":80" ]]; then
+                FRONTEND_BIND="$extracted_bind"
+                info "Detected port binding from existing compose: $FRONTEND_BIND"
+            fi
+        fi
+
+        # Final fallback
+        if [[ -z "${FRONTEND_BIND:-}" ]]; then
+            FRONTEND_BIND="0.0.0.0:8080:80"
+            warn "Could not determine port binding. Using default: $FRONTEND_BIND"
+        fi
+
+        # Persist to .env for future upgrades
+        echo "" >> "$ENV_FILE"
+        echo "# Container Configuration (added during upgrade)" >> "$ENV_FILE"
+        echo "FRONTEND_BIND=${FRONTEND_BIND}" >> "$ENV_FILE"
+        info "Saved FRONTEND_BIND to .env for future upgrades"
+    fi
+
+    # --- Determine USE_EXTERNAL_DB ---
+    USE_EXTERNAL_DB="${USE_EXTERNAL_DB:-false}"
+
+    # Show what we're doing
+    echo ""
+    info "Configuration summary:"
+    echo "  .env file:        preserved (not modified)"
+    echo "  Port binding:     $FRONTEND_BIND"
+    echo "  External DB:      $USE_EXTERNAL_DB"
+    echo "  Backend image:    ${DFIRE_BACKEND_IMAGE:-dfireadmin/dfire-backend:latest}"
+    echo "  Frontend image:   ${DFIRE_FRONTEND_IMAGE:-dfireadmin/dfire-frontend:latest}"
+    echo ""
+
+    # Mark installation as started (for cleanup messaging)
+    INSTALL_STARTED=true
+
+    # Regenerate compose files (picks up new services like slack-socket)
+    create_compose_files
+
+    # Start services
+    start_services
+
+    # Show upgrade completion
+    show_upgrade_completion
+}
+
+# =============================================================================
+# Upgrade Completion Message
+# =============================================================================
+show_upgrade_completion() {
+    # Try to determine access URL from .env
+    local access_url=""
+    if [[ -n "${CORS_ALLOWED_ORIGINS:-}" ]]; then
+        access_url="$CORS_ALLOWED_ORIGINS"
+    elif [[ -n "${ALLOWED_HOSTS:-}" ]]; then
+        local first_host
+        first_host=$(echo "$ALLOWED_HOSTS" | cut -d',' -f1 | xargs)
+        access_url="https://$first_host"
+    fi
+
+    echo ""
+    echo -e "${CYAN}"
+    echo "╔══════════════════════════════════════════════════════════════╗"
+    echo "║                    Upgrade Complete!                          ║"
+    echo "╠══════════════════════════════════════════════════════════════╣"
+    echo "║  Docker Compose files regenerated                            ║"
+    echo "║  Container images pulled and services restarted              ║"
+    echo "║  Existing configuration and data preserved                   ║"
+    if [[ -n "$access_url" ]]; then
+        echo "║                                                              ║"
+        printf "║  Access DFIRe at: %-42s ║\n" "$access_url"
+    fi
+    echo "╚══════════════════════════════════════════════════════════════╝"
+    echo -e "${NC}"
+    echo ""
+    echo "Useful Commands:"
+    echo "  Installation directory: ${INSTALL_DIR}"
+    echo ""
+    if [[ "$USE_EXTERNAL_DB" == "true" ]]; then
+        echo "  View logs:     cd ${INSTALL_DIR} && docker compose -f docker-compose.prod.yml -f docker-compose.external-db.yml logs -f"
+        echo "  Stop:          cd ${INSTALL_DIR} && docker compose -f docker-compose.prod.yml -f docker-compose.external-db.yml down"
+        echo "  Start:         cd ${INSTALL_DIR} && docker compose -f docker-compose.prod.yml -f docker-compose.external-db.yml up -d"
+    else
+        echo "  View logs:     cd ${INSTALL_DIR} && docker compose -f docker-compose.prod.yml logs -f"
+        echo "  Stop:          cd ${INSTALL_DIR} && docker compose -f docker-compose.prod.yml down"
+        echo "  Start:         cd ${INSTALL_DIR} && docker compose -f docker-compose.prod.yml up -d"
+    fi
+    echo ""
 }
 
 # =============================================================================
@@ -1545,8 +1741,16 @@ HELPER_EOF
 # =============================================================================
 main() {
     banner
-    check_prerequisites
     check_existing_installation
+    check_prerequisites
+
+    # If upgrade-only was selected, skip the full wizard
+    if [[ "$UPGRADE_ONLY" == "true" ]]; then
+        run_upgrade
+        return
+    fi
+
+    # Full install / reconfigure flow
     collect_deployment_mode
     collect_database_config
     collect_domain_config
@@ -1600,7 +1804,7 @@ cleanup_on_failure() {
         echo ""
         echo "To retry installation:"
         echo "  1. Run this script again - it will detect existing installation"
-        echo "  2. Choose 'UPGRADE/RECONFIGURE' to fix the broken install"
+        echo "  2. Choose 'UPGRADE' to fix the broken install with existing config"
         echo "  3. Or choose 'FRESH INSTALL' to start over (deletes data!)"
         echo ""
     fi
